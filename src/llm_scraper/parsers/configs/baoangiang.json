@@ -1,0 +1,32 @@
+{
+  "title": {
+    "css_selector": ".detail-title",
+    "type": "text"
+  },
+  "content": {
+    "css_selector": "#newscontents",
+    "type": "html"
+  },
+  "description": {
+    "css_selector": ".detail-desc",
+    "type": "text"
+  },
+  "published_at": {
+    "css_selector": ".pubdate",
+    "type": "text"
+  },
+  "tags": {
+    "css_selector": ".detail-tag .tag_item",
+    "type": "text",
+    "all": true
+  },
+  "topics": {
+    "css_selector": ".breadcrumb a",
+    "type": "text",
+    "all": true
+  },
+  "cleanup": [
+    ".VCSortableInPreviewMode",
+    "img[src*='icon-']"
+  ]
+}

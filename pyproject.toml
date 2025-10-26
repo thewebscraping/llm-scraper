@@ -1,0 +1,126 @@
+[project]
+name = "llm-scraper"
+version = "0.1.0"
+description = "Lightweight HTML scraper and normalizer for extracting web content and preparing it for large language model (LLM) ingestion."
+readme = "README.md"
+authors = [
+    { name = "Two Dev", email = "thetwofarm@gmail.com" }
+]
+requires-python = ">=3.11"
+keywords = ["scraping", "llm", "html", "parsing", "nlp", "web"]
+license = { file = "LICENSE" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Text Processing :: Markup :: HTML",
+    "Intended Audience :: Developers",
+]
+dependencies = [
+    "astrapy>=2.1.0",
+    "beautifulsoup4>=4.14.2",
+    "celery[redis]>=5.5.3",
+    "diskcache>=5.6.3",
+    "fastapi>=0.120.0",
+    "honcho>=2.0.0",
+    "httpx>=0.28.1",
+    "lxml>=6.0.2",
+    "openai>=2.6.1",
+    "pydantic>=2.12.3",
+    "pydantic-settings[dotenv]>=2.11.0",
+    "uvicorn>=0.38.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/twofarm/llm-scraper"
+Repository = "https://github.com/twofarm/llm-scraper"
+Documentation = "https://github.com/twofarm/llm-scraper#readme"
+"Bug Tracker" = "https://github.com/twofarm/llm-scraper/issues"
+
+[build-system]
+requires = ["uv_build>=0.8.23,<0.9.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.18.2",
+    "pre-commit>=4.3.0",
+    "pytest>=8.4.2",
+    "ruff>=0.13.3",
+]
+
+[tool.ruff]
+include = ["pyproject.toml", "src/**/*.py", "scripts/**/*.py"]
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+# Same as Black.
+line-length = 120
+indent-width = 4
+
+# Assume Python 3.11
+target-version = "py311"
+
+[tool.ruff.lint]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`) codes by default.
+# Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
+# McCabe complexity (`C901`) by default.
+select = ["E4", "E7", "E9", "F"]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"__init__.py" = ["F403"]
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+docstring-code-format = false
+docstring-code-line-length = "dynamic"
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.analyze]
+detect-string-imports = true
