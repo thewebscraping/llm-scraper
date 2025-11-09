@@ -6,7 +6,9 @@
     "script",
     "style",
     "noscript",
-    "iframe"
+    "iframe",
+    "//p[.//em/strong[starts-with(normalize-space(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')), 'related')]]",
+    "//p[.//em/strong[starts-with(normalize-space(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')), 'magazine')]]"
   ],
   "title": {
     "selector": [
