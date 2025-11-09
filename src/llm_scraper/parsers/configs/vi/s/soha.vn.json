@@ -1,0 +1,38 @@
+{
+  "domain": "soha.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://soha.vn/rss/euro.rss",
+    "https://soha.vn/rss/thoi-su-xa-hoi.rss",
+    "https://soha.vn/rss/the-thao.rss",
+    "https://soha.vn/rss/world-cup-2022.rss",
+    "https://soha.vn/rss/phap-luat.rss",
+    "https://soha.vn/rss/xe.rss",
+    "https://soha.vn/rss/song-dep.rss",
+    "https://soha.vn/rss/hanh-trinh-tu-trai-tim.rss",
+    "https://soha.vn/rss/quoc-te.rss",
+    "https://soha.vn/rss/giai-tri.rss",
+    "https://soha.vn/rss/song-khoe.rss",
+    "https://soha.vn/rss/home.rss",
+    "https://soha.vn/rss/doi-song.rss",
+    "https://soha.vn/rss/sea-games-32.rss",
+    "https://soha.vn/rss/nhip-song-moi.rss",
+    "https://soha.vn/rss/cong-nghe.rss",
+    "https://soha.vn/rss/tu-hao-made-by-vietnam.rss",
+    "https://soha.vn/rss/tri-thuc-moi.rss",
+    "https://soha.vn/rss/the-gioi.rss",
+    "https://soha.vn/rss/kinh-doanh.rss"
+  ],
+  "sitemaps": [
+    "https://soha.vn/google-news-sitemap.xml"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "domain": "icoviet.com",
+  "lang": "vi",
+  "type": "article",
+  "title": {
+    "css_selector": "ai-title-post",
+    "type": "text"
+  },
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "duong_dan_breadcrumb",
+    "ai-title-post",
+    "essb_links",
+    "date"
+  ]
+}

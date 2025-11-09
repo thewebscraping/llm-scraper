@@ -1,0 +1,24 @@
+{
+  "domain": "cafebiz.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://cafebiz.vn/rss/vi-mo.rss",
+    "https://cafebiz.vn/rss/cau-chuyen-kinh-doanh.rss",
+    "https://cafebiz.vn/rss/song.rss",
+    "https://cafebiz.vn/rss/xa-hoi.rss",
+    "https://cafebiz.vn/rss/home.rss",
+    "https://cafebiz.vn/rss/cong-nghe.rss"
+  ],
+  "sitemaps": [
+    "https://cafebiz.vn/google-news-sitemap.xml"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "domain": "thethaovanhoa.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://thethaovanhoa.vn/rss/van-hoa.rss",
+    "https://thethaovanhoa.vn/rss/giai-tri.rss",
+    "https://thethaovanhoa.vn/rss/du-doan-bong-da.rss",
+    "https://thethaovanhoa.vn/rss/tin-tuc-24h.rss",
+    "https://thethaovanhoa.vn/rss/bong-da-tay-ban-nha.rss",
+    "https://thethaovanhoa.vn/rss/bong-da-viet-nam.rss",
+    "https://thethaovanhoa.vn/rss/bong-da-anh.rss",
+    "https://thethaovanhoa.vn/rss/bong-da-c1.rss",
+    "https://thethaovanhoa.vn/rss/the-thao.rss",
+    "https://thethaovanhoa.vn/rss/kbiz-kpop-phim-han.rss",
+    "https://thethaovanhoa.vn/rss/bong-da-duc.rss",
+    "https://thethaovanhoa.vn/rss/the-gioi-sao.rss",
+    "https://thethaovanhoa.vn/rss/trang-chu.rss"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "domain": "dantri.com.vn",
+  "lang": "vi",
+  "type": "article",
+  "title": {
+    "css_selector": "title-page detail",
+    "type": "text"
+  },
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://dantri.com.vn/rss/suc-khoe.rss",
+    "https://dantri.com.vn/rss/infographic.rss",
+    "https://dantri.com.vn/rss/dnews.rss",
+    "https://dantri.com.vn/rss/the-thao.rss",
+    "https://dantri.com.vn/rss/khoa-hoc-cong-nghe.rss",
+    "https://dantri.com.vn/rss/phap-luat.rss",
+    "https://dantri.com.vn/rss/kinh-doanh.rss",
+    "https://dantri.com.vn/rss/giao-duc.rss",
+    "https://dantri.com.vn/rss/su-kien.rss",
+    "https://dantri.com.vn/rss/xa-hoi.rss",
+    "https://dantri.com.vn/rss/bat-dong-san.rss",
+    "https://dantri.com.vn/rss/du-lich.rss",
+    "https://dantri.com.vn/rss/home.rss",
+    "https://dantri.com.vn/rss/an-sinh.rss",
+    "https://dantri.com.vn/rss/ban-doc.rss",
+    "https://dantri.com.vn/rss/tinh-yeu-gioi-tinh.rss",
+    "https://dantri.com.vn/rss/photo-story.rss",
+    "https://dantri.com.vn/rss/suc-manh-so.rss",
+    "https://dantri.com.vn/rss/doi-song.rss",
+    "https://dantri.com.vn/rss/tet-2024.rss",
+    "https://dantri.com.vn/rss/nhan-tai-dat-viet.rss",
+    "https://dantri.com.vn/rss/lao-dong-viec-lam.rss",
+    "https://dantri.com.vn/rss/tam-long-nhan-ai.rss",
+    "https://dantri.com.vn/rss/o-to-xe-may.rss",
+    "https://dantri.com.vn/rss/the-gioi.rss",
+    "https://dantri.com.vn/rss/tam-diem.rss",
+    "https://dantri.com.vn/rss/dmagazine.rss",
+    "https://dantri.com.vn/rss/tet-2023.rss",
+    "https://dantri.com.vn/rss/giai-tri.rss",
+    "https://dantri.com.vn/rss/gia-vang.rss"
+  ],
+  "sitemaps": [
+    "https://dantri.com.vn/google-news-sitemap.xml"
+  ]
+}

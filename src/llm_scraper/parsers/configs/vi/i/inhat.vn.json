@@ -1,0 +1,17 @@
+{
+  "domain": "inhat.vn",
+  "lang": "vi",
+  "type": "article",
+  "title": {
+    "css_selector": "jeg_post_title",
+    "type": "text"
+  },
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  }
+}

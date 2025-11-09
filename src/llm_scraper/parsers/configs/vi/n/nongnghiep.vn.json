@@ -1,0 +1,37 @@
+{
+  "domain": "nongnghiep.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://nongnghiep.vn/vat-tu-nong-nghiep.rss",
+    "https://nongnghiep.vn/van-hoa-the-thao.rss",
+    "https://nongnghiep.vn/kinh-te.rss",
+    "https://nongnghiep.vn/nong-thon-moi.rss",
+    "https://nongnghiep.vn/phap-luat.rss",
+    "https://nongnghiep.vn/nongnghiep-tv.rss",
+    "https://nongnghiep.vn/nong-san-viet.rss",
+    "https://nongnghiep.vn/radio.rss",
+    "https://nongnghiep.vn/khuyen-nong.rss",
+    "https://nongnghiep.vn/lam-nghiep.rss",
+    "https://nongnghiep.vn/thoi-su.rss",
+    "https://nongnghiep.vn/lang-kinh.rss",
+    "https://nongnghiep.vn/the-gioi.rss",
+    "https://nongnghiep.vn/song-khoe.rss",
+    "https://nongnghiep.vn/thuy-san.rss",
+    "https://nongnghiep.vn/tri-thuc-nong-dan.rss",
+    "https://nongnghiep.vn/nnvn--ban-doc.rss",
+    "https://nongnghiep.vn/gia-dinh.rss",
+    "https://nongnghiep.vn/feed.rss"
+  ],
+  "sitemaps": [
+    "https://nongnghiep.vn/sitemap-news.xml"
+  ]
+}

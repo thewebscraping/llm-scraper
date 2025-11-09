@@ -1,0 +1,20 @@
+{
+  "domain": "game8.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "date_published": {
+    "css_selector": "date",
+    "type": "text"
+  },
+  "sitemaps": [
+    "https://game8.vn/sitemap-news.xml"
+  ]
+}

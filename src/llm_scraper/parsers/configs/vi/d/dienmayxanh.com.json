@@ -1,0 +1,20 @@
+{
+  "domain": "dienmayxanh.com",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "anchor-hd",
+    "boxProduct-shortcode",
+    "moreproduct",
+    "shortcode-info",
+    "wrap_relate"
+  ]
+}

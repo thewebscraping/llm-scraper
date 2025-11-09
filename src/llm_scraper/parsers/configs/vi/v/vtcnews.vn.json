@@ -1,0 +1,42 @@
+{
+  "domain": "vtcnews.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "author-make",
+    "hide"
+  ],
+  "rss_feeds": [
+    "https://vtcnews.vn/rss/feed.rss",
+    "https://vtcnews.vn/rss/gia-dinh.rss",
+    "https://vtcnews.vn/rss/kinh-te.rss",
+    "https://vtcnews.vn/rss/van-hoa-giai-tri.rss",
+    "https://vtcnews.vn/rss/the-gioi.rss",
+    "https://vtcnews.vn/rss/giao-duc.rss",
+    "https://vtcnews.vn/rss/doanh-nghiep-doanh-nhan.rss",
+    "https://vtcnews.vn/rss/phong-su-kham-pha.rss",
+    "https://vtcnews.vn/rss/oto-xe-may.rss",
+    "https://vtcnews.vn/rss/khoa-hoc-cong-nghe.rss",
+    "https://vtcnews.vn/rss/dia-oc.rss",
+    "https://vtcnews.vn/rss/suc-khoe.rss",
+    "https://vtcnews.vn/rss/truyen-hinh.rss",
+    "https://vtcnews.vn/rss/giai-tri.rss",
+    "https://vtcnews.vn/rss/cong-nghe.rss",
+    "https://vtcnews.vn/rss/gioi-tre.rss",
+    "https://vtcnews.vn/rss/thoi-su.rss",
+    "https://vtcnews.vn/rss/phap-luat.rss",
+    "https://vtcnews.vn/rss/the-thao.rss",
+    "https://vtcnews.vn/rss/bat-dong-san.rss"
+  ],
+  "sitemaps": [
+    "https://vtcnews.vn/sitemap-news.xml"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "domain": "vnreview.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "main_points": {
+    "css_selector": "p-title-value",
+    "type": "text"
+  }
+}

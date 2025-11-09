@@ -1,17 +1,20 @@
 {
+  "domain": "baoangiang",
+  "lang": "vi",
+  "type": "article",
   "title": {
     "css_selector": ".detail-title",
+    "type": "text"
+  },
+  "description": {
+    "css_selector": ".detail-desc",
     "type": "text"
   },
   "content": {
     "css_selector": "#newscontents",
     "type": "html"
   },
-  "description": {
-    "css_selector": ".detail-desc",
-    "type": "text"
-  },
-  "published_at": {
+  "date_published": {
     "css_selector": ".pubdate",
     "type": "text"
   },

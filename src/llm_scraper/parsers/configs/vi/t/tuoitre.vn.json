@@ -1,0 +1,33 @@
+{
+  "domain": "tuoitre.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://tuoitre.vn/rss/thu-gian.rss",
+    "https://tuoitre.vn/rss/nhip-song-so.rss",
+    "https://tuoitre.vn/rss/van-hoa.rss",
+    "https://tuoitre.vn/rss/du-lich.rss",
+    "https://tuoitre.vn/rss/thoi-su.rss",
+    "https://tuoitre.vn/rss/giao-duc.rss",
+    "https://tuoitre.vn/rss/giai-tri.rss",
+    "https://tuoitre.vn/rss/khoa-hoc.rss",
+    "https://tuoitre.vn/rss/kinh-doanh.rss",
+    "https://tuoitre.vn/rss/suc-khoe.rss",
+    "https://tuoitre.vn/rss/the-gioi.rss",
+    "https://tuoitre.vn/rss/tin-moi-nhat.rss",
+    "https://tuoitre.vn/rss/the-thao.rss",
+    "https://tuoitre.vn/rss/gia-that.rss",
+    "https://tuoitre.vn/rss/ban-doc-lam-bao.rss",
+    "https://tuoitre.vn/rss/xe.rss",
+    "https://tuoitre.vn/rss/nhip-song-tre.rss",
+    "https://tuoitre.vn/rss/phap-luat.rss"
+  ]
+}

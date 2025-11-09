@@ -267,9 +267,9 @@ class Meta(BaseMeta):
         return kwargs
 
     @classmethod
-    def from_soup(cls, soup: BeautifulSoup) -> "ResponseMeta":
+    def from_soup(cls, soup: BeautifulSoup) -> "Meta":
         """
-        Factory method to create a ResponseMeta instance from a BeautifulSoup object.
+        Factory method to create a Meta instance from a BeautifulSoup object.
         It extracts metadata from <meta> tags.
         """
         meta_tags = soup.find_all("meta")
@@ -280,22 +280,51 @@ class Meta(BaseMeta):
             if key and content:
                 meta_dict[key] = content
         
-        # This is a simplified mapping. A full implementation would be more robust.
+        # Build nested objects
+        article_data = {
+            "published_time": meta_dict.get("article:published_time"),
+            "modified_time": meta_dict.get("article:modified_time"),
+            "author": meta_dict.get("article:author"),
+            "section": meta_dict.get("article:section"),
+            "tag": meta_dict.get("article:tag"),
+        }
+        article_data = {k: v for k, v in article_data.items() if v is not None}
+        
+        og_data = {
+            "title": meta_dict.get("og:title"),
+            "description": meta_dict.get("og:description"),
+            "url": meta_dict.get("og:url"),
+            "site_name": meta_dict.get("og:site_name"),
+            "locale": meta_dict.get("og:locale"),
+        }
+        if meta_dict.get("og:image"):
+            og_data["image"] = OpenGraphImage(image=meta_dict.get("og:image"))
+        og_data = {k: v for k, v in og_data.items() if v is not None}
+        
+        twitter_data = {k.replace('twitter:', ''): v for k, v in meta_dict.items() if k.startswith('twitter:')}
+        
+        # This is a simplified mapping
         data = {
             "author": meta_dict.get("author"),
-            "canonical": meta_dict.get("og:url"),
-            "date_published": meta_dict.get("article:published_time"),
-            "date_modified": meta_dict.get("article:modified_time"),
+            "canonical": meta_dict.get("og:url") or meta_dict.get("canonical"),
             "description": meta_dict.get("description") or meta_dict.get("og:description"),
-            "image": OpenGraphImage(url=meta_dict.get("og:image")),
-            "language": meta_dict.get("og:locale"),
             "locale": meta_dict.get("og:locale"),
-            "tags": meta_dict.get("keywords") or meta_dict.get("news_keywords"),
-            "title": meta_dict.get("og:title") or meta_dict.get("twitter:title"),
-            "twitter_card": TwitterCard.model_validate(
-                {k.replace('twitter:', ''): v for k, v in meta_dict.items() if k.startswith('twitter:')}
-            ),
+            "keywords": meta_dict.get("keywords"),
+            "news_keywords": meta_dict.get("news_keywords"),
+            "section": meta_dict.get("article:section"),
+            "title": meta_dict.get("og:title") or meta_dict.get("twitter:title") or meta_dict.get("title"),
         }
+        
+        # Add nested objects if they have data
+        if article_data:
+            data["article"] = OpenGraphArticle.model_validate(article_data)
+        if og_data:
+            data["open_graph"] = OpenGraphMetadata.model_validate(og_data)
+        if twitter_data:
+            try:
+                data["twitter"] = TwitterCard.model_validate(twitter_data)
+            except:
+                pass
         
         # Clean up None values before validation
         validated_data = {k: v for k, v in data.items() if v is not None}
@@ -333,6 +362,7 @@ class ResponseMeta(BaseMeta):
     title: Optional[str] = None
     twitter_card: Optional[TwitterCard] = None
     canonical: Optional[HttpUrl] = None
+    schema_org: Optional[Dict[str, Any]] = Field(default=None, description="Raw Schema.org JSON-LD data")
 
     @field_validator("author", "title", "description", mode="before")
     @classmethod
@@ -353,6 +383,40 @@ class ResponseMeta(BaseMeta):
     @classmethod
     def clean_tags(cls, value: Any, *, max_length: int = 10) -> List[str]:
         return normalize_list_str(value, cls._rejected_tags)[:max_length]
+
+    @classmethod
+    def from_soup(cls, soup: BeautifulSoup) -> "ResponseMeta":
+        """
+        Factory method to create a ResponseMeta instance from a BeautifulSoup object.
+        It extracts metadata from <meta> tags.
+        """
+        from ..models.meta import Meta
+        
+        # Use Meta.from_soup to extract metadata
+        meta = Meta.from_soup(soup)
+        
+        # Extract language from <html lang="..."> tag
+        language = None
+        html_tag = soup.find("html")
+        if html_tag and html_tag.get("lang"):
+            language = html_tag.get("lang")
+        elif meta.locale:
+            language = meta.locale.split('_')[0]  # Convert en_US to en
+        
+        # Convert to ResponseMeta
+        return cls(
+            author=meta.author,
+            date_published=meta.date_published,
+            date_modified=meta.date_modified,
+            description=meta.description,
+            image=meta.open_graph.image if meta.open_graph else None,
+            language=language,
+            locale=meta.locale,
+            tags=meta.tags,
+            topics=meta.topics,
+            title=meta.title,
+            canonical=meta.canonical,
+        )
 
 
 class Metadata(BaseModel):

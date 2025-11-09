@@ -1,0 +1,33 @@
+{
+  "domain": "suckhoedoisong.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://suckhoedoisong.vn/phong-mach-online.rss",
+    "https://suckhoedoisong.vn/thoi-su.rss",
+    "https://suckhoedoisong.vn/dinh-duong.rss",
+    "https://suckhoedoisong.vn/nen-biet.rss",
+    "https://suckhoedoisong.vn/rss",
+    "https://suckhoedoisong.vn/tra-cuu-benh.rss",
+    "https://suckhoedoisong.vn/duoc.rss",
+    "https://suckhoedoisong.vn/thi-truong.rss",
+    "https://suckhoedoisong.vn/doi-song.rss",
+    "https://suckhoedoisong.vn/gioi-tinh.rss",
+    "https://suckhoedoisong.vn/khoe-dep.rss",
+    "https://suckhoedoisong.vn/van-hoa-giai-tri.rss",
+    "https://suckhoedoisong.vn/nhip-cau-nhan-ai.rss",
+    "https://suckhoedoisong.vn/multimedia.rss",
+    "https://suckhoedoisong.vn/y-te.rss",
+    "https://suckhoedoisong.vn/y-hoc-co-truyen.rss",
+    "https://suckhoedoisong.vn/suc-khoe-tv.rss",
+    "https://suckhoedoisong.vn/y-hoc-360.rss"
+  ]
+}

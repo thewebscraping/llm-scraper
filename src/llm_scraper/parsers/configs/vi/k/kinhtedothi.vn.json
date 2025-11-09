@@ -1,0 +1,46 @@
+{
+  "domain": "kinhtedothi.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://kinhtedothi.vn/xa-hoi.rss",
+    "https://kinhtedothi.vn/y-te.rss",
+    "https://kinhtedothi.vn/multimedia.rss",
+    "https://kinhtedothi.vn/kinh-te.rss",
+    "https://kinhtedothi.vn/thi-trac-nghiem-atgt.rss",
+    "https://kinhtedothi.vn/giao-duc.rss",
+    "https://kinhtedothi.vn/phong-su-anh.rss",
+    "https://kinhtedothi.vn/do-thi.rss",
+    "https://kinhtedothi.vn/chuyen-doi-so.rss",
+    "https://kinhtedothi.vn/kinh-te-do-thi-cuoi-tuan.rss",
+    "https://kinhtedothi.vn/thong-tin-can-biet.rss",
+    "https://kinhtedothi.vn/xe.rss",
+    "https://kinhtedothi.vn/doi-thoai.rss",
+    "https://kinhtedothi.vn/doi-song.rss",
+    "https://kinhtedothi.vn/thoi-su.rss",
+    "https://kinhtedothi.vn/giao-luu-truc-tuyen.rss",
+    "https://kinhtedothi.vn/bat-dong-san.rss",
+    "https://kinhtedothi.vn/tin-quan-huyen.rss",
+    "https://kinhtedothi.vn/bao-giay.rss",
+    "https://kinhtedothi.vn/van-hoa.rss",
+    "https://kinhtedothi.vn/doanh-nghiep.rss",
+    "https://kinhtedothi.vn/tin-moi.rss",
+    "https://kinhtedothi.vn/phap-luat.rss",
+    "https://kinhtedothi.vn/quoc-te.rss",
+    "https://kinhtedothi.vn/chao-mung-70-nam-giai-phong-thu-do.rss",
+    "https://kinhtedothi.vn/mua-sam.rss",
+    "https://kinhtedothi.vn/chuong-trinh-hanh-dong.rss",
+    "https://kinhtedothi.vn/cau-chuyen-hom-nay.rss"
+  ],
+  "sitemaps": [
+    "https://kinhtedothi.vn/sitemap/google-news.xml"
+  ]
+}

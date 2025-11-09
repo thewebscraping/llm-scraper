@@ -1,0 +1,27 @@
+{
+  "domain": "tinmoi.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://tinmoi.vn/rss/trang-chu.rss",
+    "https://tinmoi.vn/rss/cong-nghe.rss",
+    "https://tinmoi.vn/rss/oto-xemay.rss",
+    "https://tinmoi.vn/rss/doi-song.rss",
+    "https://tinmoi.vn/rss/kinh-doanh.rss",
+    "https://tinmoi.vn/rss/giao-duc.rss",
+    "https://tinmoi.vn/rss/video.rss",
+    "https://tinmoi.vn/rss/giai-tri.rss",
+    "https://tinmoi.vn/rss/the-thao.rss"
+  ],
+  "sitemaps": [
+    "https://tinmoi.vn/sitemap-news.xml"
+  ]
+}

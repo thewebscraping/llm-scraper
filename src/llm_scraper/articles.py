@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import hashlib
-import math
 import re
+import uuid
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 from urllib.parse import urlparse
@@ -14,34 +13,13 @@ from pydantic import (
     ValidationError,
     computed_field,
     field_validator,
+    model_validator,
 )
 
 from .exceptions import ArticleCreationError
 from .models.selector import ParserConfig
 from .parsers.base import get_metadata, get_parsed_data
-
-
-_WORD_RE = re.compile(r"\w+", re.UNICODE)
-
-
-def _now_utc() -> datetime:
-    return datetime.now(timezone.utc)
-
-
-def estimate_tokens_from_text(text: str, avg_token_per_word: float = 1.33) -> int:
-    """
-    Heuristic token estimate: average tokens per word.
-    Default 1.33 approximates subword tokenization (fast & safe).
-    You can replace with real tokenizer in pipeline.
-    """
-    if not text:
-        return 0
-    words = len(_WORD_RE.findall(text))
-    return int(math.ceil(words * avg_token_per_word))
-
-
-def sha256_hex(value: str) -> str:
-    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+from .utils import WORD_RE, estimate_tokens_from_text, now_utc
 
 
 class ArticleAuthor(BaseModel):
@@ -58,7 +36,7 @@ class CrawlerInfo(BaseModel):
     ip: Optional[str] = Field(default=None, description="IP address that fetched (if known)")
     fetch_duration_ms: Optional[int] = Field(default=None, description="Milliseconds spent fetching")
     fetch_status: Optional[int] = Field(default=None, description="HTTP status code returned")
-    fetched_at: datetime = Field(default_factory=_now_utc, description="When fetch occurred")
+    fetched_at: datetime = Field(default_factory=now_utc, description="When fetch occurred")
 
 
 class Provenance(BaseModel):
@@ -97,7 +75,7 @@ class ArticleChunk(BaseModel):
 
     @classmethod
     def from_text(cls, index: int, text: str) -> "ArticleChunk":
-        wc = len(_WORD_RE.findall(text))
+        wc = len(WORD_RE.findall(text))
         return cls(
             index=index,
             content=text,
@@ -117,6 +95,7 @@ class ArticleMetadata(BaseModel):
     published_at: Optional[datetime] = Field(default=None)
     modified_at: Optional[datetime] = Field(default=None)
     inferred_source: Optional[str] = Field(default=None, description="Detected news source / publisher name")
+    schema_org: Optional[Dict[str, Any]] = Field(default=None, description="Raw Schema.org JSON-LD data if available")
 
 
 class QualitySignals(BaseModel):
@@ -142,8 +121,8 @@ class Article(BaseModel):
     vector_id: Optional[str] = Field(default=None, description="ID used in vector DB if persisted")
     quality: QualitySignals = Field(default_factory=QualitySignals)
     extras: Dict[str, Any] = Field(default_factory=dict)
-    created_at: datetime = Field(default_factory=_now_utc)
-    updated_at: datetime = Field(default_factory=_now_utc)
+    created_at: datetime = Field(default_factory=now_utc)
+    updated_at: datetime = Field(default_factory=now_utc)
 
     model_config = {
         "title": "Article",
@@ -180,7 +159,7 @@ class Article(BaseModel):
         """Compute word count from content if metadata.word_count missing."""
         if self.metadata and self.metadata.word_count:
             return int(self.metadata.word_count)
-        return int(len(_WORD_RE.findall(self.content or "")))
+        return int(len(WORD_RE.findall(self.content or "")))
 
     @computed_field
     def computed_token_estimate(self) -> int:
@@ -191,23 +170,13 @@ class Article(BaseModel):
         wc = self.computed_word_count
         return round(wc / 220.0, 2)
 
-    @field_validator("id", mode="before")
-    @classmethod
-    def _compute_id_if_missing(cls, v, info):
-        """
-        If id not provided, compute as sha256(source_url + first 200 chars content).
-        This provides determinism across runs for same URL+content snapshot.
-        """
-        if v:
-            return v
-        values = info.data or {}
-        provenance: Optional[Provenance] = values.get("provenance")
-        content: Optional[str] = values.get("content") or ""
-        url_part = ""
-        if provenance and getattr(provenance, "source_url", None):
-            url_part = str(provenance.source_url)
-        seed = url_part + "|" + (content[:512] if content else "")
-        return sha256_hex(seed)
+    @model_validator(mode='after')
+    def _generate_id_if_missing(self):
+        """Generate UUID v5 from URL if id is not provided."""
+        if not self.id and self.provenance and self.provenance.source_url:
+            url_str = str(self.provenance.source_url)
+            self.id = str(uuid.uuid5(uuid.NAMESPACE_URL, url_str))
+        return self
 
     def ensure_metadata_counts(self) -> None:
         """Ensure metadata.word_count and reading_time_minutes are filled."""
@@ -333,7 +302,7 @@ class Article(BaseModel):
         return docs
 
     def touch_updated(self) -> None:
-        self.updated_at = _now_utc()
+        self.updated_at = now_utc()
 
     def summary(self) -> Dict[str, Any]:
         """Return a compact summary for logs or listing APIs."""
@@ -364,8 +333,9 @@ class Article(BaseModel):
 
         # --- Extract Content using the new get_parsed_data function ---
         # If a specific parser config is provided, use it.
+        parsed_data = {}
         if parser_config:
-            parsed_data = get_parsed_data(html, parser_config)
+            parsed_data = get_parsed_data(html, parser_config, base_url=str(url))
             content = parsed_data.get("content", "")
         else:
             # Fallback to a simple body extraction if no config is given
@@ -383,20 +353,42 @@ class Article(BaseModel):
         # --- Combine Metadata ---
         # Title is critical, fallback to a default if not found
         title = response_meta.title or "No title found"
+        
+        # Merge authors from parser config and meta tags
+        authors = []
+        authors_data = parsed_data.get("authors", [])
+        if isinstance(authors_data, list):
+            for author_name in authors_data:
+                if isinstance(author_name, str) and author_name.strip():
+                    authors.append(ArticleAuthor(name=author_name.strip()))
+        elif isinstance(authors_data, str) and authors_data.strip():
+            authors.append(ArticleAuthor(name=authors_data.strip()))
+        
+        # Fallback to meta author if no authors from parser
+        if not authors and response_meta.author:
+            authors.append(ArticleAuthor(name=response_meta.author))
+        
+        # Merge published_at and other metadata, giving priority to parser config
+        published_at = parsed_data.get("date_published") or response_meta.date_published
+        modified_at = parsed_data.get("date_modified") or response_meta.date_modified
+        tags = parsed_data.get("tags", []) or response_meta.tags or []
+        topics = parsed_data.get("topics", []) or response_meta.topics or []
 
         try:
             article = cls(
                 title=title,
                 description=response_meta.description,
                 content=content,
+                authors=authors,
                 provenance=Provenance(source_url=url, domain=urlparse(str(url)).netloc),
                 metadata=ArticleMetadata(
                     language=response_meta.language,
-                    tags=response_meta.tags,
-                    topics=response_meta.topics,
+                    tags=tags,
+                    topics=topics,
                     canonical_url=response_meta.canonical,
-                    published_at=response_meta.date_published,
-                    modified_at=response_meta.date_modified,
+                    published_at=published_at,
+                    modified_at=modified_at,
+                    schema_org=response_meta.schema_org,
                 ),
                 raw_html=html,
                 **kwargs,

@@ -36,20 +36,20 @@ COMMON_CLEANUP_SELECTORS = [
 
 # Selectors for article titles
 TITLE_SELECTORS = [
-    "h1.article_title",
-    "h1.article__title",
-    "h1.article-title",
-    "h1.cms-title",
-    "h1.kbwc-title",
-    "h1.text-title",
-    "h1.the-article-title",
-    "h1.tmp-title-large",
-    "h1.main-title",
-    "h1.main-title-super",
-    "h1.detail-title",
-    "h1.news-title",
-    "h1.content-detail-title",
-    "h1.single-page-title",  # WordPress
+    ".article_title",
+    ".article__title",
+    ".article-title",
+    ".cms-title",
+    ".kbwc-title",
+    ".text-title",
+    ".the-article-title",
+    ".tmp-title-large",
+    ".main-title",
+    ".main-title-super",
+    ".detail-title",
+    ".news-title",
+    ".content-detail-title",
+    ".single-page-title",  # WordPress
     ".tdb-title-text",  # WordPress (Theme-specific)
     "h1",  # Generic fallback
 ]
@@ -90,7 +90,6 @@ AUTHOR_SELECTORS = [
     ".author-title",
     ".authorName",
     ".cms-author",
-
     ".content-author",
     ".kbwcm-author",
     ".name-author",
@@ -143,9 +142,12 @@ def _create_selector(selectors: list[str], all_matches: bool = False) -> Element
 
 # A generic, fallback configuration that tries common selectors.
 GENERIC_CONFIG = ParserConfig(
+    domain="generic",
+    lang="en",
+    type="article",
     title=_create_selector(TITLE_SELECTORS),
     content=_create_selector(CONTENT_SELECTORS),
-    author=_create_selector(AUTHOR_SELECTORS),
+    authors=_create_selector(AUTHOR_SELECTORS),
     date_published=_create_selector(DATE_PUBLISHED_SELECTORS),
     date_modified=_create_selector(DATE_MODIFIED_SELECTORS),
     tags=_create_selector(TAGS_SELECTORS, all_matches=True),
@@ -154,11 +156,14 @@ GENERIC_CONFIG = ParserConfig(
 
 # A configuration specifically tuned for many WordPress sites.
 WORDPRESS_CONFIG = ParserConfig(
+    domain="wordpress",
+    lang="en",
+    type="article",
     title=_create_selector([
         ".tdb-title-text",
-        "h1.single-page-title",
-        "h1.entry-title",
-        "h1.post-title",
+        ".single-page-title",
+        ".entry-title",
+        ".post-title",
     ] + TITLE_SELECTORS),
     content=_create_selector([
         ".tdb_single_content",
@@ -166,7 +171,7 @@ WORDPRESS_CONFIG = ParserConfig(
         ".entry-content",
         ".post-content",
     ] + CONTENT_SELECTORS),
-    author=_create_selector([
+    authors=_create_selector([
         ".tdb-author-name",
         ".author-box .author-name",
     ] + AUTHOR_SELECTORS),

@@ -1,0 +1,39 @@
+{
+  "domain": "vietnamnet.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "maincontent",
+      "main-content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "ck-cms-wiki-news-full",
+    "vnn-template-noneditable",
+    "ck-cms-insert-neww-group",
+    "article-edit"
+  ],
+  "rss_feeds": [
+    "https://vietnamnet.vn/rss/bat-dong-san.rss",
+    "https://vietnamnet.vn/rss/doi-song.rss",
+    "https://vietnamnet.vn/rss/chinh-tri.rss",
+    "https://vietnamnet.vn/rss/oto-xe-may.rss",
+    "https://vietnamnet.vn/rss/the-gioi.rss",
+    "https://vietnamnet.vn/rss/kinh-doanh.rss",
+    "https://vietnamnet.vn/rss/suc-khoe.rss",
+    "https://vietnamnet.vn/rss/thong-tin-truyen-thong.rss",
+    "https://vietnamnet.vn/rss/the-thao.rss",
+    "https://vietnamnet.vn/rss/van-hoa.rss",
+    "https://vietnamnet.vn/rss/giao-duc.rss",
+    "https://vietnamnet.vn/rss/du-lich.rss",
+    "https://vietnamnet.vn/rss/thoi-su.rss",
+    "https://vietnamnet.vn/rss/giai-tri.rss",
+    "https://vietnamnet.vn/rss/phap-luat.rss",
+    "https://vietnamnet.vn/rss/ban-doc.rss"
+  ],
+  "sitemaps": [
+    "https://vietnamnet.vn/sitemap-news.xml"
+  ]
+}

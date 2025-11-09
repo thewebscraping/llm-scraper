@@ -1,0 +1,9 @@
+{
+  "domain": "lag.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": "js-content-entity-body",
+    "type": "html"
+  }
+}

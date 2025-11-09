@@ -1,0 +1,47 @@
+{
+  "domain": "eva.vn",
+  "lang": "vi",
+  "type": "article",
+  "title": {
+    "css_selector": "eva-title-art",
+    "type": "text"
+  },
+  "content": {
+    "css_selector": [
+      "eva-cont-art__info",
+      "baiviet-container",
+      "eva-cont-art"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://eva.vn/rss/rss.php/192",
+    "https://eva.vn/rss/rss.php/36",
+    "https://eva.vn/rss/rss.php/429",
+    "https://eva.vn/rss/rss.php/58",
+    "https://eva.vn/rss/rss.php",
+    "https://eva.vn/rss/rss.php/85",
+    "https://eva.vn/rss/rss.php/131",
+    "https://eva.vn/rss/rss.php/10",
+    "https://eva.vn/rss/rss.php/73",
+    "https://eva.vn/rss/rss.php/430",
+    "https://eva.vn/rss/rss.php/428",
+    "https://eva.vn/rss/rss.php/157",
+    "https://eva.vn/rss/rss.php/169",
+    "https://eva.vn/rss/rss.php/40",
+    "https://eva.vn/rss/rss.php/3",
+    "https://eva.vn/rss/rss.php/162",
+    "https://eva.vn/rss/rss.php/20",
+    "https://eva.vn/rss/rss.php/66"
+  ],
+  "sitemaps": [
+    "https://eva.vn/sitemap-news.xml"
+  ],
+  "main_points": {
+    "css_selector": [
+      "tuht_show",
+      "eva-cont-art__sum"
+    ],
+    "type": "text"
+  }
+}

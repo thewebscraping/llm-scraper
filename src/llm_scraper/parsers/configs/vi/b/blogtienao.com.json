@@ -1,0 +1,24 @@
+{
+  "domain": "blogtienao.com",
+  "lang": "vi",
+  "type": "article",
+  "title": {
+    "css_selector": "tdb-title-text",
+    "type": "text"
+  },
+  "content": {
+    "css_selector": [
+      "tdb_single_content",
+      "tdb-block-inner"
+    ],
+    "type": "html"
+  },
+  "authors": {
+    "css_selector": "tdb-author-name",
+    "type": "text",
+    "all": true
+  },
+  "sitemaps": [
+    "https://blogtienao.com/news-sitemap.xml"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "domain": "phunutoday.vn",
+  "lang": "vi",
+  "type": "article",
+  "title": {
+    "css_selector": "article_title",
+    "type": "text"
+  },
+  "content": {
+    "css_selector": "content_detail_text",
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://phunutoday.vn/lam-dep.rss",
+    "https://phunutoday.vn/giai-tri.rss",
+    "https://phunutoday.vn/thoi-trang.rss",
+    "https://phunutoday.vn/lam-me.rss",
+    "https://phunutoday.vn/cuoc-song.rss",
+    "https://phunutoday.vn/xa-hoi.rss",
+    "https://phunutoday.vn/suc-khoe.rss",
+    "https://phunutoday.vn/to-am.rss",
+    "https://phunutoday.vn/home.rss",
+    "https://phunutoday.vn/kham-pha.rss"
+  ],
+  "sitemaps": [
+    "https://phunutoday.vn/sitemap-news.xml"
+  ],
+  "main_points": {
+    "css_selector": "intro",
+    "type": "text"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "domain": "baoangiang.com.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "date_published": {
+    "css_selector": "pubdate",
+    "type": "text"
+  },
+  "main_points": {
+    "css_selector": "detail-desc",
+    "type": "text"
+  }
+}

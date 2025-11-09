@@ -1,0 +1,36 @@
+{
+  "domain": "coin68.com",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "MsoNormal"
+  ],
+  "rss_feeds": [
+    "https://coin68.com/rss/nft-and-game.rss",
+    "https://coin68.com/rss/thu-vien.rss",
+    "https://coin68.com/rss/tin-noi-bat.rss",
+    "https://coin68.com/rss/phap-ly.rss",
+    "https://coin68.com/rss/tin-tuc-coins.rss",
+    "https://coin68.com/rss/tin-tong-hop.rss",
+    "https://coin68.com/rss/tin-xem-nhieu.rss",
+    "https://coin68.com/rss/campaign.rss",
+    "https://coin68.com/rss/tin-tuc-khac.rss",
+    "https://coin68.com/rss/defi.rss",
+    "https://coin68.com/rss/68-trading.rss",
+    "https://coin68.com/rss/kien-thuc.rss",
+    "https://coin68.com/rss/e-magazine.rss",
+    "https://coin68.com/rss/trang-chu.rss",
+    "https://coin68.com/rss/tin-moi-nhat.rss",
+    "https://coin68.com/rss/chu-de-chuyen-sau.rss",
+    "https://coin68.com/rss/guest-writer.rss",
+    "https://coin68.com/rss/coin68-tv.rss"
+  ]
+}

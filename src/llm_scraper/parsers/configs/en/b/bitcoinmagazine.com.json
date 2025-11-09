@@ -1,0 +1,58 @@
+{
+  "domain": "bitcoinmagazine.com",
+  "lang": "en",
+  "type": "article",
+  "title": {
+    "css_selector": [
+      "h1.article-title",
+      "h1.entry-title",
+      "h1"
+    ],
+    "type": "text"
+  },
+  "description": {
+    "css_selector": [
+      ".article-excerpt",
+      ".entry-summary"
+    ],
+    "type": "text"
+  },
+  "content": {
+    "css_selector": [
+      ".article-content",
+      ".entry-content",
+      "article"
+    ],
+    "type": "html"
+  },
+  "authors": {
+    "css_selector": [
+      ".author-name",
+      "[rel='author']"
+    ],
+    "type": "text",
+    "all": true
+  },
+  "date_published": {
+    "css_selector": [
+      "time[datetime]",
+      ".article-date",
+      "meta[property='article:published_time']"
+    ],
+    "type": "text"
+  },
+  "tags": {
+    "css_selector": [
+      ".article-tags a",
+      "a[rel='tag']"
+    ],
+    "type": "text",
+    "all": true
+  },
+  "cleanup": [
+    ".advertisement",
+    ".related-articles",
+    ".newsletter",
+    ".social-share"
+  ]
+}

@@ -2,19 +2,23 @@
 
 A flexible, configuration-driven web scraper designed to extract article content and feed it into a Retrieval-Augmented Generation (RAG) pipeline.
 
-This project uses a professional, scalable architecture with FastAPI, Celery, and Redis to create a robust system for data ingestion.
+This project uses a professional, scalable architecture with domain-specific parser configurations to accurately extract structured data from web pages.
+
+## 📚 Documentation
+
+**[Complete Documentation →](docs/README.md)**
+
+- **[Selector Guide](docs/SELECTOR_GUIDE.md)** - Creating parser configurations
+- **[Article API](docs/API_ARTICLE.md)** - Article model reference
+- Quick examples and tutorials
 
 ## Core Features
 
-- **Config-Driven Parsing**: Define how to scrape any site using simple JSON configuration files.
-- **RAG-Ready**: Automatically chunks content, generates embeddings via OpenAI, and stores it in an AstraDB vector store.
-- **Scalable Architecture**:
-  - **FastAPI**: For a high-performance, non-blocking API.
-  - **Celery**: For distributed background task processing.
-  - **Redis**: As the message broker and result backend for Celery.
-- **Automated & On-Demand Scraping**:
-  - Scrape entire sites on a recurring schedule.
-  - Scrape specific sites or single URLs via API endpoints.
+- **Config-Driven Parsing**: Define how to scrape any site using simple JSON configuration files
+- **Flexible Selectors**: Support for fallback chains, parent scoping, and per-selector attributes
+- **Rich Metadata**: Extracts OpenGraph, Schema.org, authors, dates, tags, and topics
+- **RAG-Ready**: Automatically chunks content with token estimation for LLM context windows
+- **Production-Ready**: Pydantic validation, error handling, deterministic UUIDs
 
 ## Project Structure
 

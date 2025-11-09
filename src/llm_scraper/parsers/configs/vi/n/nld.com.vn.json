@@ -1,0 +1,65 @@
+{
+  "domain": "nld.com.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "nguoilaodong"
+  ],
+  "rss_feeds": [
+    "https://nld.com.vn/rss/tu-hao-co-to-quoc.rss",
+    "https://nld.com.vn/rss/the-thao.rss",
+    "https://nld.com.vn/rss/phap-luat.rss",
+    "https://nld.com.vn/rss/giao-duc-khoa-hoc.rss",
+    "https://nld.com.vn/rss/thoi-su.rss",
+    "https://nld.com.vn/rss/vung-mien.rss",
+    "https://nld.com.vn/rss/gia-dinh.rss",
+    "https://nld.com.vn/rss/lao-dong.rss",
+    "https://nld.com.vn/rss/dia-oc.rss",
+    "https://nld.com.vn/rss/noi-thang.rss",
+    "https://nld.com.vn/rss/kinh-te.rss",
+    "https://nld.com.vn/rss/podcast.rss",
+    "https://nld.com.vn/rss/home.rss",
+    "https://nld.com.vn/rss/chuyen-tu-noi-cach-ly.rss",
+    "https://nld.com.vn/rss/goc-nhin.rss",
+    "https://nld.com.vn/rss/doi-song.rss",
+    "https://nld.com.vn/rss/du-lich.rss",
+    "https://nld.com.vn/rss/van-hoa-van-nghe.rss",
+    "https://nld.com.vn/rss/nguoi-viet-yeu-su-viet.rss",
+    "https://nld.com.vn/rss/suc-khoe.rss",
+    "https://nld.com.vn/rss/du-lich-xanh.rss",
+    "https://nld.com.vn/rss/vi-tuyen-dau-chong-dich.rss",
+    "https://nld.com.vn/rss/ly-tuong-song.rss",
+    "https://nld.com.vn/rss/khoa-hoc.rss",
+    "https://nld.com.vn/rss/hoi-nong-dap-nhanh.rss",
+    "https://nld.com.vn/rss/moi-truong.rss",
+    "https://nld.com.vn/rss/trich-dan-nong.rss",
+    "https://nld.com.vn/rss/danh-cho-ban-doc-vip.rss",
+    "https://nld.com.vn/rss/video.rss",
+    "https://nld.com.vn/rss/thi-truong.rss",
+    "https://nld.com.vn/rss/tu-hao-hang-viet.rss",
+    "https://nld.com.vn/rss/ai-365.rss",
+    "https://nld.com.vn/rss/euro-2024.rss",
+    "https://nld.com.vn/rss/cuoc-van-dong-sang-tac-ca-khuc-dat-nuoc-tron-niem-vui.rss",
+    "https://nld.com.vn/rss/quoc-te.rss",
+    "https://nld.com.vn/rss/bien-dao.rss",
+    "https://nld.com.vn/rss/mai-vang.rss",
+    "https://nld.com.vn/rss/ban-doc.rss",
+    "https://nld.com.vn/rss/ket-qua-xo-so.rss",
+    "https://nld.com.vn/rss/giai-tri.rss",
+    "https://nld.com.vn/rss/chuyen-trang-phu-nu.rss",
+    "https://nld.com.vn/rss/doc-quyen.rss",
+    "https://nld.com.vn/rss/dong-tien-thong-minh.rss",
+    "https://nld.com.vn/rss/truy-vet-mang-xa-hoi.rss"
+  ],
+  "sitemaps": [
+    "https://nld.com.vn/google-news-sitemap.xml"
+  ]
+}

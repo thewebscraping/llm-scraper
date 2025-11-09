@@ -1,0 +1,30 @@
+{
+  "domain": "kienthuc.net.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://kienthuc.net.vn/rss/home.rss",
+    "https://kienthuc.net.vn/rss/o-to-xe-may-217.rss",
+    "https://kienthuc.net.vn/rss/cong-dong-tre-27.rss",
+    "https://kienthuc.net.vn/rss/ban-doc-dieu-tra-177.rss",
+    "https://kienthuc.net.vn/rss/xa-hoi-24.rss",
+    "https://kienthuc.net.vn/rss/kinh-doanh-9.rss",
+    "https://kienthuc.net.vn/rss/kho-tri-thuc-8.rss",
+    "https://kienthuc.net.vn/rss/doi-song-7.rss",
+    "https://kienthuc.net.vn/rss/giai-tri-11.rss",
+    "https://kienthuc.net.vn/rss/khoa-hoc-cong-nghe-13.rss",
+    "https://kienthuc.net.vn/rss/the-gioi-25.rss",
+    "https://kienthuc.net.vn/rss/quan-su-26.rss"
+  ],
+  "sitemaps": [
+    "https://kienthuc.net.vn/sitemaps/newsindex.xml"
+  ]
+}

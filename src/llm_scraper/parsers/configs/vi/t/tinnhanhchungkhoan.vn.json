@@ -1,0 +1,16 @@
+{
+  "domain": "tinnhanhchungkhoan.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://www.tinnhanhchungkhoan.vn/rss/home.rss"
+  ]
+}

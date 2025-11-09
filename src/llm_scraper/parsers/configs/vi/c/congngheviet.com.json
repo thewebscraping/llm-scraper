@@ -1,0 +1,20 @@
+{
+  "domain": "congngheviet.com",
+  "lang": "vi",
+  "type": "article",
+  "title": {
+    "css_selector": "article_title",
+    "type": "text"
+  },
+  "content": {
+    "css_selector": "content_detail_text",
+    "type": "html"
+  },
+  "sitemaps": [
+    "https://congngheviet.com/sitemap-news.xml"
+  ],
+  "main_points": {
+    "css_selector": "intro",
+    "type": "text"
+  }
+}

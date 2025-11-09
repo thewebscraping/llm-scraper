@@ -1,0 +1,40 @@
+{
+  "domain": "motgame.vn",
+  "lang": "vi",
+  "type": "article",
+  "title": {
+    "css_selector": "article-detail-title",
+    "type": "text"
+  },
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "__mb_article_in_image"
+  ],
+  "rss_feeds": [
+    "https://motgame.vn/rss_feed/",
+    "https://motgame.vn/game-mobile/rss_feed/",
+    "https://motgame.vn/mot-sales/rss_feed/",
+    "https://motgame.vn/genz/doi-song/rss_feed/",
+    "https://motgame.vn/pc-console/rss_feed/",
+    "https://motgame.vn/genz/rss_feed/",
+    "https://motgame.vn/genz/phim-truyen/rss_feed/",
+    "https://motgame.vn/the-thao/rss_feed/",
+    "https://motgame.vn/giftcode/rss_feed/",
+    "https://motgame.vn/cosplay/rss_feed/",
+    "https://motgame.vn/esports/rss_feed/"
+  ],
+  "sitemaps": [
+    "https://motgame.vn/sitemap.xml"
+  ],
+  "main_points": {
+    "css_selector": "motgame-detail-desc",
+    "type": "text"
+  }
+}

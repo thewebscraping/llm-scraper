@@ -1,0 +1,46 @@
+{
+  "domain": "viettimes.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://viettimes.vn/rss/the-gioi-121.rss",
+    "https://viettimes.vn/rss/kinh-te-du-lieu/quan-tri-136.rss",
+    "https://viettimes.vn/rss/the-gioi/toan-canh-2.rss",
+    "https://viettimes.vn/rss/tin-tuc-145.rss",
+    "https://viettimes.vn/rss/anh-191.rss",
+    "https://viettimes.vn/rss/doanh-nghiep-doanh-nhan-38.rss",
+    "https://viettimes.vn/rss/video-66.rss",
+    "https://viettimes.vn/rss/phap-luat-187.rss",
+    "https://viettimes.vn/rss/xa-hoi/giao-duc-169.rss",
+    "https://viettimes.vn/rss/xa-hoi/y-te-120.rss",
+    "https://viettimes.vn/rss/cong-nghe-109.rss",
+    "https://viettimes.vn/rss/bat-dong-san-186.rss",
+    "https://viettimes.vn/rss/emagazine-133.rss",
+    "https://viettimes.vn/rss/chuyen-la-190.rss",
+    "https://viettimes.vn/rss/mobile-189.rss",
+    "https://viettimes.vn/rss/hoat-dong-hoi-vien-146.rss",
+    "https://viettimes.vn/rss/cong-nghe/chuyen-doi-so-158.rss",
+    "https://viettimes.vn/rss/infographic-143.rss",
+    "https://viettimes.vn/rss/multimedia-140.rss",
+    "https://viettimes.vn/rss/kinh-te-du-lieu-3.rss",
+    "https://viettimes.vn/rss/oto-xe-may-110.rss",
+    "https://viettimes.vn/rss/vdca-116.rss",
+    "https://viettimes.vn/rss/home.rss",
+    "https://viettimes.vn/rss/xa-hoi-175.rss",
+    "https://viettimes.vn/rss/the-gioi/phan-tich-134.rss",
+    "https://viettimes.vn/rss/kinh-te-du-lieu/du-lieu-34.rss",
+    "https://viettimes.vn/rss/cong-nghe/san-pham-cong-nghe-149.rss",
+    "https://viettimes.vn/rss/xa-hoi-su-kien-7.rss"
+  ],
+  "sitemaps": [
+    "https://viettimes.vn/sitemaps/google-news.xml"
+  ]
+}

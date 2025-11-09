@@ -1,0 +1,29 @@
+{
+  "domain": "laodong.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://laodong.vn/rss/the-gioi.rss",
+    "https://laodong.vn/rss/phap-luat.rss",
+    "https://laodong.vn/rss/kinh-doanh.rss",
+    "https://laodong.vn/rss/xa-hoi.rss",
+    "https://laodong.vn/rss/cong-doan.rss",
+    "https://laodong.vn/rss/the-thao.rss",
+    "https://laodong.vn/rss/van-hoa-giai-tri.rss",
+    "https://laodong.vn/rss/home.rss",
+    "https://laodong.vn/rss/tam-long-vang.rss",
+    "https://laodong.vn/rss/bat-dong-san.rss",
+    "https://laodong.vn/rss/ban-doc.rss",
+    "https://laodong.vn/rss/xe.rss",
+    "https://laodong.vn/rss/suc-khoe.rss",
+    "https://laodong.vn/rss/thoi-su.rss"
+  ]
+}

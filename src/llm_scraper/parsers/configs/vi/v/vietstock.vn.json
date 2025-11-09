@@ -1,0 +1,70 @@
+{
+  "domain": "vietstock.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "single_post_heading",
+      "vst_detail"
+    ],
+    "type": "html"
+  },
+  "main_points": {
+    "css_selector": "pHead",
+    "type": "text"
+  },
+  "authors": {
+    "css_selector": "pAuthor",
+    "type": "text",
+    "all": true
+  },
+  "rss_feeds": [
+    "https://vietstock.vn/1329/dong-duong/kinh-te-nganh.rss",
+    "https://vietstock.vn/34/hang-hoa/nhien-lieu.rss",
+    "https://vietstock.vn/3358/chung-khoan/etf-va-cac-quy.rss",
+    "https://vietstock.vn/3118/doanh-nghiep/trai-phieu-doanh-nghiep.rss",
+    "https://vietstock.vn/4308/chung-khoan/chung-quyen.rss",
+    "https://vietstock.vn/775/the-gioi/kinh-te-nganh.rss",
+    "https://vietstock.vn/742/hang-hoa/kim-loai.rss",
+    "https://vietstock.vn/3113/tai-chinh/bao-hiem.rss",
+    "https://vietstock.vn/214/doanh-nghiep/nhan-vat.rss",
+    "https://vietstock.vn/143/chung-khoan/chinh-sach.rss",
+    "https://vietstock.vn/772/the-gioi/tai-chinh-quoc-te.rss",
+    "https://vietstock.vn/785/chung-khoan/thi-truong-trai-phieu.rss",
+    "https://vietstock.vn/830/chung-khoan/co-phieu.rss",
+    "https://vietstock.vn/737/doanh-nghiep/hoat-dong-kinh-doanh.rss",
+    "https://vietstock.vn/118/hang-hoa/nong-san-thuc-pham.rss",
+    "https://vietstock.vn/145/chung-khoan/y-kien-chuyen-gia.rss",
+    "https://vietstock.vn/757/tai-chinh/ngan-hang.rss",
+    "https://vietstock.vn/1326/dong-duong/vi-mo-dau-tu.rss",
+    "https://vietstock.vn/741/chung-khoan/niem-yet.rss",
+    "https://vietstock.vn/4266/bat-dong-san/bao-hiem-va-thue-nha-dat.rss",
+    "https://vietstock.vn/739/chung-khoan/giao-dich-noi-bo.rss",
+    "https://vietstock.vn/746/doanh-nghiep/ipo-co-phan-hoa.rss",
+    "https://vietstock.vn/4186/chung-khoan/chung-khoan-phai-sinh.rss",
+    "https://vietstock.vn/759/hang-hoa/vang-va-kim-loai-quy.rss",
+    "https://vietstock.vn/758/tai-chinh/thue-va-ngan-sach.rss",
+    "https://vietstock.vn/585/nhan-dinh-phan-tich/phan-tich-ky-thuat.rss",
+    "https://vietstock.vn/1327/dong-duong/tai-chinh-ngan-hang.rss",
+    "https://vietstock.vn/4264/tai-chinh-ca-nhan/xe-cong-nghe.rss",
+    "https://vietstock.vn/42221/bat-dong-san/quy-hoach-ha-tang.rss",
+    "https://vietstock.vn/4222/bat-dong-san/du-an.rss",
+    "https://vietstock.vn/1328/dong-duong/thi-truong-chung-khoan.rss",
+    "https://vietstock.vn/735/tai-chinh-ca-nhan/vi-cong-dong.rss",
+    "https://vietstock.vn/3355/chung-khoan/cau-chuyen-dau-tu.rss",
+    "https://vietstock.vn/773/the-gioi/chung-khoan-the-gioi.rss",
+    "https://vietstock.vn/4262/tai-chinh-ca-nhan/doanh-nhan-va-khoi-nghiep.rss",
+    "https://vietstock.vn/582/nhan-dinh-phan-tich/phan-tich-co-ban.rss",
+    "https://vietstock.vn/768/kinh-te/kinh-te-dau-tu.rss",
+    "https://vietstock.vn/4263/tai-chinh-ca-nhan/choi-sang.rss",
+    "https://vietstock.vn/764/doanh-nghiep/tang-von-m-a.rss",
+    "https://vietstock.vn/1636/nhan-dinh-phan-tich/nhan-dinh-thi-truong.rss",
+    "https://vietstock.vn/738/doanh-nghiep/co-tuc.rss",
+    "https://vietstock.vn/4261/tai-chinh-ca-nhan/dau-tu-kinh-doanh-nho.rss",
+    "https://vietstock.vn/761/kinh-te/vi-mo.rss",
+    "https://vietstock.vn/4220//bat-dong-san/thi-truong-nha-dat.rss",
+    "https://vietstock.vn/4265/tai-chinh-ca-nhan/tieu-dung-va-cuoc-song.rss",
+    "https://vietstock.vn/4309/the-gioi/tien-ky-thuat-so.rss",
+    "https://vietstock.vn/4260/tai-chinh-ca-nhan/lam-chu-dong-tien.rss"
+  ]
+}

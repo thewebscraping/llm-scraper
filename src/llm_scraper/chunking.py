@@ -1,36 +1,17 @@
 from __future__ import annotations
 
-import math
 import re
 from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
+from .utils.text import WORD_RE, estimate_tokens_from_text
 
-# This regex is used to count words in a unicode-aware way.
-_WORD_RE = re.compile(r"\w+", re.UNICODE)
-
-
-def estimate_tokens_from_text(text: str, avg_token_per_word: float = 1.33) -> int:
-    """
-    Provides a fast, heuristic-based estimate of token count for a given text.
-
-    This method is a safe and quick way to approximate tokenization without needing
-    to load a full tokenizer. It's based on the average number of tokens per word,
-    which is a reasonable approximation for many subword tokenization strategies.
-
-    Args:
-        text: The input string to estimate tokens for.
-        avg_token_per_word: The average token-to-word ratio. The default of 1.33
-                            is a good starting point for many models.
-
-    Returns:
-        An integer representing the estimated number of tokens.
-    """
-    if not text:
-        return 0
-    words = len(_WORD_RE.findall(text))
-    return int(math.ceil(words * avg_token_per_word))
+__all__ = [
+    "ArticleChunk",
+    "chunk_text_by_char",
+    "chunk_text_by_token_estimate",
+]
 
 
 class ArticleChunk(BaseModel):
@@ -58,7 +39,7 @@ class ArticleChunk(BaseModel):
         It automatically calculates the character length, word count, and estimated
         token count for the provided text.
         """
-        word_count = len(_WORD_RE.findall(text))
+        word_count = len(WORD_RE.findall(text))
         return cls(
             index=index,
             content=text,

@@ -1,0 +1,19 @@
+{
+  "domain": "viettelstore.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "table-of-contents",
+    "product",
+    "no_bullets",
+    "wrap-pro-list"
+  ]
+}

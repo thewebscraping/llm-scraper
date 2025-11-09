@@ -1,0 +1,31 @@
+{
+  "domain": "gamek.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "pushed",
+    "link-source-wrapper",
+    "link-source-detail"
+  ],
+  "rss_feeds": [
+    "https://gamek.vn/pc-console.rss",
+    "https://gamek.vn/mobile-social.rss",
+    "https://gamek.vn/game-online.rss",
+    "https://gamek.vn/gaming-gear.rss",
+    "https://gamek.vn/trang-chu.rss",
+    "https://gamek.vn/manga-film.rss",
+    "https://gamek.vn/esport.rss",
+    "https://gamek.vn/thi-truong.rss"
+  ],
+  "sitemaps": [
+    "https://gamek.vn/sitemaps/googlenews.ashx"
+  ]
+}

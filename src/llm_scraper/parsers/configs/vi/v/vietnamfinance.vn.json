@@ -1,0 +1,28 @@
+{
+  "domain": "vietnamfinance.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://vietnamfinance.vn/tai-chinh-tieu-dung.rss",
+    "https://vietnamfinance.vn/cong-nghe.rss",
+    "https://vietnamfinance.vn/tai-chinh-quoc-te.rss",
+    "https://vietnamfinance.vn/dau-tu.rss",
+    "https://vietnamfinance.vn/tieu-diem.rss",
+    "https://vietnamfinance.vn/thi-truong.rss",
+    "https://vietnamfinance.vn/doanh-nghiep.rss",
+    "https://vietnamfinance.vn/home.rss",
+    "https://vietnamfinance.vn/tai-chinh.rss",
+    "https://vietnamfinance.vn/dien-dan-vnf.rss",
+    "https://vietnamfinance.vn/ngan-hang.rss",
+    "https://vietnamfinance.vn/bat-dong-san.rss",
+    "https://vietnamfinance.vn/nhan-vat.rss"
+  ]
+}

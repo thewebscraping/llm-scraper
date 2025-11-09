@@ -1,0 +1,44 @@
+{
+  "domain": "bongda24h.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://bongda24h.vn/RSS/189.rss",
+    "https://bongda24h.vn/RSS/286.rss",
+    "https://bongda24h.vn/RSS/292.rss",
+    "https://bongda24h.vn/RSS/193.rss",
+    "https://bongda24h.vn/RSS/344.rss",
+    "https://bongda24h.vn/RSS/372.rss",
+    "https://bongda24h.vn/RSS/488.rss",
+    "https://bongda24h.vn/RSS/188.rss",
+    "https://bongda24h.vn/RSS/1.rss",
+    "https://bongda24h.vn/RSS/197.rss",
+    "https://bongda24h.vn/RSS/278.rss",
+    "https://bongda24h.vn/RSS/180.rss",
+    "https://bongda24h.vn/RSS/489.rss",
+    "https://bongda24h.vn/RSS/279.rss",
+    "https://bongda24h.vn/RSS/10942.rss",
+    "https://bongda24h.vn/RSS/187.rss",
+    "https://bongda24h.vn/RSS/290.rss",
+    "https://bongda24h.vn/RSS/289.rss",
+    "https://bongda24h.vn/RSS/184.rss",
+    "https://bongda24h.vn/RSS/176.rss",
+    "https://bongda24h.vn/RSS/287.rss",
+    "https://bongda24h.vn/RSS/tdp.rss",
+    "https://bongda24h.vn/RSS/291.rss",
+    "https://bongda24h.vn/RSS/168.rss",
+    "https://bongda24h.vn/RSS/333.rss",
+    "https://bongda24h.vn/RSS/172.rss"
+  ],
+  "sitemaps": [
+    "https://bongda24h.vn/Sitemap_GoogleNews.xml"
+  ]
+}

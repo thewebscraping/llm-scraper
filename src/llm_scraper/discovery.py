@@ -109,11 +109,11 @@ async def discover_urls(
 
     async with httpx.AsyncClient(headers=headers, follow_redirects=True) as client:
         # 1. Prioritize manual lists from the config
-        manual_sitemaps = parser_config.manual_sitemaps
-        manual_rss_feeds = parser_config.manual_rss_feeds
+        sitemaps = parser_config.sitemaps
+        rss_feeds = parser_config.rss_feeds
 
-        if manual_sitemaps:
-            for sitemap_url in manual_sitemaps:
+        if sitemaps:
+            for sitemap_url in sitemaps:
                 try:
                     sitemap_response = await client.get(sitemap_url)
                     if sitemap_response.status_code == 200:
@@ -122,8 +122,8 @@ async def discover_urls(
                 except httpx.RequestError:
                     continue  # Ignore failed manual sitemap fetches
 
-        if manual_rss_feeds:
-            for feed_url in manual_rss_feeds:
+        if rss_feeds:
+            for feed_url in rss_feeds:
                 try:
                     feed_response = await client.get(feed_url)
                     if feed_response.status_code == 200:

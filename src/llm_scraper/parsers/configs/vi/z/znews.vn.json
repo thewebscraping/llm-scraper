@@ -1,0 +1,28 @@
+{
+  "domain": "znews.vn",
+  "lang": "vi",
+  "type": "article",
+  "title": {
+    "css_selector": "the-article-title",
+    "type": "text"
+  },
+  "content": {
+    "css_selector": "the-article-body",
+    "type": "html"
+  },
+  "main_points": {
+    "css_selector": "the-article-summary",
+    "type": "text"
+  },
+  "authors": {
+    "css_selector": [
+      "the-article-source-url",
+      "cms-source"
+    ],
+    "type": "text",
+    "all": true
+  },
+  "sitemaps": [
+    "https://znews.vn/sitemap/sitemap-news.xml"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "domain": "genk.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "genk_detail_b1"
+  ],
+  "rss_feeds": [
+    "https://genk.vn/rss/gia-dung.rss",
+    "https://genk.vn/rss/do-choi-so.rss",
+    "https://genk.vn/rss/apps-games.rss",
+    "https://genk.vn/rss/thu-thuat.rss",
+    "https://genk.vn/rss/tin-ict.rss",
+    "https://genk.vn/rss/xe.rss",
+    "https://genk.vn/rss/kham-pha.rss",
+    "https://genk.vn/rss/song.rss",
+    "https://genk.vn/rss/home.rss",
+    "https://genk.vn/rss/mobile.rss",
+    "https://genk.vn/rss/internet.rss",
+    "https://genk.vn/rss/xem-mua-luon.rss",
+    "https://genk.vn/rss/tra-da-cong-nghe.rss",
+    "https://genk.vn/rss/blockchain.rss"
+  ],
+  "sitemaps": [
+    "https://genk.vn/google-news-sitemap.xml"
+  ]
+}

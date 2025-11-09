@@ -1,0 +1,72 @@
+{
+  "domain": "cointelegraph.com",
+  "lang": "en",
+  "type": "article",
+  "title": {
+    "css_selector": [
+      "h1.post__title",
+      "h1.post-title",
+      "h1"
+    ],
+    "type": "text"
+  },
+  "description": {
+    "css_selector": [
+      ".post__lead",
+      ".post-lead"
+    ],
+    "type": "text"
+  },
+  "content": {
+    "css_selector": [
+      ".post-content",
+      ".post__content",
+      "article"
+    ],
+    "type": "html"
+  },
+  "authors": {
+    "css_selector": [
+      ".post-meta__author-name",
+      ".author-name",
+      "[rel='author']"
+    ],
+    "type": "text",
+    "all": true
+  },
+  "date_published": {
+    "css_selector": [
+      "time[datetime]",
+      ".post-meta__publish-date",
+      "meta[property='article:published_time']"
+    ],
+    "type": "text",
+    "attribute": "datetime"
+  },
+  "tags": {
+    "css_selector": [
+      "a[href*='/tags/']",
+      ".tags__item a",
+      ".post-tags a",
+      "a[rel='tag']"
+    ],
+    "type": "text",
+    "all": true
+  },
+  "follow_urls": {
+    "css_selector": [
+      "a.editors-choice-widget__link",
+      "a[data-testid='editors-choice-widget-article']"
+    ],
+    "type": "text",
+    "attribute": "href",
+    "all": true
+  },
+  "cleanup": [
+    ".ads-wrapper",
+    ".newsletter-form",
+    ".related-posts",
+    ".social-share",
+    ".popup"
+  ]
+}

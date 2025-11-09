@@ -1,0 +1,58 @@
+{
+  "domain": "cryptoslate.com",
+  "lang": "en",
+  "type": "article",
+  "title": {
+    "css_selector": [
+      "h1.single-post-title",
+      "h1.entry-title",
+      "h1"
+    ],
+    "type": "text"
+  },
+  "description": {
+    "css_selector": [
+      ".post-excerpt",
+      ".entry-summary"
+    ],
+    "type": "text"
+  },
+  "content": {
+    "css_selector": [
+      ".entry-content",
+      ".post-content",
+      "article"
+    ],
+    "type": "html"
+  },
+  "authors": {
+    "css_selector": [
+      ".author-name",
+      "[rel='author']"
+    ],
+    "type": "text",
+    "all": true
+  },
+  "date_published": {
+    "css_selector": [
+      "time[datetime]",
+      ".post-date",
+      "meta[property='article:published_time']"
+    ],
+    "type": "text"
+  },
+  "tags": {
+    "css_selector": [
+      ".post-tags a",
+      "a[rel='tag']"
+    ],
+    "type": "text",
+    "all": true
+  },
+  "cleanup": [
+    ".ads",
+    ".related-posts",
+    ".newsletter-box",
+    ".social-sharing"
+  ]
+}

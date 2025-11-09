@@ -1,0 +1,13 @@
+{
+  "domain": "baonghean.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  }
+}

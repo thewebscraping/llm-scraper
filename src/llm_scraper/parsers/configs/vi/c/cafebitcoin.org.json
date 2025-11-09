@@ -1,0 +1,18 @@
+{
+  "domain": "cafebitcoin.org",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "jegStickyHolder",
+    "code-block",
+    "code-block-default"
+  ]
+}

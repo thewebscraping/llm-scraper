@@ -1,0 +1,38 @@
+{
+  "domain": "vneconomy.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      ".detail__content",
+      ".detail-wrap"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://vneconomy.vn/tin-moi.rss",
+    "https://vneconomy.vn/dan-sinh.rss",
+    "https://vneconomy.vn/tieu-dung.rss",
+    "https://vneconomy.vn/kinh-te-so.rss",
+    "https://vneconomy.vn/kinh-te-the-gioi.rss",
+    "https://vneconomy.vn/thi-truong.rss",
+    "https://vneconomy.vn/chung-khoan.rss",
+    "https://vneconomy.vn/kinh-te-xanh.rss",
+    "https://vneconomy.vn/dau-tu.rss",
+    "https://vneconomy.vn/dia-oc.rss",
+    "https://vneconomy.vn/tieu-diem.rss",
+    "https://vneconomy.vn/dau-tu-ha-tang.rss",
+    "https://vneconomy.vn/cong-nghe-startup.rss",
+    "https://vneconomy.vn/nhip-cau-doanh-nghiep.rss",
+    "https://vneconomy.vn/multimedia.rss",
+    "https://vneconomy.vn/an-pham.rss",
+    "https://vneconomy.vn/tai-chinh.rss"
+  ],
+  "sitemaps": [
+    "https://vneconomy.vn/sitemap/google-news.xml"
+  ],
+  "main_points": {
+    "css_selector": ".detail__summary",
+    "type": "text"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "domain": "kenh14.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://kenh14.vn/musik.rss",
+    "https://kenh14.vn/rss/home.rss",
+    "https://kenh14.vn/doi-song.rss",
+    "https://kenh14.vn/xem-mua-luon.rss",
+    "https://kenh14.vn/sport.rss",
+    "https://kenh14.vn/xem-an-choi.rss",
+    "https://kenh14.vn/an-quay-di.rss",
+    "https://kenh14.vn/xa-hoi.rss",
+    "https://kenh14.vn/cine.rss",
+    "https://kenh14.vn/star.rss",
+    "https://kenh14.vn/hoc-duong.rss",
+    "https://kenh14.vn/beauty-fashion.rss",
+    "https://kenh14.vn/suc-khoe.rss",
+    "https://kenh14.vn/tek-life.rss",
+    "https://kenh14.vn/money-z.rss",
+    "https://kenh14.vn/the-gioi-do-day.rss"
+  ],
+  "sitemaps": [
+    "https://kenh14.vn/google-news-sitemap.xml"
+  ]
+}

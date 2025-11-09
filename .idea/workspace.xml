@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c9d40278-010e-4750-979d-224b27dae68d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.vscode/launch.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/json_configs_demo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/test_admin_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/test_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/test_wordpress_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/wordpress_detection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/en/B/bitcoinmagazine.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/en/C/coindesk.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/en/C/cointelegraph.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/en/C/crypto.news.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/en/C/cryptoslate.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/loader.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/normalize_configs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/A/baoangiang.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/B/baobinhphuoc.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/B/baobinhthuan.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/B/bongda.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/B/bongda24h.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/B/bongdaplus.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/C/cafebitcoin.org.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/C/cafebiz.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/C/cafef.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/C/cellphones.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/C/coin68.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/C/congngheviet.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/C/tapchibitcoin.io.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/D/baodanang.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/D/baodautu.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/D/dantri.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/D/danviet.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/D/didongviet.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/D/dienmayxanh.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/E/eva.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/G/baogialai.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/G/game8.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/G/gamek.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/G/genk.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/H/baohatinh.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/H/hellobacsi.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/H/hoanghamobile.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/I/icoviet.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/I/inhat.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/K/kenh14.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/K/khoahoc.tv.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/K/kienthuc.net.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/K/kinhtedothi.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/L/baolongan.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/L/lag.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/L/laodong.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/M/motgame.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/N/baonghean.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/N/nguoiduatin.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/N/nhandan.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/N/nld.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/N/nongnghiep.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/P/phunutoday.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/P/plo.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/Q/baoquangnam.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/Q/baoquangngai.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/Q/quantrimang.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/S/sggp.org.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/S/soha.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/S/spiderum.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/S/suckhoedoisong.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/baothuathienhue.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/blogtienao.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/tainghe.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/techz.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/thanhnien.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/thesaigontimes.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/thethao247.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/thethaovanhoa.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/thuvienphapluat.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/tienphong.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/tiki.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/tinmoi.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/tinnhanhchungkhoan.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/tinthethao.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/tintuconline.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/topaz.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/toplist.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/topzone.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/tuoitre.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/T/tuoitrethudo.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/vender.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/vietnamfinance.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/vietnamnet.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/vietstock.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/viettelstore.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/viettimes.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/vneconomy.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/vnexpress.net.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/vnreview.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/voh.com.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/vtcnews.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/V/vtv.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/Z/znews.vn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test_export_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/celery_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/celery_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/example.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_multi_json.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/example_multi_json.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/articles.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/articles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/cache.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/cache.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/models/html.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/models/markdown.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/models/meta.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/models/meta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/models/schema.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/models/schema.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/models/selector.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/models/selector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/parsers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/parsers/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/baoangiang.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/parsers/configs/vi/B/baoangiang.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/presets.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/presets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/scraper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/llm_scraper/vector_store.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/vector_store.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_articles.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_articles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uv.lock" beforeDir="false" afterPath="$PROJECT_DIR$/uv.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/worker.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_scraper/worker.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="35Df5NWzGpHXZVnx4EJIvofcOH8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c9d40278-010e-4750-979d-224b27dae68d" name="Changes" comment="" />
+      <created>1762649379908</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762649379908</updated>
+      <workItem from="1762649381876" duration="1260000" />
+      <workItem from="1762653757737" duration="636000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

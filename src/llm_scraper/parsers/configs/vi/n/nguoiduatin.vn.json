@@ -1,0 +1,29 @@
+{
+  "domain": "nguoiduatin.vn",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://www.nguoiduatin.vn/rss/the-thao.rss",
+    "https://www.nguoiduatin.vn/rss/video.rss",
+    "https://www.nguoiduatin.vn/rss/doi-song.rss",
+    "https://www.nguoiduatin.vn/rss/da-chieu.rss",
+    "https://www.nguoiduatin.vn/rss/phap-luat.rss",
+    "https://www.nguoiduatin.vn/rss/xa-hoi.rss",
+    "https://www.nguoiduatin.vn/rss/khong-nen-bo-lo.rss",
+    "https://www.nguoiduatin.vn/rss/kinh-te.rss",
+    "https://www.nguoiduatin.vn/trang-chu.rss",
+    "https://www.nguoiduatin.vn/rss/toan-canh.rss",
+    "https://www.nguoiduatin.vn/rss/infocus.rss"
+  ],
+  "sitemaps": [
+    "https://www.nguoiduatin.vn/google-news-sitemap.xml"
+  ]
+}

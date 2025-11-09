@@ -1,0 +1,24 @@
+{
+  "domain": "topaz.vn",
+  "lang": "vi",
+  "type": "article",
+  "title": {
+    "css_selector": "single-page-title",
+    "type": "text"
+  },
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "cleanup": [
+    "top-rank",
+    "number-top",
+    "sticky-after-content",
+    "sticky-heading",
+    "list-sticky-post"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "domain": "hellobacsi.com",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "sitemaps": [
+    "https://hellobacsi.com/sitemap/sitemap.xml"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "domain": "vnexpress.net",
+  "lang": "vi",
+  "type": "article",
+  "content": {
+    "css_selector": [
+      "article",
+      ".article-content",
+      ".content"
+    ],
+    "type": "html"
+  },
+  "rss_feeds": [
+    "https://vnexpress.net/rss/giai-tri.rss",
+    "https://vnexpress.net/rss/gia-dinh.rss",
+    "https://vnexpress.net/rss/giao-duc.rss",
+    "https://vnexpress.net/rss/the-gioi.rss",
+    "https://vnexpress.net/rss/y-kien.rss",
+    "https://vnexpress.net/rss/phap-luat.rss",
+    "https://vnexpress.net/rss/startup.rss",
+    "https://vnexpress.net/rss/tin-moi-nhat.rss",
+    "https://vnexpress.net/rss/so-hoa.rss",
+    "https://vnexpress.net/rss/tin-xem-nhieu.rss",
+    "https://vnexpress.net/rss/tin-noi-bat.rss",
+    "https://vnexpress.net/rss/khoa-hoc.rss",
+    "https://vnexpress.net/rss/kinh-doanh.rss",
+    "https://vnexpress.net/rss/du-lich.rss",
+    "https://vnexpress.net/rss/tam-su.rss",
+    "https://vnexpress.net/rss/cuoi.rss",
+    "https://vnexpress.net/rss/oto-xe-may.rss",
+    "https://vnexpress.net/rss/the-thao.rss",
+    "https://vnexpress.net/rss/thoi-su.rss",
+    "https://vnexpress.net/rss/suc-khoe.rss"
+  ],
+  "sitemaps": [
+    "https://vnexpress.net/google-news-sitemap.xml"
+  ]
+}
