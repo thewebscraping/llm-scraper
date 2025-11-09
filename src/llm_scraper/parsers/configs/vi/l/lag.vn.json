@@ -3,7 +3,21 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": "js-content-entity-body",
-    "type": "html"
-  }
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": "js-content-entity-body"
+  },
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ]
 }

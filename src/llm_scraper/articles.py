@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import Any, Dict, List, Optional
 from urllib.parse import urlparse
 
@@ -96,6 +96,22 @@ class ArticleMetadata(BaseModel):
     modified_at: Optional[datetime] = Field(default=None)
     inferred_source: Optional[str] = Field(default=None, description="Detected news source / publisher name")
     schema_org: Optional[Dict[str, Any]] = Field(default=None, description="Raw Schema.org JSON-LD data if available")
+
+    @field_validator("schema_org", mode="before")
+    @classmethod
+    def _normalize_schema_org(cls, v):
+        """Normalize schema_org to dict. If list, take first element."""
+        if v is None:
+            return v
+        if isinstance(v, list):
+            # If list, take first dict element
+            for item in v:
+                if isinstance(item, dict):
+                    return item
+            return None
+        if isinstance(v, dict):
+            return v
+        return None
 
 
 class QualitySignals(BaseModel):
@@ -319,14 +335,33 @@ class Article(BaseModel):
 
     @classmethod
     def from_html(
-        cls, html: str, url: HttpUrl, parser_config: Optional[ParserConfig] = None, **kwargs
+        cls, 
+        html: str, 
+        url: HttpUrl, 
+        parser_config: Optional[ParserConfig] = None, 
+        output_format: str = "markdown",
+        **kwargs
     ) -> "Article":
         """
         Factory method to create an Article from raw HTML.
         It uses the new parser system to extract metadata and content.
+        
+        Args:
+            html: Raw HTML string
+            url: Article URL
+            parser_config: Optional parser configuration
+            output_format: Output format for content ("markdown" or "html"), default "markdown"
+            **kwargs: Additional arguments passed to Article constructor
+            
+        Returns:
+            Article instance with extracted content
         """
         if not html or not html.strip():
             raise ArticleCreationError("Cannot create article from empty or invalid HTML.")
+
+        # Validate output_format
+        if output_format not in ("markdown", "html"):
+            raise ValueError(f"output_format must be 'markdown' or 'html', got: {output_format}")
 
         # --- Extract Metadata using the new get_metadata function ---
         response_meta = get_metadata(html)
@@ -337,6 +372,41 @@ class Article(BaseModel):
         if parser_config:
             parsed_data = get_parsed_data(html, parser_config, base_url=str(url))
             content = parsed_data.get("content", "")
+            
+            # If content is HTML (still contains tags), clean and convert
+            if content and ('<' in content or '>' in content):
+                from bs4 import BeautifulSoup
+                from llm_scraper.presets import COMMON_CLEANUP_SELECTORS
+                
+                content_soup = BeautifulSoup(content, "lxml")
+                
+                # Remove unwanted elements using common cleanup selectors
+                # Note: Global cleanup and per-field cleanup already applied in BaseParser
+                # This is just a final safety cleanup for any remaining unwanted elements
+                for selector in COMMON_CLEANUP_SELECTORS:
+                    try:
+                        for element in content_soup.select(selector):
+                            element.decompose()
+                    except Exception:
+                        pass  # Ignore selector errors
+                
+                # Convert to desired output format
+                if output_format == "markdown":
+                    # Convert cleaned HTML to Markdown
+                    from markdownify import markdownify as md
+                    content = md(
+                        str(content_soup), 
+                        heading_style="ATX", 
+                        strip=['script', 'style'],
+                        bullets='-'
+                    )
+                    # Clean up extra whitespace
+                    content = '\n'.join(line.strip() for line in content.split('\n') if line.strip())
+                else:
+                    # Extract plain text from cleaned HTML
+                    content = content_soup.get_text(separator=" ", strip=True)
+                    # Clean up whitespace
+                    content = ' '.join(content.split())
         else:
             # Fallback to a simple body extraction if no config is given
             try:

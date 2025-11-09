@@ -3,19 +3,32 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "sitemaps": [
     "https://tuoitrethudo.com.vn/newssitemap-site-1.xml",
     "https://tuoitrethudo.com.vn/sitemap-site-1.xml"
   ],
   "main_points": {
-    "css_selector": "article-detail-desc",
-    "type": "text"
-  }
+    "selector": "article-detail-desc"
+  },
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ]
 }

@@ -22,6 +22,7 @@ Complete documentation for the LLM Scraper library.
 - [Article Model](API_ARTICLE.md) - Article schema and methods
 - [Parser Configuration](API_PARSER.md) - ParserConfig reference
 - [Metadata Extraction](API_METADATA.md) - Meta tags and Schema.org
+ - Bulk Scraping & Pagination (summary): Sitemap/RSS modes now run asynchronously and return `task_id`; paginate results via `/scrapes/{task_id}` (limit <= 50). Article bodies are fetched individually using `/article/{id}`. Bulk modes require `X-System-Key` if `SYSTEM_SCRAPE_SECRET` is set.
 
 ### Guides
 - [Creating Domain Configs](GUIDE_DOMAIN_CONFIG.md) - Step-by-step config creation
@@ -347,3 +348,23 @@ See [GUIDE_DOMAIN_CONFIG.md](GUIDE_DOMAIN_CONFIG.md) for details.
 ## License
 
 MIT License - See [LICENSE](../LICENSE) for details.
+
+## Environment Variables (Quick Reference)
+
+Core Vector/RAG:
+- OPENAI_API_KEY
+- ASTRA_DB_APPLICATION_TOKEN
+- ASTRA_DB_API_ENDPOINT
+- ASTRA_DB_COLLECTION_NAME
+
+Bulk Scraping & Tasks:
+- REDIS_URL
+- SYSTEM_SCRAPE_SECRET (protect sitemap/rss modes via X-System-Key header)
+- SCRAPE_RESULT_TTL_DAYS (default 7)
+- SCRAPE_RESULT_MAX_FULL (cap storing full list payload)
+- MAX_CONCURRENT_SCRAPES (default 8)
+- SCRAPE_TIMEOUT_SECONDS (default 20)
+
+Hashing (cache URL keys):
+- LLM_SCRAPER_HASH_ALGO (md5|sha1|sha256|hmac-sha256)
+- LLM_SCRAPER_HASH_SECRET (required for hmac-sha256)

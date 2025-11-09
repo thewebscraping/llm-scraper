@@ -3,18 +3,29 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": "single-page-title",
-    "type": "text"
+    "selector": "single-page-title"
   },
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe",
     "top-rank",
     "number-top",
     "sticky-after-content",

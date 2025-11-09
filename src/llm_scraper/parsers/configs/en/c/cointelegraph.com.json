@@ -2,71 +2,73 @@
   "domain": "cointelegraph.com",
   "lang": "en",
   "type": "article",
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ],
   "title": {
-    "css_selector": [
+    "selector": [
       "h1.post__title",
       "h1.post-title",
       "h1"
-    ],
-    "type": "text"
+    ]
   },
   "description": {
-    "css_selector": [
+    "selector": [
       ".post__lead",
       ".post-lead"
-    ],
-    "type": "text"
+    ]
   },
   "content": {
-    "css_selector": [
+    "selector": [
       ".post-content",
       ".post__content",
       "article"
     ],
-    "type": "html"
+    "cleanup": [
+      ".ads-wrapper",
+      ".newsletter-form",
+      ".related-posts",
+      ".social-share",
+      ".popup",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ]
   },
   "authors": {
-    "css_selector": [
+    "selector": [
+      "//a[@rel='author']",
       ".post-meta__author-name",
-      ".author-name",
-      "[rel='author']"
+      ".author-name"
     ],
-    "type": "text",
     "all": true
   },
   "date_published": {
-    "css_selector": [
+    "selector": [
+      "//time[@datetime]/@datetime",
+      "//meta[@property='article:published_time']/@content",
       "time[datetime]",
-      ".post-meta__publish-date",
-      "meta[property='article:published_time']"
+      ".post-meta__publish-date"
     ],
-    "type": "text",
     "attribute": "datetime"
   },
   "tags": {
-    "css_selector": [
+    "selector": [
+      "//a[contains(@href, '/tags/')]",
       "a[href*='/tags/']",
       ".tags__item a",
-      ".post-tags a",
-      "a[rel='tag']"
+      ".post-tags a"
     ],
-    "type": "text",
     "all": true
   },
   "follow_urls": {
-    "css_selector": [
-      "a.editors-choice-widget__link",
-      "a[data-testid='editors-choice-widget-article']"
+    "selector": [
+      "//a[@data-testid='editors-choice-widget-article']/@href",
+      "a.editors-choice-widget__link"
     ],
-    "type": "text",
     "attribute": "href",
     "all": true
-  },
-  "cleanup": [
-    ".ads-wrapper",
-    ".newsletter-form",
-    ".related-posts",
-    ".social-share",
-    ".popup"
-  ]
+  }
 }

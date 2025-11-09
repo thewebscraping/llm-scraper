@@ -712,12 +712,12 @@ print(article.computed_reading_time)   # 0.03 minutes
 ### Example 2: From HTML with Config
 
 ```python
-import httpx
+import tls_requests
 from llm_scraper.articles import Article
 from llm_scraper.models.selector import ParserConfig
 
 # Fetch HTML
-response = httpx.get("https://example.com/article/123")
+response = tls_requests.get("https://example.com/article/123")
 html = response.text
 
 # Load domain config
@@ -802,12 +802,12 @@ print(f"Kept {len(articles)} high-quality articles")
 
 ```python
 from concurrent.futures import ThreadPoolExecutor
-import httpx
+import tls_requests
 
 def process_url(url: str) -> Article:
     """Fetch and parse article from URL."""
     try:
-        response = httpx.get(url, timeout=10)
+        response = tls_requests.get(url, timeout=10)
         response.raise_for_status()
         
         article = Article.from_html(

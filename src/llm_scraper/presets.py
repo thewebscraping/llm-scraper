@@ -137,7 +137,7 @@ TAGS_SELECTORS = [
 
 def _create_selector(selectors: list[str], all_matches: bool = False) -> ElementSelector:
     """Helper to create an ElementSelector from a prioritized list of CSS selectors."""
-    return ElementSelector(css_selector=selectors, all=all_matches)
+    return ElementSelector(selector=selectors, all=all_matches)
 
 
 # A generic, fallback configuration that tries common selectors.

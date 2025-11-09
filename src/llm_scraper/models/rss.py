@@ -4,7 +4,7 @@ import re
 from copy import copy
 from datetime import datetime
 from html import unescape
-from typing import Any, Union, Sequence, List, Self, TypeVar, ClassVar, Optional
+from typing import Union, Sequence, List, TypeVar, ClassVar, Optional
 
 from bs4 import BeautifulSoup, Tag
 from pydantic import ConfigDict, Field, model_validator

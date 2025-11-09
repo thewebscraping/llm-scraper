@@ -3,11 +3,19 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       ".detail__content",
       ".detail-wrap"
-    ],
-    "type": "html"
+    ]
   },
   "rss_feeds": [
     "https://vneconomy.vn/tin-moi.rss",
@@ -32,7 +40,12 @@
     "https://vneconomy.vn/sitemap/google-news.xml"
   ],
   "main_points": {
-    "css_selector": ".detail__summary",
-    "type": "text"
-  }
+    "selector": ".detail__summary"
+  },
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ]
 }

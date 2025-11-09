@@ -3,13 +3,25 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "maincontent",
       "main-content"
-    ],
-    "type": "html"
+    ]
   },
   "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe",
     "ck-cms-wiki-news-full",
     "vnn-template-noneditable",
     "ck-cms-insert-neww-group",

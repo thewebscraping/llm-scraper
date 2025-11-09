@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Union, Self
+from typing import Any, Dict, List, Optional, Union
 
 from bs4 import BeautifulSoup
 from pydantic import (
@@ -12,7 +12,6 @@ from pydantic import (
 )
 from .base import BaseModel, AliasGenerator
 from ..utils.normalization import normalize_datetime, normalize_list_str, normalize_str, normalize_url
-from ..exceptions import ParserError
 
 __all__ = (
     "MetaGEO",
@@ -323,7 +322,7 @@ class Meta(BaseMeta):
         if twitter_data:
             try:
                 data["twitter"] = TwitterCard.model_validate(twitter_data)
-            except:
+            except ValidationError:
                 pass
         
         # Clean up None values before validation
@@ -363,6 +362,22 @@ class ResponseMeta(BaseMeta):
     twitter_card: Optional[TwitterCard] = None
     canonical: Optional[HttpUrl] = None
     schema_org: Optional[Dict[str, Any]] = Field(default=None, description="Raw Schema.org JSON-LD data")
+
+    @field_validator("schema_org", mode="before")
+    @classmethod
+    def _normalize_schema_org(cls, v):
+        """Normalize schema_org to dict. If list, take first element."""
+        if v is None:
+            return v
+        if isinstance(v, list):
+            # If list, take first dict element
+            for item in v:
+                if isinstance(item, dict):
+                    return item
+            return None
+        if isinstance(v, dict):
+            return v
+        return None
 
     @field_validator("author", "title", "description", mode="before")
     @classmethod

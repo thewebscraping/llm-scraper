@@ -26,10 +26,13 @@ dependencies = [
     "honcho>=2.0.0",
     "httpx>=0.28.1",
     "lxml>=6.0.2",
+    "markdown>=3.10",
+    "markdownify>=1.2.0",
     "openai>=2.6.1",
     "pydantic>=2.12.3",
     "pydantic-settings[dotenv]>=2.11.0",
     "uvicorn>=0.38.0",
+    "wrapper-tls-requests>=1.1.6",
 ]
 
 [project.urls]

@@ -1,0 +1,64 @@
+{
+  "domain": "theblock.co",
+  "lang": "en",
+  "type": "article",
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ],
+  "title": {
+    "selector": [
+      "h1.article-title",
+      "h1.post-title",
+      "h1"
+    ]
+  },
+  "description": {
+    "selector": [
+      ".article-excerpt",
+      ".post-excerpt",
+      "meta[name='description']"
+    ]
+  },
+  "content": {
+    "selector": [
+      ".article-content",
+      ".post-content",
+      "article"
+    ],
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ]
+  },
+  "authors": {
+    "selector": [
+      "//a[@rel='author']",
+      ".author-name"
+    ],
+    "all": true
+  },
+  "date_published": {
+    "selector": [
+      "//time[@datetime]/@datetime",
+      "//meta[@property='article:published_time']/@content",
+      "time[datetime]"
+    ],
+    "attribute": "datetime"
+  },
+  "tags": {
+    "selector": [
+      "//a[@rel='tag']",
+      "//a[contains(@href, '/tag/')]",
+      ".post-tags a"
+    ],
+    "all": true
+  }
+}

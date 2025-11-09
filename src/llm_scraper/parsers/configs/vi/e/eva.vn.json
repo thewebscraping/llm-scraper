@@ -3,16 +3,23 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": "eva-title-art",
-    "type": "text"
+    "selector": "eva-title-art"
   },
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "eva-cont-art__info",
       "baiviet-container",
       "eva-cont-art"
-    ],
-    "type": "html"
+    ]
   },
   "rss_feeds": [
     "https://eva.vn/rss/rss.php/192",
@@ -38,10 +45,15 @@
     "https://eva.vn/sitemap-news.xml"
   ],
   "main_points": {
-    "css_selector": [
+    "selector": [
       "tuht_show",
       "eva-cont-art__sum"
-    ],
-    "type": "text"
-  }
+    ]
+  },
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ]
 }

@@ -3,18 +3,30 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": "article_title",
-    "type": "text"
+    "selector": "article_title"
   },
   "content": {
-    "css_selector": "content_detail_text",
-    "type": "html"
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": "content_detail_text"
   },
   "sitemaps": [
     "https://congngheviet.com/sitemap-news.xml"
   ],
   "main_points": {
-    "css_selector": "intro",
-    "type": "text"
-  }
+    "selector": "intro"
+  },
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ]
 }

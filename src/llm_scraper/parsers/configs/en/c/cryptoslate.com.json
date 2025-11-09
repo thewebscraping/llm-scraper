@@ -2,57 +2,69 @@
   "domain": "cryptoslate.com",
   "lang": "en",
   "type": "article",
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ],
   "title": {
-    "css_selector": [
+    "selector": [
       "h1.single-post-title",
       "h1.entry-title",
       "h1"
-    ],
-    "type": "text"
+    ]
   },
   "description": {
-    "css_selector": [
+    "selector": [
       ".post-excerpt",
       ".entry-summary"
-    ],
-    "type": "text"
+    ]
   },
   "content": {
-    "css_selector": [
+    "selector": [
+      "//article[@id='article']/div[3]",
+      "//article[@id='article']/div[normalize-space(@class)='post']",
+      "//article[@id='article']//div[@class='post ']",
+      "//article[@id='article']",
       ".entry-content",
-      ".post-content",
       "article"
     ],
-    "type": "html"
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".ad-container",
+      ".related-posts",
+      ".newsletter-box",
+      ".social-sharing",
+      ".post-bottom",
+      "a[href*='stake']",
+      "a[href*='/stake_']",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ]
   },
   "authors": {
-    "css_selector": [
-      ".author-name",
-      "[rel='author']"
+    "selector": [
+      "//a[@rel='author']",
+      ".author-name"
     ],
-    "type": "text",
     "all": true
   },
   "date_published": {
-    "css_selector": [
+    "selector": [
+      "//time[@datetime]/@datetime",
+      "//meta[@property='article:published_time']/@content",
       "time[datetime]",
-      ".post-date",
-      "meta[property='article:published_time']"
+      ".post-date"
     ],
-    "type": "text"
+    "attribute": "datetime"
   },
   "tags": {
-    "css_selector": [
-      ".post-tags a",
-      "a[rel='tag']"
+    "selector": [
+      "//a[@rel='tag']",
+      ".post-tags a"
     ],
-    "type": "text",
     "all": true
-  },
-  "cleanup": [
-    ".ads",
-    ".related-posts",
-    ".newsletter-box",
-    ".social-sharing"
-  ]
+  }
 }

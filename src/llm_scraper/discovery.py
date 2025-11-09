@@ -3,9 +3,9 @@ from __future__ import annotations
 import gzip
 import xml.etree.ElementTree as ET
 from typing import TYPE_CHECKING, List
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin
 
-import httpx
+import tls_requests
 from bs4 import BeautifulSoup
 
 if TYPE_CHECKING:
@@ -107,7 +107,7 @@ async def discover_urls(
     urls = set()
     headers = {"User-Agent": user_agent}
 
-    async with httpx.AsyncClient(headers=headers, follow_redirects=True) as client:
+    async with tls_requests.AsyncClient(headers=headers, follow_redirects=True) as client:
         # 1. Prioritize manual lists from the config
         sitemaps = parser_config.sitemaps
         rss_feeds = parser_config.rss_feeds
@@ -119,7 +119,7 @@ async def discover_urls(
                     if sitemap_response.status_code == 200:
                         for url in parse_sitemap(sitemap_response.content):
                             urls.add(url)
-                except httpx.RequestError:
+                except tls_requests.HTTPError:
                     continue  # Ignore failed manual sitemap fetches
 
         if rss_feeds:
@@ -129,7 +129,7 @@ async def discover_urls(
                     if feed_response.status_code == 200:
                         for url in parse_rss_feed(feed_response.content):
                             urls.add(url)
-                except httpx.RequestError:
+                except tls_requests.HTTPError:
                     continue  # Ignore failed manual feed fetches
 
         # If manual URLs were found, we can return them immediately.
@@ -149,9 +149,9 @@ async def discover_urls(
                         if sitemap_response.status_code == 200:
                             for url in parse_sitemap(sitemap_response.content):
                                 urls.add(url)
-                    except httpx.RequestError:
+                    except tls_requests.HTTPError:
                         continue
-        except httpx.RequestError:
+        except tls_requests.HTTPError:
             pass  # robots.txt might not exist
 
         # 3. Automatic discovery: Check homepage for RSS feeds
@@ -165,9 +165,9 @@ async def discover_urls(
                         if feed_response.status_code == 200:
                             for url in parse_rss_feed(feed_response.content):
                                 urls.add(url)
-                    except httpx.RequestError:
+                    except tls_requests.HTTPError:
                         continue
-        except httpx.RequestError:
+        except tls_requests.HTTPError:
             pass  # Homepage might be down
 
     return list(urls)

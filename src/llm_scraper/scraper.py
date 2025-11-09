@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import AsyncGenerator
 
-import httpx
+import tls_requests
 
 from .articles import Article
 from .cache import ScraperCache
@@ -34,7 +34,7 @@ class Scraper:
         self.parser_config = parser_config
         self.cache = cache
         self.user_agent = user_agent
-        self.http_client = httpx.AsyncClient(
+        self.http_client = tls_requests.AsyncClient(
             headers={"User-Agent": self.user_agent},
             follow_redirects=True,
             timeout=15.0,
@@ -75,12 +75,13 @@ class Scraper:
                 # Optionally, add to a failed queue for retrying later
                 continue
 
-    async def scrape_url(self, url: str) -> Article | None:
+    async def scrape_url(self, url: str, output_format: str = "markdown") -> Article | None:
         """
         Scrapes a single URL.
 
         Args:
             url: The URL to scrape.
+            output_format: Content format - "markdown" (default) or "html"
 
         Returns:
             An Article object if successful, otherwise None.
@@ -93,11 +94,12 @@ class Scraper:
             # Use the Article.from_html factory to parse the content
             article = Article.from_html(
                 html=html,
-                url=response.url, # Use the final URL after redirects
-                parser_config=self.parser_config
+                url=str(response.url), # Convert URL object to string
+                parser_config=self.parser_config,
+                output_format=output_format
             )
             return article
-        except httpx.HTTPStatusError as e:
+        except tls_requests.HTTPError as e:
             print(f"HTTP error {e.response.status_code} for {url}")
         except ArticleCreationError as e:
             print(f"Could not create article from {url}: {e}")

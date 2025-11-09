@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -7,16 +9,23 @@ class Settings(BaseSettings):
     It automatically loads variables from a .env file.
     """
 
-    # OpenAI Configuration
-    OPENAI_API_KEY: str = "YOUR_OPENAI_API_KEY_HERE"
+    # --- Vector Store Provider Configuration ---
+    EMBEDDING_PROVIDER: Literal["openai", "gemini"] = "openai"
+    VECTOR_DB_PROVIDER: Literal["astradb"] = "astradb"
+
+    # --- OpenAI Configuration ---
+    OPENAI_API_KEY: str | None = None
     OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
 
-    # AstraDB Configuration
-    ASTRA_DB_API_ENDPOINT: str = "YOUR_ASTRA_DB_API_ENDPOINT_HERE"
-    ASTRA_DB_APPLICATION_TOKEN: str = "YOUR_ASTRA_DB_APPLICATION_TOKEN_HERE"
+    # --- Google Gemini Configuration ---
+    GEMINI_API_KEY: str | None = None  # Optional, for when Gemini is implemented
+
+    # --- AstraDB Configuration ---
+    ASTRA_DB_API_ENDPOINT: str | None = None
+    ASTRA_DB_APPLICATION_TOKEN: str | None = None
     ASTRA_DB_COLLECTION_NAME: str = "llm_scraper_rag"
 
-    # Celery/Redis Configuration
+    # --- Celery/Redis Configuration ---
     REDIS_URL: str = "redis://localhost:6379/0"
 
     # Pydantic settings configuration

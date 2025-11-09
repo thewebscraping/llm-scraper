@@ -3,22 +3,34 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": "tdb-title-text",
-    "type": "text"
+    "selector": "tdb-title-text"
   },
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "tdb_single_content",
       "tdb-block-inner"
-    ],
-    "type": "html"
+    ]
   },
   "authors": {
-    "css_selector": "tdb-author-name",
-    "type": "text",
-    "all": true
+    "all": true,
+    "selector": "tdb-author-name"
   },
   "sitemaps": [
     "https://blogtienao.com/news-sitemap.xml"
+  ],
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
   ]
 }

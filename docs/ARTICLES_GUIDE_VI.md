@@ -712,12 +712,12 @@ print(article.computed_reading_time)   # 0.03 phút
 ### Ví dụ 2: Từ HTML với Config
 
 ```python
-import httpx
+import tls_requests
 from llm_scraper.articles import Article
 from llm_scraper.models.selector import ParserConfig
 
 # Fetch HTML
-response = httpx.get("https://vnexpress.net/bai-viet-123")
+response = tls_requests.get("https://vnexpress.net/bai-viet-123")
 html = response.text
 
 # Load config theo domain
@@ -802,12 +802,12 @@ print(f"Giữ lại {len(articles)} bài viết chất lượng cao")
 
 ```python
 from concurrent.futures import ThreadPoolExecutor
-import httpx
+import tls_requests
 
 def process_url(url: str) -> Article:
     """Fetch và parse bài viết từ URL."""
     try:
-        response = httpx.get(url, timeout=10)
+        response = tls_requests.get(url, timeout=10)
         response.raise_for_status()
         
         article = Article.from_html(

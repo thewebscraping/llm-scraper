@@ -3,20 +3,26 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "single_post_heading",
       "vst_detail"
-    ],
-    "type": "html"
+    ]
   },
   "main_points": {
-    "css_selector": "pHead",
-    "type": "text"
+    "selector": "pHead"
   },
   "authors": {
-    "css_selector": "pAuthor",
-    "type": "text",
-    "all": true
+    "all": true,
+    "selector": "pAuthor"
   },
   "rss_feeds": [
     "https://vietstock.vn/1329/dong-duong/kinh-te-nganh.rss",
@@ -66,5 +72,11 @@
     "https://vietstock.vn/4265/tai-chinh-ca-nhan/tieu-dung-va-cuoc-song.rss",
     "https://vietstock.vn/4309/the-gioi/tien-ky-thuat-so.rss",
     "https://vietstock.vn/4260/tai-chinh-ca-nhan/lam-chu-dong-tien.rss"
+  ],
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
   ]
 }

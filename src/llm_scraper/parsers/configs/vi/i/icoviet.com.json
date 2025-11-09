@@ -3,18 +3,29 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": "ai-title-post",
-    "type": "text"
+    "selector": "ai-title-post"
   },
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe",
     "duong_dan_breadcrumb",
     "ai-title-post",
     "essb_links",
