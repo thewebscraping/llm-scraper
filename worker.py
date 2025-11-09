@@ -9,13 +9,24 @@ from celery.schedules import crontab
 
 from celery_app import celery_app
 from llm_scraper import Article, ParserConfig, Scraper, ScraperCache
-from llm_scraper.vector_store import vector_store
+from llm_scraper.vectors import (
+    Document,
+    UpsertRequest,
+    VectorStoreEngine,
+)
+from llm_scraper.vectors.dbs.astradb import AstraDBAdapter
+from llm_scraper.vectors.embeddings.openai import OpenAIEmbeddingAdapter
 
 # --- Globals & Setup ---
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 SHARED_CACHE = ScraperCache()
 BATCH_SIZE = 20  # Process 20 articles at a time
+
+# Initialize the vector store engine for the worker
+VECTOR_STORE_ENGINE = VectorStoreEngine(
+    embedding_adapter=OpenAIEmbeddingAdapter(), db_adapter=AstraDBAdapter()
+)
 
 
 # --- Helper Function ---
@@ -75,7 +86,7 @@ def scrape_site_for_rag(self, domain: str):
         # Step 2: Process articles in batches
         for i in range(0, len(articles), BATCH_SIZE):
             batch = articles[i:i + BATCH_SIZE]
-            documents_to_upsert = []
+            documents_to_upsert: List[Document] = []
             
             log.info(f"[{self.request.id}] Processing batch {i//BATCH_SIZE + 1} with {len(batch)} articles.")
 
@@ -85,20 +96,23 @@ def scrape_site_for_rag(self, domain: str):
                     continue
 
                 for chunk in chunks:
-                    documents_to_upsert.append({
-                        "_id": f"{article.id}-chunk-{chunk.index}",
-                        "text": chunk.content,
-                        "title": article.title,
-                        "source_url": str(article.provenance.source_url),
-                        "domain": article.provenance.domain,
-                    })
+                    doc = Document(
+                        id=f"{article.id}-chunk-{chunk.index}",
+                        text=chunk.content,
+                        metadata={
+                            "title": article.title,
+                            "source_url": str(article.provenance.source_url),
+                            "domain": article.provenance.domain,
+                        },
+                    )
+                    documents_to_upsert.append(doc)
             
             if not documents_to_upsert:
                 continue
 
-            # Step 3: Upsert each batch to the vector store
-            vector_store.initialize_collection() # Ensure connection is alive
-            vector_store.upsert_documents(documents_to_upsert)
+            # Step 3: Upsert each batch to the vector store using the engine
+            upsert_request = UpsertRequest(documents=documents_to_upsert)
+            VECTOR_STORE_ENGINE.upsert(params=upsert_request)
             total_chunks_processed += len(documents_to_upsert)
             
             self.update_state(state='PROGRESS', meta={

@@ -10,7 +10,14 @@ from pydantic import BaseModel, HttpUrl
 
 from celery_app import celery_app
 from llm_scraper import GENERIC_CONFIG, Article, ParserConfig, Scraper, ScraperCache
-from llm_scraper.vector_store import vector_store
+from llm_scraper.vectors import (
+    Document,
+    SearchRequest,
+    UpsertRequest,
+    VectorStoreEngine,
+)
+from llm_scraper.vectors.dbs.astradb import AstraDBAdapter
+from llm_scraper.vectors.embeddings.openai import OpenAIEmbeddingAdapter
 from worker import scrape_site_for_rag
 
 # --- Globals ---
@@ -18,6 +25,11 @@ logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("scraper_api")
 SHARED_CACHE = ScraperCache()
 CONFIGS: Dict[str, ParserConfig] = {}
+
+# Initialize the vector store engine with concrete adapters
+VECTOR_STORE_ENGINE = VectorStoreEngine(
+    embedding_adapter=OpenAIEmbeddingAdapter(), db_adapter=AstraDBAdapter()
+)
 
 
 # --- FastAPI App Initialization ---
@@ -44,10 +56,10 @@ def startup_event():
                     log.info(f"Loaded config for '{domain}'")
             except (json.JSONDecodeError, KeyError):
                 continue
-    try:
-        vector_store.initialize_collection()
-    except Exception as e:
-        log.critical(f"CRITICAL: Failed to connect to AstraDB on startup. Error: {e}")
+    # The engine now handles initialization automatically upon instantiation.
+    # We can add a health check here if needed.
+    log.info("Vector store engine is initialized.")
+
 
 
 # --- API Request/Response Models ---
@@ -160,14 +172,17 @@ async def get_task_status(task_id: str):
 @app.post("/query", response_model=QueryResponse)
 async def query_rag_system(request: QueryRequest):
     """
-    Performs a similarity search against the AstraDB vector store.
+    Performs a similarity search against the vector store.
     """
     try:
-        results = vector_store.search(query_text=request.query, limit=request.limit)
+        search_params = SearchRequest(query=request.query, limit=request.limit)
+        results = VECTOR_STORE_ENGINE.search(params=search_params)
         return {"query": request.query, "results": results}
     except Exception as e:
         log.error(f"Failed to perform query '{request.query}': {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"An error occurred during the search: {e}")
+        raise HTTPException(
+            status_code=500, detail=f"An error occurred during the search: {e}"
+        )
 
 
 if __name__ == "__main__":
