@@ -8,17 +8,33 @@ This project uses a professional, scalable architecture with domain-specific par
 
 **[Complete Documentation →](docs/README.md)**
 
-- **[Selector Guide](docs/SELECTOR_GUIDE.md)** - Creating parser configurations
+- **[Selector Guide](docs/SELECTOR_GUIDE.md)** - Creating parser configurations with CSS and XPath
+- **[XPath Feature Guide](docs/XPATH_FEATURE.md)** - Advanced XPath selector usage
 - **[Article API](docs/API_ARTICLE.md)** - Article model reference
 - Quick examples and tutorials
 
 ## Core Features
 
-- **Config-Driven Parsing**: Define how to scrape any site using simple JSON configuration files
-- **Flexible Selectors**: Support for fallback chains, parent scoping, and per-selector attributes
-- **Rich Metadata**: Extracts OpenGraph, Schema.org, authors, dates, tags, and topics
-- **RAG-Ready**: Automatically chunks content with token estimation for LLM context windows
-- **Production-Ready**: Pydantic validation, error handling, deterministic UUIDs
+- **🎯 Dual Selector System**: Support for both CSS and XPath selectors with automatic detection
+- **🧹 3-Layer Cleanup Architecture**: Global, per-field, and safety cleanup for pristine content
+- **📝 Markdown Output**: Clean, structured markdown with preserved links and formatting
+- **⚙️ Config-Driven Parsing**: Define how to scrape any site using simple JSON configuration files
+- **🔄 Flexible Selectors**: Support for fallback chains, parent scoping, and per-selector attributes
+- **📊 Rich Metadata**: Extracts OpenGraph, Schema.org, authors, dates, tags, and topics
+- **🤖 RAG-Ready**: Automatically chunks content with token estimation for LLM context windows
+- **✅ Production-Ready**: Pydantic v2 validation, error handling, deterministic UUIDs
+
+## What's New in XPath Enhancement
+
+- **XPath Support**: Use powerful XPath expressions for precise element selection
+- **Automatic Type Detection**: Mix CSS and XPath selectors - the system auto-detects
+- **Attribute Extraction**: Direct attribute access via XPath (e.g., `//time[@datetime]/@datetime`)
+- **3-Layer Cleanup**:
+  1. Global cleanup (script, style, noscript, iframe)
+  2. Per-field cleanup (ads, sponsors, related posts)
+  3. Safety cleanup with preset selectors
+- **Markdown Output**: HTML → Clean HTML → Markdown workflow preserves structure
+- **90+ Migrated Configs**: All parser configs updated to new architecture
 
 ## Project Structure
 
@@ -62,6 +78,48 @@ This project uses a professional, scalable architecture with domain-specific par
     ```bash
     docker run -d -p 6379:6379 redis
     ```
+
+## Quick Start Examples
+
+### Test a Parser Config
+
+Validate article extraction from a fixture:
+
+```bash
+# Test with markdown output (default)
+python scripts/validate_article_fixture.py fixtures/en/c/cryptoslate.com.json
+
+# Test with HTML output
+python scripts/validate_article_fixture.py fixtures/en/c/crypto.news.json --format html
+```
+
+### Create a Fixture from URL
+
+Fetch HTML and create a test fixture:
+
+```bash
+python scripts/fetch_and_create_fixture.py https://crypto.news/article-slug/
+```
+
+### Batch Create Fixtures
+
+Process multiple URLs at once:
+
+```bash
+# From a file (one URL per line)
+python scripts/batch_create_fixtures.py urls.txt
+
+# From command line
+python scripts/batch_create_fixtures.py --urls https://site1.com/article https://site2.com/article
+```
+
+### Debug Site Structure
+
+Analyze HTML structure using preset selectors:
+
+```bash
+python scripts/debug_site_structure.py fixtures/en/c/domain.json
+```
 
 ## How to Run
 
@@ -107,3 +165,52 @@ honcho start
 -   **`POST /scrape-site`**: Trigger a background task to scrape an entire pre-configured site.
 -   **`GET /tasks/{task_id}`**: Check the status of a background task.
 -   **`POST /query`**: Perform a similarity search on the vectorized data in AstraDB.
+
+## Parser Configuration
+
+Parser configs support both CSS and XPath selectors with automatic type detection:
+
+```json
+{
+  "domain": "example.com",
+  "lang": "en",
+  "type": "article",
+  "cleanup": ["script", "style", "noscript", "iframe"],
+  "title": {
+    "selector": ["h1.article-title", "h1"]
+  },
+  "content": {
+    "selector": [
+      "//article[@id='main']/div[3]",
+      ".article-content",
+      "article"
+    ],
+    "cleanup": [
+      ".ads",
+      ".related-posts",
+      "[class*='sponsor']"
+    ]
+  },
+  "authors": {
+    "selector": ["//a[@rel='author']", ".author-name"],
+    "all": true
+  },
+  "date_published": {
+    "selector": ["//time[@datetime]/@datetime", "time[datetime]"],
+    "attribute": "datetime"
+  },
+  "tags": {
+    "selector": ["//a[@rel='tag']", ".tags a"],
+    "all": true
+  }
+}
+```
+
+**Key Features:**
+- **Selector fallback chains**: Try XPath first, fall back to CSS
+- **Global cleanup**: Remove script/style/iframe from entire page
+- **Per-field cleanup**: Remove ads/sponsors from specific fields
+- **Attribute extraction**: Get attribute values directly with XPath `@attr` syntax
+- **Multi-value extraction**: Use `"all": true` to extract all matches
+
+See [XPATH_FEATURE.md](XPATH_FEATURE.md) for detailed examples and best practices.
