@@ -75,12 +75,13 @@ class Scraper:
                 # Optionally, add to a failed queue for retrying later
                 continue
 
-    async def scrape_url(self, url: str) -> Article | None:
+    async def scrape_url(self, url: str, output_format: str = "markdown") -> Article | None:
         """
         Scrapes a single URL.
 
         Args:
             url: The URL to scrape.
+            output_format: Content format - "markdown" (default) or "html"
 
         Returns:
             An Article object if successful, otherwise None.
@@ -93,8 +94,9 @@ class Scraper:
             # Use the Article.from_html factory to parse the content
             article = Article.from_html(
                 html=html,
-                url=response.url, # Use the final URL after redirects
-                parser_config=self.parser_config
+                url=str(response.url), # Convert URL object to string
+                parser_config=self.parser_config,
+                output_format=output_format
             )
             return article
         except tls_requests.HTTPError as e:

@@ -53,6 +53,7 @@ def startup_event():
 # --- API Request/Response Models ---
 class ScrapeUrlRequest(BaseModel):
     url: HttpUrl
+    output_format: str = "markdown"  # "markdown" or "html"
 
 
 class ScrapeSiteRequest(BaseModel):
@@ -86,16 +87,37 @@ async def scrape_single_url(request: ScrapeUrlRequest):
     """
     Scrapes a single URL on-demand without storing it in the main RAG store.
     This is for quick, one-off extractions by users.
+    
+    Args:
+        url: The URL to scrape
+        output_format: Content format - "markdown" (default) or "html"
     """
+    # Validate output format
+    if request.output_format not in ("markdown", "html"):
+        raise HTTPException(
+            status_code=400, 
+            detail="output_format must be 'markdown' or 'html'"
+        )
+    
     domain = urlparse(str(request.url)).netloc
     parser_config = CONFIGS.get(domain, GENERIC_CONFIG)
-    log.info(f"Scraping URL: {request.url} using config for '{domain if parser_config != GENERIC_CONFIG else 'generic'}'")
+    log.info(
+        f"Scraping URL: {request.url} using config for "
+        f"'{domain if parser_config != GENERIC_CONFIG else 'generic'}' "
+        f"with output_format='{request.output_format}'"
+    )
 
     scraper = Scraper(parser_config=parser_config, cache=SHARED_CACHE)
     try:
-        article = await scraper.scrape_url(str(request.url))
+        article = await scraper.scrape_url(
+            str(request.url),
+            output_format=request.output_format
+        )
         if not article:
-            raise HTTPException(status_code=404, detail="Could not extract a valid article from the URL.")
+            raise HTTPException(
+                status_code=404, 
+                detail="Could not extract a valid article from the URL."
+            )
         return article
     finally:
         await scraper.close()

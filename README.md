@@ -161,10 +161,68 @@ honcho start
 
 ## API Usage
 
--   **`POST /scrape-url`**: Scrape a single URL on-demand.
--   **`POST /scrape-site`**: Trigger a background task to scrape an entire pre-configured site.
--   **`GET /tasks/{task_id}`**: Check the status of a background task.
--   **`POST /query`**: Perform a similarity search on the vectorized data in AstraDB.
+### Endpoints
+
+#### `POST /scrape-url`
+Scrape a single URL on-demand with optional output format.
+
+**Request Body:**
+```json
+{
+  "url": "https://example.com/article",
+  "output_format": "markdown"  // Optional: "markdown" (default) or "html"
+}
+```
+
+**Response:** Article object with extracted content in specified format
+
+**Example:**
+```bash
+curl -X POST "http://localhost:8000/scrape-url" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://crypto.news/article/", "output_format": "markdown"}'
+```
+
+#### `POST /scrape-site`
+Trigger a background task to scrape an entire pre-configured site.
+
+**Request Body:**
+```json
+{
+  "domain": "crypto.news"
+}
+```
+
+**Response:**
+```json
+{
+  "task_id": "abc-123",
+  "status_endpoint": "/tasks/abc-123"
+}
+```
+
+#### `GET /tasks/{task_id}`
+Check the status of a background task.
+
+**Response:**
+```json
+{
+  "task_id": "abc-123",
+  "status": "SUCCESS",
+  "result": {...}
+}
+```
+
+#### `POST /query`
+Perform a similarity search on the vectorized data in AstraDB.
+
+**Request Body:**
+```json
+{
+  "query": "What is blockchain?",
+  "limit": 5
+}
+```
 
 ## Parser Configuration
 
