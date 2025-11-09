@@ -1,10 +1,10 @@
 {
-  "domain": "cointelegraph.com",
+  "domain": "theblock.co",
   "lang": "en",
   "type": "article",
   "title": {
     "selector": [
-      "h1.post__title",
+      "h1.article-title",
       "h1.post-title",
       "h1"
     ],
@@ -12,15 +12,16 @@
   },
   "description": {
     "selector": [
-      ".post__lead",
-      ".post-lead"
+      ".article-excerpt",
+      ".post-excerpt",
+      "meta[name='description']"
     ],
     "type": "text"
   },
   "content": {
     "selector": [
+      ".article-content",
       ".post-content",
-      ".post__content",
       "article"
     ],
     "type": "html"
@@ -28,7 +29,6 @@
   "authors": {
     "selector": [
       "//a[@rel='author']",
-      ".post-meta__author-name",
       ".author-name"
     ],
     "type": "text",
@@ -38,36 +38,25 @@
     "selector": [
       "//time[@datetime]/@datetime",
       "//meta[@property='article:published_time']/@content",
-      "time[datetime]",
-      ".post-meta__publish-date"
+      "time[datetime]"
     ],
     "type": "text",
     "attribute": "datetime"
   },
   "tags": {
     "selector": [
-      "//a[contains(@href, '/tags/')]",
-      "a[href*='/tags/']",
-      ".tags__item a",
+      "//a[@rel='tag']",
+      "//a[contains(@href, '/tag/')]",
       ".post-tags a"
     ],
     "type": "text",
     "all": true
   },
-  "follow_urls": {
-    "selector": [
-      "//a[@data-testid='editors-choice-widget-article']/@href",
-      "a.editors-choice-widget__link"
-    ],
-    "type": "text",
-    "attribute": "href",
-    "all": true
-  },
   "cleanup": [
-    ".ads-wrapper",
-    ".newsletter-form",
+    ".ads",
+    ".advertisement",
     ".related-posts",
-    ".social-share",
-    ".popup"
+    ".newsletter",
+    ".social-share"
   ]
 }

@@ -40,16 +40,31 @@ class BaseParser:
         self._run_cleanup()
 
     def _run_cleanup(self):
-        """Remove unwanted elements from the soup before parsing."""
+        """Remove unwanted elements from the soup before parsing (global cleanup)."""
         if not self.config.cleanup:
             return
         for selector in self.config.cleanup:
             try:
-                # Cleanup only supports CSS selectors for now
-                for tag in self.soup.select(selector):
-                    tag.decompose()
-            except Exception:
-                # Ignore errors during cleanup
+                # Detect selector type
+                sel_type = self._detect_selector_type(selector, SelectorType.AUTO)
+                
+                if sel_type == SelectorType.CSS:
+                    # CSS cleanup using BeautifulSoup
+                    for tag in self.soup.select(selector):
+                        tag.decompose()
+                else:
+                    # XPath cleanup using lxml tree
+                    if self.tree is not None:
+                        for element in self.tree.xpath(selector):
+                            parent = element.getparent()
+                            if parent is not None:
+                                parent.remove(element)
+                        # Update soup from modified tree
+                        html_string = etree.tostring(self.tree, encoding='unicode', method='html')
+                        self.soup = BeautifulSoup(html_string, 'lxml')
+            except Exception as e:
+                # Ignore errors during cleanup but log warning
+                print(f"Warning: Failed to apply global cleanup selector '{selector}': {e}")
                 pass
 
     @staticmethod
@@ -295,6 +310,41 @@ class BaseParser:
 
         results = []
         for el, specific_attribute, is_lxml in elements:
+            # Apply cleanup selectors if specified (per-field cleanup)
+            if selector.cleanup:
+                # Convert lxml element to BeautifulSoup for consistent cleanup
+                if is_lxml:
+                    from lxml import etree
+                    html_str = etree.tostring(el, encoding='unicode', method='html')
+                    el = BeautifulSoup(html_str, 'lxml')
+                    # Get the first actual element (skip <html><body> wrappers)
+                    el = el.find()
+                    is_lxml = False
+                
+                # Apply cleanup selectors (support both CSS and XPath)
+                for cleanup_sel in selector.cleanup:
+                    try:
+                        cleanup_type = self._detect_selector_type(cleanup_sel, SelectorType.AUTO)
+                        
+                        if cleanup_type == SelectorType.CSS:
+                            # CSS cleanup using BeautifulSoup (simple and reliable)
+                            for unwanted in el.select(cleanup_sel):
+                                unwanted.decompose()
+                        else:
+                            # XPath cleanup - convert to lxml, clean, convert back
+                            from lxml import html as lxml_html, etree
+                            html_str = str(el)
+                            tree = lxml_html.fromstring(html_str)
+                            for unwanted in tree.xpath(cleanup_sel):
+                                parent = unwanted.getparent()
+                                if parent is not None:
+                                    parent.remove(unwanted)
+                            # Convert back to BeautifulSoup
+                            html_str = etree.tostring(tree, encoding='unicode', method='html')
+                            el = BeautifulSoup(html_str, 'lxml').find()
+                    except Exception as e:
+                        print(f"Warning: Failed to apply per-field cleanup selector '{cleanup_sel}': {e}")
+            
             # Determine which attribute to use (specific > selector-level)
             attr_to_extract = specific_attribute or selector.attribute
             

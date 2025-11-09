@@ -364,6 +364,22 @@ class ResponseMeta(BaseMeta):
     canonical: Optional[HttpUrl] = None
     schema_org: Optional[Dict[str, Any]] = Field(default=None, description="Raw Schema.org JSON-LD data")
 
+    @field_validator("schema_org", mode="before")
+    @classmethod
+    def _normalize_schema_org(cls, v):
+        """Normalize schema_org to dict. If list, take first element."""
+        if v is None:
+            return v
+        if isinstance(v, list):
+            # If list, take first dict element
+            for item in v:
+                if isinstance(item, dict):
+                    return item
+            return None
+        if isinstance(v, dict):
+            return v
+        return None
+
     @field_validator("author", "title", "description", mode="before")
     @classmethod
     def _strip_text(cls, v):

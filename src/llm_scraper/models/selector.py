@@ -52,6 +52,7 @@ class ElementSelector(BaseModel):
     Declarative model for HTML data extraction with CSS and XPath support.
     
     Supports mixing CSS selectors and XPath expressions in fallback chains.
+    Each selector can have its own cleanup rules for targeted element removal.
     """
     selector: Union[str, List[Union[str, Dict[str, Any]]]] = Field(
         description="Selector(s) - can be:\n"
@@ -70,6 +71,11 @@ class ElementSelector(BaseModel):
     all: bool = Field(
         default=False, 
         description="If true, find all matching elements and return a list"
+    )
+    cleanup: Optional[List[str]] = Field(
+        default=None,
+        description="CSS/XPath selectors to remove from extracted element before processing. "
+                    "Useful for content field to remove ads, related posts, etc."
     )
 
 

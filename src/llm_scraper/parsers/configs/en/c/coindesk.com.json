@@ -3,7 +3,7 @@
   "lang": "en",
   "type": "article",
   "title": {
-    "css_selector": [
+    "selector": [
       "h1.article-hero-headline",
       "h1.headline",
       "h1"
@@ -11,14 +11,15 @@
     "type": "text"
   },
   "description": {
-    "css_selector": [
+    "selector": [
       ".article-hero-desc",
       ".at-subheadline"
     ],
     "type": "text"
   },
   "content": {
-    "css_selector": [
+    "selector": [
+      "//main",
       ".article-body",
       ".at-content",
       "article"
@@ -26,27 +27,29 @@
     "type": "html"
   },
   "authors": {
-    "css_selector": [
+    "selector": [
+      "//a[@rel='author']",
       ".at-authors a",
-      ".article-hero-authors a",
-      "[rel='author']"
+      ".article-hero-authors a"
     ],
     "type": "text",
     "all": true
   },
   "date_published": {
-    "css_selector": [
+    "selector": [
+      "//time[@datetime]/@datetime",
+      "//meta[@property='article:published_time']/@content",
       "time[datetime]",
-      ".at-created",
-      "meta[property='article:published_time']"
+      ".at-created"
     ],
-    "type": "text"
+    "type": "text",
+    "attribute": "datetime"
   },
   "tags": {
-    "css_selector": [
+    "selector": [
+      "//a[@rel='tag']",
       ".at-tags a",
-      ".article-tags a",
-      "a[rel='tag']"
+      ".article-tags a"
     ],
     "type": "text",
     "all": true

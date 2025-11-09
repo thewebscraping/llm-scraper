@@ -57,13 +57,22 @@ def load_parser_config(domain: str) -> ParserConfig | None:
 
 def main(argv: list[str]) -> int:
     if len(argv) < 2:
-        print("Usage: validate_article_fixture.py <fixture.json>")
+        print("Usage: validate_article_fixture.py <fixture.json> [--format markdown|html]")
         return 64
 
     fixture_path = Path(argv[1])
     if not fixture_path.exists():
         print(f"❌ Fixture not found: {fixture_path}")
         return 66
+    
+    # Parse output format argument
+    output_format = "markdown"  # default
+    if len(argv) > 2 and argv[2] in ("--format", "-f"):
+        if len(argv) > 3 and argv[3] in ("markdown", "html"):
+            output_format = argv[3]
+        else:
+            print("❌ Invalid format. Use 'markdown' or 'html'")
+            return 64
 
     data = load_fixture(fixture_path)
     url = data.get("url")
@@ -83,6 +92,7 @@ def main(argv: list[str]) -> int:
         parser_config = load_parser_config(domain)
         if parser_config:
             print(f"✅ Loaded parser config for {domain}")
+            print(f"   - Output format: {output_format}")
             if parser_config.tags:
                 print(f"   - Tags selector: {parser_config.tags}")
             if parser_config.topics:
@@ -91,7 +101,12 @@ def main(argv: list[str]) -> int:
             print(f"⚠️ No parser config found for {domain}, using default extraction")
 
     try:
-        article = Article.from_html(html=raw_html, url=HttpUrl(url), parser_config=parser_config)
+        article = Article.from_html(
+            html=raw_html, 
+            url=HttpUrl(url), 
+            parser_config=parser_config,
+            output_format=output_format
+        )
     except ArticleCreationError as e:
         print(f"❌ Article creation error: {e}")
         return 70
@@ -175,6 +190,27 @@ def main(argv: list[str]) -> int:
         if len(desc) > 80:
             desc = desc[:77] + "..."
         print(f"- Description:  {desc}")
+
+    # Content body preview (5-10 words from start and end)
+    if article.content:
+        print(f"\n📄 Content Body Preview")
+        print("=" * 50)
+        
+        # Get full content
+        content = article.content
+        words = content.split()
+        total_words = len(words)
+        
+        # Show first 10 words
+        first_words = ' '.join(words[:10]) if len(words) >= 10 else ' '.join(words)
+        
+        # Show last 10 words
+        last_words = ' '.join(words[-10:]) if len(words) >= 10 else ''
+        
+        print(f"- Total words:  {total_words}")
+        print(f"- First 10:     {first_words}...")
+        if last_words:
+            print(f"- Last 10:      ...{last_words}")
 
     return 0
 
