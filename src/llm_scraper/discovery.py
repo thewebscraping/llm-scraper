@@ -3,7 +3,7 @@ from __future__ import annotations
 import gzip
 import xml.etree.ElementTree as ET
 from typing import TYPE_CHECKING, List
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin
 
 import tls_requests
 from bs4 import BeautifulSoup

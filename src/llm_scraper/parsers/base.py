@@ -5,10 +5,8 @@ from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 from lxml import etree, html as lxml_html
-from pydantic import ValidationError
 
 from ..models.meta import ResponseMeta
-from ..models.schema import SchemaJsonLD
 from ..models.selector import ElementSelector, ParserConfig, SelectorType
 
 

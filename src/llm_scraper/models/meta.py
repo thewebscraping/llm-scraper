@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Union, Self
+from typing import Any, Dict, List, Optional, Union
 
 from bs4 import BeautifulSoup
 from pydantic import (
@@ -12,7 +12,6 @@ from pydantic import (
 )
 from .base import BaseModel, AliasGenerator
 from ..utils.normalization import normalize_datetime, normalize_list_str, normalize_str, normalize_url
-from ..exceptions import ParserError
 
 __all__ = (
     "MetaGEO",
@@ -323,7 +322,7 @@ class Meta(BaseMeta):
         if twitter_data:
             try:
                 data["twitter"] = TwitterCard.model_validate(twitter_data)
-            except:
+            except ValidationError:
                 pass
         
         # Clean up None values before validation

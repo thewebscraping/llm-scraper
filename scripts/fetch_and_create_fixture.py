@@ -94,7 +94,7 @@ def create_fixture(url: str, html: str, lang: str = "en") -> Path:
         "raw_html": html
     }
     
-    print(f"\n💾 Creating fixture:")
+    print("\n💾 Creating fixture:")
     print(f"   Domain: {domain}")
     print(f"   Path: {fixture_path}")
     
@@ -119,7 +119,7 @@ def check_parser_config(domain: str, lang: str = "en") -> bool:
         # Show selector info
         try:
             config_data = json.loads(config_path.read_text())
-            print(f"   Configured fields:")
+            print("   Configured fields:")
             for field in ['title', 'description', 'content', 'authors', 'date_published', 'tags']:
                 if field in config_data:
                     selector_field = config_data[field].get('selector', config_data[field].get('css_selector', []))
@@ -131,7 +131,7 @@ def check_parser_config(domain: str, lang: str = "en") -> bool:
         return True
     else:
         print(f"\n⚠️  No parser config found: {config_path}")
-        print(f"   You may need to create one for optimal extraction.")
+        print("   You may need to create one for optimal extraction.")
         return False
 
 
@@ -141,22 +141,22 @@ def suggest_next_steps(fixture_path: Path, has_config: bool):
     print("📋 Next Steps:")
     print("=" * 60)
     
-    print(f"\n1. Validate the fixture:")
+    print("\n1. Validate the fixture:")
     print(f"   python scripts/validate_article_fixture.py {fixture_path}")
     
     if not has_config:
         domain = fixture_path.stem  # filename without extension
         first_char = domain[0].lower()
         config_path = f"src/llm_scraper/parsers/configs/en/{first_char}/{domain}.json"
-        print(f"\n2. Create parser config (recommended):")
+        print("\n2. Create parser config (recommended):")
         print(f"   Edit: {config_path}")
-        print(f"   Use XPath selectors for better precision!")
+        print("   Use XPath selectors for better precision!")
     
-    print(f"\n3. Test extraction and iterate:")
-    print(f"   - Run validation script")
-    print(f"   - Check extracted fields (title, content, tags, etc.)")
-    print(f"   - Update parser config if needed")
-    print(f"   - Re-run validation")
+    print("\n3. Test extraction and iterate:")
+    print("   - Run validation script")
+    print("   - Check extracted fields (title, content, tags, etc.)")
+    print("   - Update parser config if needed")
+    print("   - Re-run validation")
     
     print("\n💡 Tips:")
     print("   - Use XPath for attribute-based selection: //time[@datetime]/@datetime")

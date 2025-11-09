@@ -125,11 +125,11 @@ def main(argv: list[str]) -> int:
         if "tags" in parsed_data:
             print(f"- Tags extracted: {parsed_data['tags']}")
         else:
-            print(f"- Tags extracted: None (selector didn't match)")
+            print("- Tags extracted: None (selector didn't match)")
         if "topics" in parsed_data:
             print(f"- Topics extracted: {parsed_data['topics']}")
         else:
-            print(f"- Topics extracted: None (selector didn't match)")
+            print("- Topics extracted: None (selector didn't match)")
         if "authors" in parsed_data:
             print(f"- Authors extracted: {parsed_data['authors']}")
         if "date_published" in parsed_data:
@@ -173,7 +173,7 @@ def main(argv: list[str]) -> int:
         schema_str = json.dumps(article.metadata.schema_org, indent=2, default=str)
         if len(schema_str) > 500:
             schema_str = schema_str[:497] + "..."
-        print(f"\n📋 Schema.org Data")
+        print("\n📋 Schema.org Data")
         print("=" * 50)
         print(schema_str)
     
@@ -193,7 +193,7 @@ def main(argv: list[str]) -> int:
 
     # Content body preview (5-10 words from start and end)
     if article.content:
-        print(f"\n📄 Content Body Preview")
+        print("\n📄 Content Body Preview")
         print("=" * 50)
         
         # Get full content

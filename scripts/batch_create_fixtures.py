@@ -231,7 +231,7 @@ def process_url(url: str, lang: str = "en", max_retries: int = 3) -> bool:
     # Create fixture
     fixture_path = create_fixture(url, html, lang)
     if fixture_path is None:
-        print(f"❌ Failed to create fixture - SKIPPING")
+        print("❌ Failed to create fixture - SKIPPING")
         return False
     
     print(f"✅ Fixture: {fixture_path}")
