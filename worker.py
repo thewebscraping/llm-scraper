@@ -465,6 +465,188 @@ def scrape_site_for_rag(
         asyncio.run(scraper.close())
 
 
+@shared_task(bind=True)
+def scrape_follow_urls_for_rag(self: Task, domain: str, output_format: Literal["markdown", "html"] = "markdown"):
+    """SYSTEM task that discovers article URLs from a site's configurable follow_urls selectors then scrapes them.
+
+    This is intended for sites without sitemap/rss definitions. It loads the parser config, fetches the domain root
+    (or optional discovery URL), extracts candidate article links via the follow_urls selectors, then scrapes each
+    discovered URL individually, chunking and upserting into the vector store like the main RAG scraper.
+
+    Environment variables:
+        FOLLOW_URLS_MAX (int): Cap number of discovered links per run. Default 25.
+        FOLLOW_URLS_DISCOVERY_TIMEOUT (int): Seconds timeout for discovery fetch. Default 15.
+        FOLLOW_URLS_INTERVAL_CRON (str): Cron expression used by beat (handled in scheduler). Default every 30 min.
+    """
+    log.info(f"[{self.request.id}] Starting FOLLOW_URLS scrape for domain: {domain}")
+    self.update_state(state="PROGRESS", meta={"current_step": "Loading configuration"})
+
+    parser_config = load_parser_config(domain)
+    if not parser_config:
+        raise ValueError(f"Configuration for domain '{domain}' not found – cannot follow URLs.")
+
+    follow_cfg = getattr(parser_config, "follow_urls", None) or {}
+    selectors: list[str] = follow_cfg.get("selector", []) if isinstance(follow_cfg, dict) else []
+    attr: str | None = follow_cfg.get("attribute") if isinstance(follow_cfg, dict) else None
+    allow_all: bool = bool(follow_cfg.get("all")) if isinstance(follow_cfg, dict) else True
+    if not selectors:
+        raise ValueError(f"Parser config for '{domain}' has no follow_urls selectors.")
+
+    # Build discovery URL (can override later if config provides discovery_url)
+    discovery_url = f"https://{domain}/"
+    if isinstance(follow_cfg, dict) and follow_cfg.get("discovery_url"):
+        discovery_url = follow_cfg["discovery_url"]
+
+    import tls_requests
+    from bs4 import BeautifulSoup  # lightweight HTML parse for link extraction
+
+    max_links_env = os.getenv("FOLLOW_URLS_MAX", "25")
+    try:
+        max_links = max(1, int(max_links_env))
+    except Exception:
+        max_links = 25
+    discovery_timeout_env = os.getenv("FOLLOW_URLS_DISCOVERY_TIMEOUT", "15")
+    try:
+        discovery_timeout = int(discovery_timeout_env)
+    except Exception:
+        discovery_timeout = 15
+
+    scraper = Scraper(parser_config=parser_config, cache=SHARED_CACHE)
+    discovered: list[str] = []
+    self.update_state(state="PROGRESS", meta={"current_step": f"Fetching discovery URL {discovery_url}"})
+    try:
+        async def fetch_and_extract():
+            async with tls_requests.AsyncClient(follow_redirects=True, timeout=discovery_timeout) as client:
+                resp = await client.get(discovery_url)
+                resp.raise_for_status()
+                soup = BeautifulSoup(resp.text, "lxml")
+                # Evaluate selectors (CSS and XPath support heuristics). We only implement simple CSS here; XPath will be handled via lxml.
+                from lxml import html as lxml_html
+                tree = lxml_html.fromstring(resp.text)
+                seen = set()
+                for sel in selectors:
+                    try:
+                        if sel.startswith("//"):
+                            # XPath
+                            nodes = tree.xpath(sel)
+                        else:
+                            # CSS via BeautifulSoup
+                            nodes = soup.select(sel)
+                        for node in nodes:
+                            href = None
+                            if isinstance(node, str):
+                                continue
+                            if hasattr(node, "get"):
+                                # BeautifulSoup Tag
+                                if attr:
+                                    href = node.get(attr)
+                                else:
+                                    href = node.get("href")
+                            else:
+                                # lxml node
+                                if attr:
+                                    href = node.get(attr)
+                                else:
+                                    href = node.get("href")
+                            if not href:
+                                continue
+                            if href.startswith("/"):
+                                href = f"https://{domain}{href}"
+                            # Basic filter to keep same domain
+                            if urlparse(href).netloc and urlparse(href).netloc not in {domain, f"www.{domain}"}:
+                                continue
+                            if href not in seen:
+                                seen.add(href)
+                                discovered.append(href)
+                            if not allow_all and len(discovered) >= max_links:
+                                break
+                        if not allow_all and len(discovered) >= max_links:
+                            break
+                    except Exception as e:
+                        log.debug(f"Selector '{sel}' extraction issue for {domain}: {e}")
+                return discovered
+        discovered = asyncio.run(fetch_and_extract())
+    except Exception as e:
+        asyncio.run(scraper.close())
+        raise RuntimeError(f"Failed discovery for {domain}: {e}")
+
+    if not discovered:
+        asyncio.run(scraper.close())
+        return f"No follow_urls discovered for {domain}."
+
+    # Cap to max_links regardless of allow_all to avoid runaway tasks
+    if len(discovered) > max_links:
+        discovered = discovered[:max_links]
+
+    self.update_state(state="PROGRESS", meta={"current_step": f"Scraping {len(discovered)} discovered URLs"})
+
+    articles: list[Article] = []
+    failures: list[dict] = []
+    sem = asyncio.Semaphore(max(1, min(MAX_CONCURRENT_SCRAPES, len(discovered))))
+
+    async def scrape_one(u: str):
+        async with sem:
+            try:
+                art = await asyncio.wait_for(
+                    scraper.scrape_url(u, output_format=output_format),
+                    timeout=PER_SCRAPE_TIMEOUT,
+                )
+                return art, None
+            except Exception as e:
+                status = getattr(getattr(e, "response", None), "status_code", None)
+                return None, {"url": u, "error": str(e), "status": status}
+
+    results = asyncio.run(asyncio.gather(*(scrape_one(u) for u in discovered), return_exceptions=False))
+    for art, err in results:
+        if art:
+            articles.append(art)
+        elif err:
+            failures.append(err)
+
+    if not articles:
+        asyncio.run(scraper.close())
+        return f"No articles scraped from discovered links for {domain}. Failures={len(failures)}"
+
+    # Chunk & upsert like main RAG task
+    total_chunks = 0
+    documents: list[Document] = []
+    for article in articles:
+        chunks = article.chunk_by_token_estimate(max_tokens=512, overlap_tokens=50)
+        for chunk in chunks:
+            documents.append(
+                Document(
+                    id=f"{article.id}-chunk-{chunk.index}",
+                    text=chunk.content,
+                    metadata={
+                        "title": article.title,
+                        "source_url": str(article.provenance.source_url),
+                        "domain": article.provenance.domain,
+                        "follow_urls": True,
+                    },
+                )
+            )
+        total_chunks += len(chunks)
+
+    try:
+        engine = get_vector_store_engine()
+        engine.upsert(UpsertRequest(documents=documents))
+    except Exception as e:
+        log.error(f"Vector store upsert failed for follow_urls {domain}: {e}")
+
+    RESULTS_CACHE.save_task_stats(
+        self.request.id,
+        {
+            "articles_found": len(articles),
+            "chunks": total_chunks,
+            "failures": failures,
+            "discovered_count": len(discovered),
+        },
+        ttl_days=float(os.getenv("SCRAPE_RESULT_TTL_DAYS", "7")),
+    )
+
+    asyncio.run(scraper.close())
+    return f"Discovered {len(discovered)} links, scraped {len(articles)} articles ({total_chunks} chunks) for {domain}."
+
 # --- Celery Beat (Scheduler) Configuration ---
 @celery_app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
@@ -512,6 +694,23 @@ def setup_periodic_tasks(sender, **kwargs):
                     name=f"scrape-rss-{domain}",
                 )
                 log.info(f"Scheduled RSS task for '{domain}' to run every 15 minutes.")
+
+            # Follow URLs periodic task (for domains lacking sitemap/rss but with follow_urls selectors)
+            if (
+                not config_data.get("sitemap_url")
+                and not config_data.get("rss_url")
+                and config_data.get("follow_urls")
+            ):
+                follow_cron = os.getenv("FOLLOW_URLS_INTERVAL_CRON", "*/30")  # every 30 minutes by default
+                # Interpret follow_cron as minute pattern only for simplicity, e.g. '*/30'
+                sender.add_periodic_task(
+                    crontab(minute=follow_cron),
+                    scrape_follow_urls_for_rag.s(domain=domain),
+                    name=f"scrape-follow-urls-{domain}",
+                )
+                log.info(
+                    f"Scheduled follow_urls task for '{domain}' with minute pattern '{follow_cron}'."
+                )
 
         except (json.JSONDecodeError, KeyError) as e:
             log.error(
