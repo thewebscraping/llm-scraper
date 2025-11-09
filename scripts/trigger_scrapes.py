@@ -53,31 +53,50 @@ def main():
         if target and target not in {domain, f"www.{domain}"}:
             continue
 
+        # Extract lang and alphabet_folder names from path: {lang}/{alphabet_folder}/{site}.json
+        parts = cfg.relative_to(config_dir).parts
+        lang = parts[0] if len(parts) > 2 else None
+        alphabet_folder = parts[1] if len(parts) > 2 else None
+
         # sitemap
         if data.get("sitemap_url"):
             app.send_task(
                 "worker.scrape_site_for_rag",
-                kwargs={"url": data["sitemap_url"], "mode": "sitemap"},
+                kwargs={
+                    "url": data["sitemap_url"],
+                    "mode": "sitemap",
+                    "lang": lang,
+                    "alphabet_folder": alphabet_folder,
+                },
             )
-            print(f"Enqueued sitemap scrape for {domain}")
+            print(f"Enqueued sitemap scrape for {domain} (lang={lang}, alphabet_folder={alphabet_folder})")
             sent += 1
 
         # rss
         if data.get("rss_url"):
             app.send_task(
                 "worker.scrape_site_for_rag",
-                kwargs={"url": data["rss_url"], "mode": "rss"},
+                kwargs={
+                    "url": data["rss_url"],
+                    "mode": "rss",
+                    "lang": lang,
+                    "alphabet_folder": alphabet_folder,
+                },
             )
-            print(f"Enqueued rss scrape for {domain}")
+            print(f"Enqueued rss scrape for {domain} (lang={lang}, alphabet_folder={alphabet_folder})")
             sent += 1
 
         # follow_urls
         if not data.get("sitemap_url") and not data.get("rss_url") and data.get("follow_urls"):
             app.send_task(
                 "worker.scrape_follow_urls_for_rag",
-                kwargs={"domain": domain},
+                kwargs={
+                    "domain": domain,
+                    "lang": lang,
+                    "alphabet_folder": alphabet_folder,
+                },
             )
-            print(f"Enqueued follow_urls scrape for {domain}")
+            print(f"Enqueued follow_urls scrape for {domain} (lang={lang}, alphabet_folder={alphabet_folder})")
             sent += 1
 
     print(f"Done. Enqueued {sent} tasks.")
