@@ -1,41 +1,19 @@
 # Testing Guide
 
-This project has two types of tests:
+This project uses unit tests with mocked dependencies for automated testing.
 
-## 1. Unit Tests (Mocked)
+## Unit Tests (Mocked)
 
 Unit tests use mocked dependencies and don't require API credentials. They run fast and are ideal for CI/CD.
 
-**Run unit tests only:**
-```bash
-pytest tests/test_vectors.py -v
-```
-
-**Run all unit tests (excluding integration tests):**
-```bash
-pytest tests/ -v -m "not integration"
-```
-
-## 2. Integration Tests (Real Environment)
-
-Integration tests connect to real APIs (OpenAI and AstraDB) and require valid credentials in your `.env` file.
-
-**Required environment variables:**
-```env
-OPENAI_API_KEY=sk-...
-ASTRA_DB_APPLICATION_TOKEN=AstraCS:...
-ASTRA_DB_API_ENDPOINT=https://...
-ASTRA_DB_COLLECTION_NAME=your_collection_name
-```
-
-**Run integration tests:**
-```bash
-pytest tests/test_vectors_integration.py -v
-```
-
-**Run ALL tests (unit + integration):**
+**Run all unit tests:**
 ```bash
 pytest tests/ -v
+```
+
+**Run specific test file:**
+```bash
+pytest tests/test_vectors.py -v
 ```
 
 ## Test Coverage
@@ -47,15 +25,29 @@ pytest tests/ --cov=src/llm_scraper --cov-report=html
 
 Open `htmlcov/index.html` to view the coverage report.
 
-## CI/CD Configuration
+## Integration Testing (Manual)
 
-For CI/CD pipelines, you should run only unit tests by default:
+For testing with real APIs (OpenAI and AstraDB), use the manual test scripts in the `scripts/` folder:
 
-```bash
-pytest tests/ -v -m "not integration"
+**Required environment variables:**
+```env
+OPENAI_API_KEY=sk-...
+ASTRA_DB_APPLICATION_TOKEN=AstraCS:...
+ASTRA_DB_API_ENDPOINT=https://...
+ASTRA_DB_COLLECTION_NAME=your_collection_name
 ```
 
-Integration tests can be run separately in a dedicated pipeline that has access to API credentials.
+**Available integration test scripts:**
+```bash
+# Create AstraDB collection
+python scripts/create_astradb_collection.py
+
+# Run comprehensive integration tests
+python scripts/integration_test.py
+
+# Test search functionality
+python scripts/test_search.py
+```
 
 ## Test Structure
 
@@ -63,8 +55,12 @@ Integration tests can be run separately in a dedicated pipeline that has access 
 tests/
 ├── test_articles.py           # Unit tests for article parsing
 ├── test_xpath_selector.py     # Unit tests for XPath selector
-├── test_vectors.py            # Unit tests for vector store (mocked)
-└── test_vectors_integration.py # Integration tests (real APIs)
+└── test_vectors.py            # Unit tests for vector store (mocked)
+
+scripts/
+├── create_astradb_collection.py  # Helper to create AstraDB collection
+├── integration_test.py           # Full integration test suite
+└── test_search.py                # Search functionality testing
 ```
 
 ## Writing New Tests
@@ -79,12 +75,21 @@ def test_something(mock_openai):
     pass
 ```
 
-### Integration Test Example
+### Integration Script Example
 ```python
-import pytest
+import sys
+from pathlib import Path
 
-@pytest.mark.integration
-def test_real_api(vector_engine):
-    # Your test code using real APIs
+# Add src to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+
+from llm_scraper.vectors import VectorStoreEngine
+
+def main():
+    engine = VectorStoreEngine(...)
+    # Your integration test code using real APIs
     pass
+
+if __name__ == "__main__":
+    main()
 ```

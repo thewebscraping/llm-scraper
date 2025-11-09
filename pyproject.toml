@@ -127,8 +127,3 @@ required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.analyze]
 detect-string-imports = true
-
-[tool.pytest.ini_options]
-markers = [
-    "integration: marks tests as integration tests that require real API credentials (deselect with '-m \"not integration\"')",
-]
