@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import sys
 import json
-import httpx
+import tls_requests
 from pathlib import Path
 from typing import Any, Dict
 
@@ -31,7 +31,7 @@ def load_fixture(path: Path) -> Dict[str, Any]:
 
 def fetch_html(url: str) -> str:
     try:
-        with httpx.Client(timeout=20.0, follow_redirects=True) as client:
+        with tls_requests.Client(timeout=20.0, follow_redirects=True) as client:
             r = client.get(url, headers={"User-Agent": "llm-scraper/0.1.0"})
             r.raise_for_status()
             return r.text

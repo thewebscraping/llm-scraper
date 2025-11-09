@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import AsyncGenerator
 
-import httpx
+import tls_requests
 
 from .articles import Article
 from .cache import ScraperCache
@@ -34,7 +34,7 @@ class Scraper:
         self.parser_config = parser_config
         self.cache = cache
         self.user_agent = user_agent
-        self.http_client = httpx.AsyncClient(
+        self.http_client = tls_requests.AsyncClient(
             headers={"User-Agent": self.user_agent},
             follow_redirects=True,
             timeout=15.0,
@@ -97,7 +97,7 @@ class Scraper:
                 parser_config=self.parser_config
             )
             return article
-        except httpx.HTTPStatusError as e:
+        except tls_requests.HTTPError as e:
             print(f"HTTP error {e.response.status_code} for {url}")
         except ArticleCreationError as e:
             print(f"Could not create article from {url}: {e}")
