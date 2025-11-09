@@ -80,28 +80,35 @@ class ElementSelector(BaseModel):
 
 
 class ParserConfig(BaseModel):
-    """
-    Complete extraction configuration for a specific domain.
-    
-    Combines all field selectors with metadata for domain-specific parsing.
+    """Complete extraction configuration for a specific domain.
+
+    NOTE: Field declaration order controls extraction order in `BaseParser.parse()`.
+    The `content` field is intentionally declared LAST among extraction targets so
+    that other metadata (e.g. `main_points`, `tags`, `follow_urls`) can be
+    extracted from the original DOM before any heavy per-field cleanup tied to
+    the `content` selector mutates nested elements.
     """
     domain: str = Field(description="The domain this configuration is for")
     lang: str = Field(default="en", description="Language code")
     type: str = Field(default="article", description="Content type")
-    
+
+    # Extraction fields (ordered; modify with care)
     title: Optional[ElementSelector] = None
     description: Optional[ElementSelector] = None
-    content: ElementSelector
     authors: Optional[ElementSelector] = None
     date_published: Optional[ElementSelector] = None
     date_modified: Optional[ElementSelector] = None
     tags: Optional[ElementSelector] = None
     topics: Optional[ElementSelector] = None
+    main_points: Optional[ElementSelector] = None
     follow_urls: Optional[ElementSelector] = None
+    # Content LAST so it doesn't remove nodes needed by earlier extractions
+    content: ElementSelector
 
+    # Global (pre-parse) cleanup selectors & discovery sources
     cleanup: List[str] = Field(
-        default_factory=list, 
-        description="List of CSS selectors to remove before parsing"
+        default_factory=list,
+        description="Global CSS/XPath selectors removed pre-parse (runs before field extraction)."
     )
     sitemaps: List[str] = Field(default_factory=list)
     rss_feeds: List[str] = Field(default_factory=list)

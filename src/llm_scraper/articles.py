@@ -89,6 +89,7 @@ class ArticleMetadata(BaseModel):
     language: Optional[str] = Field(default=None, description="ISO-639-1 (or BCP-47) language code")
     tags: Optional[List[str]] = Field(default_factory=list)
     topics: Optional[List[str]] = Field(default_factory=list)
+    main_points: Optional[List[str]] = Field(default_factory=list, description="Key takeaways or main points from the article")
     canonical_url: Optional[HttpUrl] = Field(default=None)
     word_count: Optional[int] = Field(default=None)
     reading_time_minutes: Optional[float] = Field(default=None, description="Estimated reading time in minutes")
@@ -443,6 +444,7 @@ class Article(BaseModel):
         modified_at = parsed_data.get("date_modified") or response_meta.date_modified
         tags = parsed_data.get("tags", []) or response_meta.tags or []
         topics = parsed_data.get("topics", []) or response_meta.topics or []
+        main_points = parsed_data.get("main_points", []) or []
 
         try:
             article = cls(
@@ -455,6 +457,7 @@ class Article(BaseModel):
                     language=response_meta.language,
                     tags=tags,
                     topics=topics,
+                    main_points=main_points,
                     canonical_url=response_meta.canonical,
                     published_at=published_at,
                     modified_at=modified_at,
