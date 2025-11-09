@@ -2,6 +2,8 @@
   "domain": "crypto.news",
   "lang": "en",
   "type": "article",
+  "sitemap_url": "https://crypto.news/sitemap-news.xml",
+  "rss_url": "https://crypto.news/feed",
   "cleanup": [
     "script",
     "style",

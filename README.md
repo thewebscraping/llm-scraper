@@ -167,69 +167,65 @@ honcho start
 
 ## API Usage
 
+The API provides two main functions:
+1. Scraping: Extract article content from URLs (single pages, sitemaps, or RSS feeds)
+2. Querying: Search the RAG vector database
+
+Notes:
+- User scraping via API does NOT automatically store articles in the vector database. Vector storage is handled by system-scheduled tasks to optimize cost and ensure parsing accuracy.
+- Bulk scraping modes (sitemap, rss) are protected by a system secret header when configured.
+
 ### Endpoints
 
-#### `POST /scrape`
-Triggers a scraping process based on the specified mode.
+#### POST /scrape
+Scrape content based on the specified mode.
 
-- **Synchronous (`single_page`):** Scrapes a single URL and returns the article content directly.
-- **Asynchronous (`sitemap`, `rss`):** Triggers a background task and returns a task ID.
+- single_page: Scrapes a single article URL and returns the Article object inline.
+- sitemap or rss: Starts a background task and returns a task_id (results are retrieved via the /tasks and /scrapes endpoints).
 
-**Request Body:**
-```json
-{
-  "url": "https://example.com/article-or-sitemap.xml",
-  "mode": "single_page" // Can be "single_page", "sitemap", or "rss"
-}
-```
+Headers (required for sitemap/rss when SYSTEM_SCRAPE_SECRET is set):
+- X-System-Key: <your system secret>
 
-**Response (for `single_page`):** An `Article` object with the extracted content.
-```json
-{
-  "id": "...",
-  "title": "Example Article",
-  "content_markdown": "# Example Article...",
-  "provenance": {
-      "source_url": "https://example.com/article",
-      "domain": "example.com",
-      "date_scraped": "..."
-  }
-}
-```
+Request Body:
+- url: string (article/sitemap/feed URL)
+- mode: one of single_page | sitemap | rss
+- output_format: markdown | html (default markdown)
 
-**Response (for `sitemap` or `rss`):** A `TaskResponse` object with the task ID.
-```json
-{
-  "task_id": "abc-123",
-  "status_endpoint": "/tasks/abc-123"
-}
-```
+Responses:
+- single_page: Article object (includes content). 
+- sitemap/rss: { "task_id": "...", "status_endpoint": "/tasks/{id}" }
 
-**Example (Single Page):**
-```bash
-curl -X POST "http://localhost:8000/scrape" \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://crypto.news/article/", "mode": "single_page"}'
-```
+#### GET /tasks/{task_id}
+Check background task status. Heavy payloads are stripped.
 
-**Example (Sitemap):**
-```bash
-curl -X POST "http://localhost:8000/scrape" \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://crypto.news/sitemap-news.xml", "mode": "sitemap"}'
-```
+Response fields:
+- task_id, status (PENDING|PROGRESS|SUCCESS|FAILURE), result (lightweight meta), article_ids (if any)
 
-#### `GET /tasks/{task_id}`
-Check the status of a background task.
+#### GET /scrapes/{task_id}
+Fetch paginated scrape results for a task.
 
-**Response:**
-```json
-{
-  "task_id": "abc-123",
-  "status": "SUCCESS",
-  "result": {...}
-}
-```
+Query params:
+- include: ids | compact | full (full currently behaves like compact to force fetching bodies via /article/{id})
+- offset: integer >= 0
+- limit: integer 1..50 (enforced)
+
+Responses:
+- include=ids: { ids: [id, ...], total, offset, limit, next_offset }
+- include=compact|full: { articles: [{ id, title, source_url, domain, word_count, format }], total, offset, limit, next_offset, note }
+
+#### GET /article/{id}
+Fetch a single persisted article including body. Use this to retrieve content by id listed in /scrapes results.
+
+#### GET /scrapes/{task_id}/urls
+Paginated list of discovered URLs for the task (helpful for large sitemap/rss runs).
+
+Query params: offset, limit (1..50)
+
+#### GET /scrapes/{task_id}/stats
+Diagnostic stats for the task: totals, success/failure counts, and failed URL list.
+
+#### DELETE /scrapes/{task_id}
+Delete cached results, stats, and the per-task URL queue.
 
 #### `POST /query`
 Perform a similarity search on the vectorized data in AstraDB.
@@ -290,3 +286,25 @@ Parser configs support both CSS and XPath selectors with automatic type detectio
 - **Multi-value extraction**: Use `"all": true` to extract all matches
 
 See [XPATH_FEATURE.md](XPATH_FEATURE.md) for detailed examples and best practices.
+
+## Environment Variables
+
+Core RAG/vector:
+- OPENAI_API_KEY
+- ASTRA_DB_APPLICATION_TOKEN
+- ASTRA_DB_API_ENDPOINT
+- ASTRA_DB_COLLECTION_NAME
+
+Async/background & caching:
+- REDIS_URL: Redis broker for Celery
+- SCRAPE_RESULT_TTL_DAYS: Days to keep cached results (default 7)
+- SCRAPE_RESULT_MAX_FULL: Max articles to store as a full list per task (beyond this, only per-article docs are saved)
+- MAX_CONCURRENT_SCRAPES: Limit concurrent fetches in bulk modes (default 8)
+- SCRAPE_TIMEOUT_SECONDS: Per-request timeout (default 20)
+
+Security:
+- SYSTEM_SCRAPE_SECRET: If set, sitemap/rss modes require X-System-Key header to match
+
+Hashing (advanced):
+- LLM_SCRAPER_HASH_ALGO: md5 | sha1 | sha256 | hmac-sha256 (default md5 for backward compatibility)
+- LLM_SCRAPER_HASH_SECRET: required when using hmac-sha256
