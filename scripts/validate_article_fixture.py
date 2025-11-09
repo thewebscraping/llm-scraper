@@ -130,6 +130,14 @@ def main(argv: list[str]) -> int:
             print(f"- Topics extracted: {parsed_data['topics']}")
         else:
             print("- Topics extracted: None (selector didn't match)")
+        # Luôn hiển thị chủ đề lấy từ article.metadata.topics
+        print(f"- Topics from metadata: {article.metadata.topics}")
+        if "main_points" in parsed_data:
+            main_points = parsed_data["main_points"]
+            if isinstance(main_points, list) and main_points:
+                print(f"- Main Points (up to 3): {main_points[:3]}")
+            else:
+                print("- Main Points: None (selector didn't match)")
         if "authors" in parsed_data:
             print(f"- Authors extracted: {parsed_data['authors']}")
         if "date_published" in parsed_data:
@@ -166,6 +174,13 @@ def main(argv: list[str]) -> int:
         print(f"- Tags:         {article.metadata.tags[:5]}")
     if article.metadata.topics:
         print(f"- Topics:       {article.metadata.topics}")
+    # Main points if available
+    main_points = getattr(article, "main_points", None)
+    if main_points:
+        if isinstance(main_points, list):
+            print(f"- Main Points:  {main_points[:3]}")
+        else:
+            print(f"- Main Points:  {main_points}")
     
     # Schema.org data if available
     if article.metadata.schema_org:

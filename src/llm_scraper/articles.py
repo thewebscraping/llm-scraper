@@ -89,6 +89,7 @@ class ArticleMetadata(BaseModel):
     language: Optional[str] = Field(default=None, description="ISO-639-1 (or BCP-47) language code")
     tags: Optional[List[str]] = Field(default_factory=list)
     topics: Optional[List[str]] = Field(default_factory=list)
+    main_points: Optional[List[str]] = Field(default_factory=list, description="Key takeaways or main points from the article")
     canonical_url: Optional[HttpUrl] = Field(default=None)
     word_count: Optional[int] = Field(default=None)
     reading_time_minutes: Optional[float] = Field(default=None, description="Estimated reading time in minutes")
@@ -334,6 +335,57 @@ class Article(BaseModel):
         }
 
     @classmethod
+    def build_metadata(cls, response_meta, parsed_data):
+        """
+        Merge parsed_data and response_meta to construct ArticleMetadata.
+        Handles topics, tags, main_points, published_at, modified_at, schema_org, etc.
+        """
+        tags = parsed_data.get("tags", []) or response_meta.tags or []
+        topics = parsed_data.get("topics", [])
+        if not topics:
+            topics = response_meta.topics or []
+            schema_org = response_meta.schema_org
+            if schema_org:
+                found_topics = []
+                if isinstance(schema_org, dict) and "@graph" in schema_org:
+                    for item in schema_org["@graph"]:
+                        if isinstance(item, dict) and "articleSection" in item:
+                            section = item["articleSection"]
+                            if isinstance(section, list):
+                                found_topics.extend(section)
+                            elif isinstance(section, str):
+                                found_topics.append(section)
+                elif isinstance(schema_org, list):
+                    for item in schema_org:
+                        if isinstance(item, dict) and "articleSection" in item:
+                            section = item["articleSection"]
+                            if isinstance(section, list):
+                                found_topics.extend(section)
+                            elif isinstance(section, str):
+                                found_topics.append(section)
+                elif isinstance(schema_org, dict) and "articleSection" in schema_org:
+                    section = schema_org["articleSection"]
+                    if isinstance(section, list):
+                        found_topics.extend(section)
+                    elif isinstance(section, str):
+                        found_topics.append(section)
+                if found_topics:
+                    topics = found_topics
+        main_points = parsed_data.get("main_points", []) or []
+        published_at = parsed_data.get("date_published") or response_meta.date_published
+        modified_at = parsed_data.get("date_modified") or response_meta.date_modified
+        return ArticleMetadata(
+            language=response_meta.language,
+            tags=tags,
+            topics=topics,
+            main_points=main_points,
+            canonical_url=response_meta.canonical,
+            published_at=published_at,
+            modified_at=modified_at,
+            schema_org=response_meta.schema_org,
+        )
+        
+    @classmethod
     def from_html(
         cls, 
         html: str, 
@@ -423,7 +475,7 @@ class Article(BaseModel):
         # --- Combine Metadata ---
         # Title is critical, fallback to a default if not found
         title = response_meta.title or "No title found"
-        
+
         # Merge authors from parser config and meta tags
         authors = []
         authors_data = parsed_data.get("authors", [])
@@ -433,16 +485,10 @@ class Article(BaseModel):
                     authors.append(ArticleAuthor(name=author_name.strip()))
         elif isinstance(authors_data, str) and authors_data.strip():
             authors.append(ArticleAuthor(name=authors_data.strip()))
-        
+
         # Fallback to meta author if no authors from parser
         if not authors and response_meta.author:
             authors.append(ArticleAuthor(name=response_meta.author))
-        
-        # Merge published_at and other metadata, giving priority to parser config
-        published_at = parsed_data.get("date_published") or response_meta.date_published
-        modified_at = parsed_data.get("date_modified") or response_meta.date_modified
-        tags = parsed_data.get("tags", []) or response_meta.tags or []
-        topics = parsed_data.get("topics", []) or response_meta.topics or []
 
         try:
             article = cls(
@@ -451,15 +497,7 @@ class Article(BaseModel):
                 content=content,
                 authors=authors,
                 provenance=Provenance(source_url=url, domain=urlparse(str(url)).netloc),
-                metadata=ArticleMetadata(
-                    language=response_meta.language,
-                    tags=tags,
-                    topics=topics,
-                    canonical_url=response_meta.canonical,
-                    published_at=published_at,
-                    modified_at=modified_at,
-                    schema_org=response_meta.schema_org,
-                ),
+                metadata=cls.build_metadata(response_meta, parsed_data),
                 raw_html=html,
                 **kwargs,
             )

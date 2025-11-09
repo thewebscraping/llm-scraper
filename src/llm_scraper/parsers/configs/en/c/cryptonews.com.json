@@ -10,56 +10,93 @@
   ],
   "title": {
     "selector": [
+      "h1.mb-10",
       "h1.article-title",
-      "h1.post-title",
       "h1"
     ]
   },
   "description": {
     "selector": [
+      ".single-post__subheader",
       ".article-excerpt",
-      ".post-excerpt",
-      "meta[name='description']"
+      "//meta[@name='description']/@content"
     ]
   },
   "content": {
     "selector": [
+      ".article-single__content",
+      ".category_contents_details",
       "//main",
-      ".article-content",
-      ".post-content",
       "article"
     ],
     "cleanup": [
+      "h1",
+      ".single-post-new__tags",
+      ".single-post-new__author-top",
+      ".single-post__subheader",
+      ".single-post-new__last-updated-mobile",
+      ".share-page",
+      ".follow-button",
+      ".featured-frame",
+      ".su-note",
+      ".news-tab",
+      ".news-tab-line",
+      ".news-tab-content",
+      "#tabs-desc-show",
+      ".desc-show-only",
+      ".dslot",
+      ".story-one-cell-new__wrap",
+      ".slider-cards-list",
       ".ads",
       ".advertisement",
       ".related-posts",
       ".newsletter",
       ".social-share",
       "[class*='sponsor']",
-      "[class*='promoted']"
+      "[class*='promoted']",
+      "[class*='iframe_link']",
+      "a[href*='google.com/publications']"
     ]
   },
   "authors": {
     "selector": [
+      "//div[contains(@class,'single-post-new__author-top-value')]//div[@class='author-mini__link']/text()",
+      ".author-mini__link",
       "//a[@rel='author']",
       ".author-name"
     ],
-    "all": true
+    "all": false
   },
   "date_published": {
     "selector": [
       "//time[@datetime]/@datetime",
-      "//meta[@property='article:published_time']/@content",
-      "time[datetime]"
+      "//meta[@property='article:published_time']/@content"
     ],
     "attribute": "datetime"
   },
   "tags": {
     "selector": [
+      "//div[@class='single-post-new__tags']//a[contains(@class,'single-post-new__tags-link')]//span[@class='value']/text()",
+      "//a[contains(@href, '/tags/')]",
       "//a[@rel='tag']",
-      "//a[contains(@href, '/tag/')]",
       ".post-tags a"
     ],
+    "all": true
+  },
+  "main_points": {
+    "selector": [
+      "//div[@class='su-note']//li/span/text()",
+      "//div[contains(@class,'key-takeaways')]//li/text()",
+      ".article-highlights li"
+    ],
+    "all": true
+  },
+  "follow_urls": {
+    "selector": [
+      "//div[@id='trending-top']//li[@class='news-tab-content-link']//a/@href",
+      "//div[@class='story-one-cell-new__wrap']//a[contains(@class,'story-one-cell-new')]/@href"
+    ],
+    "attribute": "href",
     "all": true
   }
 }

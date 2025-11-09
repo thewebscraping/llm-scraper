@@ -111,6 +111,11 @@ class BaseSchemaArticle(BaseSchema):
     copyrightHolder: Optional[Union[BaseSchema, Optional[str]]] = None
     copyrightYear: Optional[Optional[str]] = None
 
+    @property
+    def topics(self) -> Optional[Sequence[str]]:
+        """Expose articleSection as topics for compatibility."""
+        return self.articleSection
+
     @model_validator(mode="after")
     def normalize_dates(self) -> "BaseSchemaArticle":
         if self.dateModified:
