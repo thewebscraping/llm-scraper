@@ -69,13 +69,16 @@ class AstraDBAdapter(VectorDBAdapter):
             }
             vector_metric = metric_map.get(metric.lower(), VectorMetric.COSINE)
             
-            # Try to get existing collection first
-            try:
+            # List existing collections
+            existing_collections = self.db.list_collection_names()
+            
+            if collection_name in existing_collections:
+                # Collection exists, get it
                 self.collection = self.db.get_collection(collection_name)
                 log.info(
                     f"AstraDB collection '{collection_name}' retrieved successfully."
                 )
-            except Exception:
+            else:
                 # Collection doesn't exist, create it
                 log.info(f"Creating new collection '{collection_name}'...")
                 self.collection = self.db.create_collection(
@@ -149,7 +152,7 @@ class AstraDBAdapter(VectorDBAdapter):
         """
         if not self.collection:
             raise ConnectionError("AstraDB collection is not initialized.")
-        return self.collection.count_documents({})
+        return self.collection.count_documents({}, upper_bound=10000)
 
     def delete_one(self, id: str) -> int:
         """

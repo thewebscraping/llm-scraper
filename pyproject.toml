@@ -32,6 +32,7 @@ dependencies = [
     "pydantic>=2.12.3",
     "pydantic-settings[dotenv]>=2.11.0",
     "uvicorn>=0.38.0",
+    "wrapper-tls-requests>=1.1.6",
 ]
 
 [project.urls]
@@ -126,3 +127,8 @@ required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.analyze]
 detect-string-imports = true
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: marks tests as integration tests that require real API credentials (deselect with '-m \"not integration\"')",
+]
