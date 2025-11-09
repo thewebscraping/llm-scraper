@@ -397,38 +397,43 @@ def get_metadata(html: str) -> ResponseMeta:
     soup = BeautifulSoup(html, "lxml")
     meta_helper = ResponseMeta.from_soup(soup)
 
-    # Extract topics from Schema.org BreadcrumbList and collect all schemas
+    # Lấy topics từ BreadcrumbList và từ articleSection của Article/NewsArticle/WebPage
     schema_topics = []
     all_schemas = []
     try:
-        from ..models.schema import SchemaJsonLD, SchemaBreadcrumbList
+        from ..models.schema import SchemaJsonLD, SchemaBreadcrumbList, SchemaArticle, SchemaNewsArticle, SchemaWebPage
         import json
-        
+
         schema_scripts = soup.find_all("script", type="application/ld+json")
         for script in schema_scripts:
             try:
                 # Parse raw JSON-LD
                 raw_data = json.loads(script.string)
                 all_schemas.append(raw_data)
-                
+
                 # Parse with SchemaJsonLD for structured extraction
                 schema_data = SchemaJsonLD.parse(script.string)
                 # Handle both single schema and list of schemas
                 schemas = schema_data if isinstance(schema_data, list) else [schema_data]
                 for schema in schemas:
+                    # Fetch from BreadcrumbList
                     if isinstance(schema, SchemaBreadcrumbList):
                         schema_topics.extend(schema.topics)
+                    # Fetch articleSection from Article/NewsArticle/WebPage
+                    if isinstance(schema, (SchemaArticle, SchemaNewsArticle, SchemaWebPage)):
+                        if getattr(schema, "articleSection", None):
+                            schema_topics.extend(list(schema.articleSection))
             except Exception:
                 continue
     except Exception:
         pass
-    
-    # Add schema topics to meta if found
+
+    # Gán topics vào meta nếu tìm thấy
     if schema_topics and not meta_helper.topics:
         meta_helper.topics = schema_topics
-    
-    # Store all raw schemas if found
+
+    # Lưu lại toàn bộ schema_org nếu có
     if all_schemas:
         meta_helper.schema_org = all_schemas if len(all_schemas) > 1 else all_schemas[0]
-    
+
     return meta_helper

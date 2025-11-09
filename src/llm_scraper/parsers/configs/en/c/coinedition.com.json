@@ -1,0 +1,49 @@
+{
+  "domain": "coinedition.com",
+  "lang": "en",
+  "type": "article",
+  "cleanup": [
+    "script", "style", "noscript", "iframe",
+    ".ce-post-disclaimer",
+    "//div[contains(@class, 'ce-post-disclaimer')]",
+    "//strong[contains(normalize-space(text()), 'Related:')]/following-sibling::a",
+    "//strong[contains(normalize-space(text()), 'Related:')]"
+  ],
+  "title": {
+    "selector": ["h1", ".post-title", "//h1"]
+  },
+  "description": {
+    "selector": ["meta[name='description']", ".post-excerpt"]
+  },
+  "content": {
+    "selector": [".post-content", "article", "main", "//div[contains(@class,'post-content')]"]
+  },
+  "authors": {
+    "selector": [".author", "//a[@rel='author']"]
+  },
+  "date_published": {
+    "selector": ["time[datetime]", "//time[@datetime]/@datetime"],
+    "attribute": "datetime"
+  },
+  "tags": {
+    "selector": [".ce-tags a", "//ul[contains(@class,'ce-tags')]//a"],
+    "all": true
+  },
+  "follow_urls": {
+    "selector": [
+      ".related-list__link",
+      "//a[contains(@class,'related-list__link')]/@href",
+      ".ce-catag-rightblock-each a",
+      "//div[contains(@class,'ce-catag-rightblock-each')]//a/@href"
+    ],
+    "attribute": "href",
+    "all": true
+  },
+  "main_points": {
+    "selector": [
+      "ul.news-points li strong",
+      "//ul[contains(@class,'news-points')]//li/strong/text()"
+    ],
+    "all": true
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "domain": "bitcoin.com",
+  "lang": "en",
+  "type": "article",
+  "cleanup": [
+    "//*[contains(text(), 'You need to enable JavaScript to run this app.')]"
+  ],
+  "title": {
+    "selector": ["h1", ".article-title", "//h1"]
+  },
+  "description": {
+    "selector": ["meta[name='description']", ".article-description"]
+  },
+  "content": {
+    "selector": [".article-content", "article", "main", "//div[contains(@class,'article-content')]"]
+  },
+  "authors": {
+    "selector": [".author", "//a[@rel='author']"]
+  },
+  "date_published": {
+    "selector": ["time[datetime]", "//time[@datetime]/@datetime"],
+    "attribute": "datetime"
+  },
+  "tags": {
+    "selector": [".tags a", "//a[contains(@href, '/tag/')"] ,
+    "all": true
+  },
+  "main_points": {
+    "selector": [
+      "ul.article-points li strong",
+      "//ul[contains(@class,'article-points')]//li/strong/text()"
+    ],
+    "all": true
+  }
+}
