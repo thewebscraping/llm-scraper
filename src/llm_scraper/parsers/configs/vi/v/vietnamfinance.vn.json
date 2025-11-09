@@ -3,12 +3,20 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "rss_feeds": [
     "https://vietnamfinance.vn/tai-chinh-tieu-dung.rss",
@@ -24,5 +32,11 @@
     "https://vietnamfinance.vn/ngan-hang.rss",
     "https://vietnamfinance.vn/bat-dong-san.rss",
     "https://vietnamfinance.vn/nhan-vat.rss"
+  ],
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
   ]
 }

@@ -3,25 +3,30 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": "title",
-    "type": "text"
+    "selector": "title"
   },
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "main_points": {
-    "css_selector": "sapo",
-    "type": "text"
+    "selector": "sapo"
   },
   "authors": {
-    "css_selector": "anots",
-    "type": "text",
-    "all": true
+    "all": true,
+    "selector": "anots"
   },
   "rss_feeds": [
     "https://danviet.vn/rss/du-hoc-1199.rss",
@@ -222,5 +227,11 @@
   ],
   "sitemaps": [
     "https://danviet.vn/google-news-sitemap.xml"
+  ],
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
   ]
 }

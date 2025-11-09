@@ -2,19 +2,23 @@
   "domain": "crypto.news",
   "lang": "en",
   "type": "article",
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ],
   "title": {
     "selector": [
       "h1.post-title",
       "h1"
-    ],
-    "type": "text"
+    ]
   },
   "description": {
     "selector": [
       ".post-excerpt",
       ".entry-summary"
-    ],
-    "type": "text"
+    ]
   },
   "content": {
     "selector": [
@@ -22,14 +26,21 @@
       ".entry-content",
       "article"
     ],
-    "type": "html"
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ]
   },
   "authors": {
     "selector": [
       "//a[@rel='author']",
       ".author-name"
     ],
-    "type": "text",
     "all": true
   },
   "date_published": {
@@ -39,7 +50,6 @@
       "time[datetime]",
       ".post-date"
     ],
-    "type": "text",
     "attribute": "datetime"
   },
   "tags": {
@@ -47,13 +57,6 @@
       "//a[@rel='tag']",
       ".post-tags a"
     ],
-    "type": "text",
     "all": true
-  },
-  "cleanup": [
-    ".ads",
-    ".related-posts",
-    ".newsletter",
-    ".social-share"
-  ]
+  }
 }

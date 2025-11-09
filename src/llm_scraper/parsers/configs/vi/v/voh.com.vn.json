@@ -3,16 +3,23 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "date_published": {
-    "css_selector": "post-article-publish",
-    "type": "text"
+    "selector": "post-article-publish"
   },
   "rss_feeds": [
     "https://voh.com.vn/rss/765",
@@ -84,7 +91,12 @@
     "https://voh.com.vn/news-sitemap.xml"
   ],
   "main_points": {
-    "css_selector": "post-article-summary",
-    "type": "text"
-  }
+    "selector": "post-article-summary"
+  },
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ]
 }

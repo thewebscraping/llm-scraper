@@ -3,18 +3,31 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "date_published": {
-    "css_selector": "date",
-    "type": "text"
+    "selector": "date"
   },
   "sitemaps": [
     "https://game8.vn/sitemap-news.xml"
+  ],
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
   ]
 }

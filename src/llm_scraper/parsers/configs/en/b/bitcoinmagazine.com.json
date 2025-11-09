@@ -3,53 +3,60 @@
   "lang": "en",
   "type": "article",
   "title": {
-    "css_selector": [
+    "selector": [
       "h1.article-title",
       "h1.entry-title",
       "h1"
-    ],
-    "type": "text"
+    ]
   },
   "description": {
-    "css_selector": [
+    "selector": [
       ".article-excerpt",
       ".entry-summary"
-    ],
-    "type": "text"
+    ]
   },
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       ".article-content",
       ".entry-content",
       "article"
-    ],
-    "type": "html"
+    ]
   },
   "authors": {
-    "css_selector": [
+    "all": true,
+    "selector": [
       ".author-name",
       "[rel='author']"
-    ],
-    "type": "text",
-    "all": true
+    ]
   },
   "date_published": {
-    "css_selector": [
+    "selector": [
       "time[datetime]",
       ".article-date",
       "meta[property='article:published_time']"
-    ],
-    "type": "text"
+    ]
   },
   "tags": {
-    "css_selector": [
+    "all": true,
+    "selector": [
       ".article-tags a",
       "a[rel='tag']"
-    ],
-    "type": "text",
-    "all": true
+    ]
   },
   "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe",
     ".advertisement",
     ".related-articles",
     ".newsletter",

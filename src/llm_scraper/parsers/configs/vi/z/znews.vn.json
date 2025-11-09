@@ -3,26 +3,37 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": "the-article-title",
-    "type": "text"
+    "selector": "the-article-title"
   },
   "content": {
-    "css_selector": "the-article-body",
-    "type": "html"
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": "the-article-body"
   },
   "main_points": {
-    "css_selector": "the-article-summary",
-    "type": "text"
+    "selector": "the-article-summary"
   },
   "authors": {
-    "css_selector": [
+    "all": true,
+    "selector": [
       "the-article-source-url",
       "cms-source"
-    ],
-    "type": "text",
-    "all": true
+    ]
   },
   "sitemaps": [
     "https://znews.vn/sitemap/sitemap-news.xml"
+  ],
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
   ]
 }

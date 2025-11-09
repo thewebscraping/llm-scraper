@@ -3,12 +3,20 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "rss_feeds": [
     "https://kenh14.vn/musik.rss",
@@ -30,5 +38,11 @@
   ],
   "sitemaps": [
     "https://kenh14.vn/google-news-sitemap.xml"
+  ],
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
   ]
 }

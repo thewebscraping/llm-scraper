@@ -3,19 +3,31 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "date_published": {
-    "css_selector": "pubdate",
-    "type": "text"
+    "selector": "pubdate"
   },
   "main_points": {
-    "css_selector": "detail-desc",
-    "type": "text"
-  }
+    "selector": "detail-desc"
+  },
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ]
 }

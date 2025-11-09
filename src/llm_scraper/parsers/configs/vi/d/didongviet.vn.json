@@ -3,18 +3,31 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": "tdb-title-text",
-    "type": "text"
+    "selector": "tdb-title-text"
   },
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "sitemaps": [
     "https://didongviet.vn/dchannel/news-sitemap.xml"
+  ],
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
   ]
 }

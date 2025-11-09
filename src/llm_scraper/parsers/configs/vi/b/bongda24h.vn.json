@@ -3,12 +3,20 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "rss_feeds": [
     "https://bongda24h.vn/RSS/189.rss",
@@ -40,5 +48,11 @@
   ],
   "sitemaps": [
     "https://bongda24h.vn/Sitemap_GoogleNews.xml"
+  ],
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
   ]
 }

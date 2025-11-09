@@ -3,16 +3,23 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": "title-page detail",
-    "type": "text"
+    "selector": "title-page detail"
   },
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "rss_feeds": [
     "https://dantri.com.vn/rss/suc-khoe.rss",
@@ -48,5 +55,11 @@
   ],
   "sitemaps": [
     "https://dantri.com.vn/google-news-sitemap.xml"
+  ],
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
   ]
 }

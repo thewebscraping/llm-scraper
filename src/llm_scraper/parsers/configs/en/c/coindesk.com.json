@@ -2,20 +2,24 @@
   "domain": "coindesk.com",
   "lang": "en",
   "type": "article",
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ],
   "title": {
     "selector": [
       "h1.article-hero-headline",
       "h1.headline",
       "h1"
-    ],
-    "type": "text"
+    ]
   },
   "description": {
     "selector": [
       ".article-hero-desc",
       ".at-subheadline"
-    ],
-    "type": "text"
+    ]
   },
   "content": {
     "selector": [
@@ -24,7 +28,15 @@
       ".at-content",
       "article"
     ],
-    "type": "html"
+    "cleanup": [
+      ".at-ad",
+      ".newsletter-signup",
+      ".related-articles",
+      ".social-share",
+      ".ads-center",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ]
   },
   "authors": {
     "selector": [
@@ -32,7 +44,6 @@
       ".at-authors a",
       ".article-hero-authors a"
     ],
-    "type": "text",
     "all": true
   },
   "date_published": {
@@ -42,7 +53,6 @@
       "time[datetime]",
       ".at-created"
     ],
-    "type": "text",
     "attribute": "datetime"
   },
   "tags": {
@@ -51,14 +61,6 @@
       ".at-tags a",
       ".article-tags a"
     ],
-    "type": "text",
     "all": true
-  },
-  "cleanup": [
-    ".at-ad",
-    ".newsletter-signup",
-    ".related-articles",
-    ".social-share",
-    ".ads-center"
-  ]
+  }
 }

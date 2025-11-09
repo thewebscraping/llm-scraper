@@ -3,18 +3,29 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": "article-detail-title",
-    "type": "text"
+    "selector": "article-detail-title"
   },
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
+    ]
   },
   "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe",
     "__mb_article_in_image"
   ],
   "rss_feeds": [
@@ -34,7 +45,6 @@
     "https://motgame.vn/sitemap.xml"
   ],
   "main_points": {
-    "css_selector": "motgame-detail-desc",
-    "type": "text"
+    "selector": "motgame-detail-desc"
   }
 }

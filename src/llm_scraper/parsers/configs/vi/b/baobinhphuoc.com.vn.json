@@ -3,8 +3,16 @@
   "lang": "vi",
   "type": "article",
   "content": {
-    "css_selector": "fr-view",
-    "type": "html"
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": "fr-view"
   },
   "rss_feeds": [
     "https://baobinhphuoc.com.vn/rss/news/thanh-nien",
@@ -53,5 +61,11 @@
     "https://baobinhphuoc.com.vn/rss/news/tin-buon",
     "https://baobinhphuoc.com.vn/rss/news/nong-thon-moi",
     "https://baobinhphuoc.com.vn/rss/news/bao-chi-binh-phuoc-trong-dong-chay-bao-chi-cach-mang-viet-nam"
+  ],
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
   ]
 }

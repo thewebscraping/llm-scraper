@@ -3,32 +3,39 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": ".detail-title",
-    "type": "text"
+    "selector": ".detail-title"
   },
   "description": {
-    "css_selector": ".detail-desc",
-    "type": "text"
+    "selector": ".detail-desc"
   },
   "content": {
-    "css_selector": "#newscontents",
-    "type": "html"
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": "#newscontents"
   },
   "date_published": {
-    "css_selector": ".pubdate",
-    "type": "text"
+    "selector": ".pubdate"
   },
   "tags": {
-    "css_selector": ".detail-tag .tag_item",
-    "type": "text",
-    "all": true
+    "all": true,
+    "selector": ".detail-tag .tag_item"
   },
   "topics": {
-    "css_selector": ".breadcrumb a",
-    "type": "text",
-    "all": true
+    "all": true,
+    "selector": ".breadcrumb a"
   },
   "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe",
     ".VCSortableInPreviewMode",
     "img[src*='icon-']"
   ]

@@ -3,15 +3,28 @@
   "lang": "vi",
   "type": "article",
   "title": {
-    "css_selector": "jeg_post_title",
-    "type": "text"
+    "selector": "jeg_post_title"
   },
   "content": {
-    "css_selector": [
+    "cleanup": [
+      ".ads",
+      ".advertisement",
+      ".related-posts",
+      ".newsletter",
+      ".social-share",
+      "[class*='sponsor']",
+      "[class*='promoted']"
+    ],
+    "selector": [
       "article",
       ".article-content",
       ".content"
-    ],
-    "type": "html"
-  }
+    ]
+  },
+  "cleanup": [
+    "script",
+    "style",
+    "noscript",
+    "iframe"
+  ]
 }
