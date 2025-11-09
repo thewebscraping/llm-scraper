@@ -24,7 +24,7 @@ class OpenAIEmbeddingAdapter(EmbeddingAdapter):
 
     def __init__(self, model_name: str = settings.OPENAI_EMBEDDING_MODEL):
         super().__init__(model_name)
-        self._client = OpenAI(api_key=settings.OPENAI_API_KEY)
+        self._client: OpenAI | None = None
         self._embedding_dimension = self._DIMENSIONS.get(model_name)
         if not self._embedding_dimension:
             raise ValueError(
@@ -32,6 +32,20 @@ class OpenAIEmbeddingAdapter(EmbeddingAdapter):
                 "Please add it to the _DIMENSIONS map in the adapter."
             )
         log.info(f"OpenAIEmbeddingAdapter initialized with model '{model_name}'.")
+
+    @property
+    def client(self) -> OpenAI:
+        """
+        Lazily initializes and returns the OpenAI client.
+        Raises ValueError if the API key is not configured.
+        """
+        if self._client is None:
+            if not settings.OPENAI_API_KEY:
+                raise ValueError(
+                    "OPENAI_API_KEY is not set. Please configure it in your .env file."
+                )
+            self._client = OpenAI(api_key=settings.OPENAI_API_KEY)
+        return self._client
 
     @property
     def embedding_dimension(self) -> int:
@@ -46,7 +60,7 @@ class OpenAIEmbeddingAdapter(EmbeddingAdapter):
         try:
             # OpenAI API recommends replacing newlines
             texts = [text.replace("\n", " ") for text in texts]
-            response = self._client.embeddings.create(input=texts, model=self.model_name)
+            response = self.client.embeddings.create(input=texts, model=self.model_name)
             return [embedding.embedding for embedding in response.data]
         except Exception as e:
             log.error(f"Failed to get embeddings from OpenAI: {e}", exc_info=True)

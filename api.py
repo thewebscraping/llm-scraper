@@ -1,11 +1,11 @@
 import logging
 from pathlib import Path
 import json
-from typing import Dict, List
+from typing import Dict, List, Literal, Union
 from urllib.parse import urlparse
 
 from celery.result import AsyncResult
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from pydantic import BaseModel, HttpUrl
 
 from celery_app import celery_app
@@ -26,10 +26,21 @@ log = logging.getLogger("scraper_api")
 SHARED_CACHE = ScraperCache()
 CONFIGS: Dict[str, ParserConfig] = {}
 
-# Initialize the vector store engine with concrete adapters
-VECTOR_STORE_ENGINE = VectorStoreEngine(
-    embedding_adapter=OpenAIEmbeddingAdapter(), db_adapter=AstraDBAdapter()
-)
+# Lazily initialize the vector store engine
+_VECTOR_STORE_ENGINE: VectorStoreEngine | None = None
+
+
+def get_vector_store_engine() -> VectorStoreEngine:
+    """
+    Initializes and returns a singleton instance of the VectorStoreEngine.
+    """
+    global _VECTOR_STORE_ENGINE
+    if _VECTOR_STORE_ENGINE is None:
+        log.info("Initializing VectorStoreEngine for the first time for API.")
+        _VECTOR_STORE_ENGINE = VectorStoreEngine(
+            embedding_adapter=OpenAIEmbeddingAdapter(), db_adapter=AstraDBAdapter()
+        )
+    return _VECTOR_STORE_ENGINE
 
 
 # --- FastAPI App Initialization ---
@@ -63,13 +74,9 @@ def startup_event():
 
 
 # --- API Request/Response Models ---
-class ScrapeUrlRequest(BaseModel):
+class ScrapeRequest(BaseModel):
     url: HttpUrl
-    output_format: str = "markdown"  # "markdown" or "html"
-
-
-class ScrapeSiteRequest(BaseModel):
-    domain: str
+    mode: Literal["single_page", "sitemap", "rss"] = "single_page"
 
 
 class TaskResponse(BaseModel):
@@ -94,67 +101,47 @@ class QueryResponse(BaseModel):
 
 
 # --- API Endpoints ---
-@app.post("/scrape-url", response_model=Article)
-async def scrape_single_url(request: ScrapeUrlRequest):
+@app.post("/scrape", response_model=Union[Article, TaskResponse])
+async def scrape(request: ScrapeRequest, response: Response):
     """
-    Scrapes a single URL on-demand without storing it in the main RAG store.
-    This is for quick, one-off extractions by users.
-    
-    Args:
-        url: The URL to scrape
-        output_format: Content format - "markdown" (default) or "html"
+    Triggers a scraping process based on the specified mode.
+
+    - **single_page**: Scrapes a single article URL and returns the content directly.
+    - **sitemap**: Triggers a background task to scrape all URLs in a sitemap.
+    - **rss**: Triggers a background task to scrape all URLs from an RSS feed.
     """
-    # Validate output format
-    if request.output_format not in ("markdown", "html"):
-        raise HTTPException(
-            status_code=400, 
-            detail="output_format must be 'markdown' or 'html'"
+    # --- Asynchronous Task for Sitemap/RSS ---
+    if request.mode in ["sitemap", "rss"]:
+        log.info(
+            f"Dispatching background task for URL: {request.url} with mode: {request.mode}"
         )
-    
-    domain = urlparse(str(request.url)).netloc
-    parser_config = CONFIGS.get(domain, GENERIC_CONFIG)
-    log.info(
-        f"Scraping URL: {request.url} using config for "
-        f"'{domain if parser_config != GENERIC_CONFIG else 'generic'}' "
-        f"with output_format='{request.output_format}'"
-    )
+        task = scrape_site_for_rag.delay(str(request.url), request.mode)
+        response.status_code = 202  # Accepted
+        return {"task_id": task.id, "status_endpoint": f"/tasks/{task.id}"}
 
-    scraper = Scraper(parser_config=parser_config, cache=SHARED_CACHE)
-    try:
-        article = await scraper.scrape_url(
-            str(request.url),
-            output_format=request.output_format
-        )
-        if not article:
-            raise HTTPException(
-                status_code=404, 
-                detail="Could not extract a valid article from the URL."
-            )
-        return article
-    finally:
-        await scraper.close()
-
-
-@app.post("/scrape-site", response_model=TaskResponse)
-async def trigger_site_scrape(request: ScrapeSiteRequest):
-    """
-    Triggers a background Celery task to scrape an entire site and update
-    the main RAG vector store. This is for USER-initiated system tasks.
-    """
-    domain = request.domain
-    if domain not in CONFIGS:
-        raise HTTPException(
-            status_code=404,
-            detail=f"No configuration found for domain '{domain}'.",
+    # --- Synchronous Execution for a Single Page ---
+    if request.mode == "single_page":
+        domain = urlparse(str(request.url)).netloc
+        parser_config = CONFIGS.get(domain, GENERIC_CONFIG)
+        log.info(
+            f"Scraping URL: {request.url} using config for "
+            f"'{domain if parser_config != GENERIC_CONFIG else 'generic'}'"
         )
 
-    log.info(f"Dispatching background task to scrape site: {domain}")
-    task = scrape_site_for_rag.delay(domain)
+        scraper = Scraper(parser_config=parser_config, cache=SHARED_CACHE)
+        try:
+            article = await scraper.scrape_url(str(request.url))
+            if not article:
+                raise HTTPException(
+                    status_code=404,
+                    detail="Could not extract a valid article from the URL.",
+                )
+            return article
+        finally:
+            await scraper.close()
 
-    return {
-        "task_id": task.id,
-        "status_endpoint": f"/tasks/{task.id}",
-    }
+    # This part should not be reachable if mode is validated by Pydantic
+    raise HTTPException(status_code=400, detail="Invalid scrape mode specified.")
 
 
 @app.get("/tasks/{task_id}", response_model=TaskStatusResponse)
@@ -175,9 +162,17 @@ async def query_rag_system(request: QueryRequest):
     Performs a similarity search against the vector store.
     """
     try:
+        engine = get_vector_store_engine()
         search_params = SearchRequest(query=request.query, limit=request.limit)
-        results = VECTOR_STORE_ENGINE.search(params=search_params)
+        results = engine.search(search_params)
         return {"query": request.query, "results": results}
+    except ValueError as e:
+        # This will catch configuration errors from lazy-loaded clients
+        log.error(f"Configuration error during search: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=503,
+            detail=f"Vector store is not configured correctly: {e}",
+        )
     except Exception as e:
         log.error(f"Failed to perform query '{request.query}': {e}", exc_info=True)
         raise HTTPException(

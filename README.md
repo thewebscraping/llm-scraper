@@ -21,8 +21,10 @@ This project uses a professional, scalable architecture with domain-specific par
 - **⚙️ Config-Driven Parsing**: Define how to scrape any site using simple JSON configuration files
 - **🔄 Flexible Selectors**: Support for fallback chains, parent scoping, and per-selector attributes
 - **📊 Rich Metadata**: Extracts OpenGraph, Schema.org, authors, dates, tags, and topics
-- **🤖 RAG-Ready**: Automatically chunks content with token estimation for LLM context windows
-- **✅ Production-Ready**: Pydantic v2 validation, error handling, deterministic UUIDs
+- **🤖 RAG-Ready**:
+  - Automatically chunks content with token estimation for LLM context windows.
+  - Features a modular vector store engine with an adapter pattern for different databases (AstraDB) and embedding models (OpenAI).
+- **✅ Production-Ready**: Pydantic v2 validation, lazy-loaded clients for robust startup, error handling, and deterministic UUIDs.
 
 ## What's New in XPath Enhancement
 
@@ -52,8 +54,12 @@ This project uses a professional, scalable architecture with domain-specific par
 │       ├── parsers/      # Site-specific parser configurations
 │       ├── schema.py     # Pydantic models for configuration and data
 │       ├── settings.py   # Application settings management (from .env)
-│       ├── utils.py      # Utility functions
-│       └── vector_store.py # Handles interaction with OpenAI and AstraDB
+│       ├── utils/        # Utility functions
+│       └── vectors/      # Modular vector store engine and adapters
+│           ├── abc.py    # Abstract base classes for adapters
+│           ├── engine.py # The main VectorStoreEngine
+│           ├── dbs/      # Vector database adapters (e.g., AstraDB)
+│           └── embeddings/ # Embedding model adapters (e.g., OpenAI)
 └── worker.py             # Celery worker and scheduler (Celery Beat) definitions
 ```
 
@@ -163,42 +169,54 @@ honcho start
 
 ### Endpoints
 
-#### `POST /scrape-url`
-Scrape a single URL on-demand with optional output format.
+#### `POST /scrape`
+Triggers a scraping process based on the specified mode.
+
+- **Synchronous (`single_page`):** Scrapes a single URL and returns the article content directly.
+- **Asynchronous (`sitemap`, `rss`):** Triggers a background task and returns a task ID.
 
 **Request Body:**
 ```json
 {
-  "url": "https://example.com/article",
-  "output_format": "markdown"  // Optional: "markdown" (default) or "html"
+  "url": "https://example.com/article-or-sitemap.xml",
+  "mode": "single_page" // Can be "single_page", "sitemap", or "rss"
 }
 ```
 
-**Response:** Article object with extracted content in specified format
-
-**Example:**
-```bash
-curl -X POST "http://localhost:8000/scrape-url" \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://crypto.news/article/", "output_format": "markdown"}'
-```
-
-#### `POST /scrape-site`
-Trigger a background task to scrape an entire pre-configured site.
-
-**Request Body:**
+**Response (for `single_page`):** An `Article` object with the extracted content.
 ```json
 {
-  "domain": "crypto.news"
+  "id": "...",
+  "title": "Example Article",
+  "content_markdown": "# Example Article...",
+  "provenance": {
+      "source_url": "https://example.com/article",
+      "domain": "example.com",
+      "date_scraped": "..."
+  }
 }
 ```
 
-**Response:**
+**Response (for `sitemap` or `rss`):** A `TaskResponse` object with the task ID.
 ```json
 {
   "task_id": "abc-123",
   "status_endpoint": "/tasks/abc-123"
 }
+```
+
+**Example (Single Page):**
+```bash
+curl -X POST "http://localhost:8000/scrape" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://crypto.news/article/", "mode": "single_page"}'
+```
+
+**Example (Sitemap):**
+```bash
+curl -X POST "http://localhost:8000/scrape" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://crypto.news/sitemap-news.xml", "mode": "sitemap"}'
 ```
 
 #### `GET /tasks/{task_id}`

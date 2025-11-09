@@ -17,10 +17,40 @@ class AstraDBAdapter(VectorDBAdapter):
     """
 
     def __init__(self, **kwargs: Any):
-        self._client = DataAPIClient(token=settings.ASTRA_DB_APPLICATION_TOKEN)
-        self._db = self._client.get_database(api_endpoint=settings.ASTRA_DB_API_ENDPOINT)
+        self._client: DataAPIClient | None = None
+        self._db: Any | None = None
         self.collection: Collection | None = None
         log.info("AstraDBAdapter initialized.")
+
+    @property
+    def client(self) -> DataAPIClient:
+        """
+        Lazily initializes and returns the AstraDB DataAPIClient.
+        """
+        if self._client is None:
+            if not settings.ASTRA_DB_APPLICATION_TOKEN:
+                raise ValueError(
+                    "ASTRA_DB_APPLICATION_TOKEN is not set. "
+                    "Please configure it in your .env file."
+                )
+            self._client = DataAPIClient(token=settings.ASTRA_DB_APPLICATION_TOKEN)
+        return self._client
+
+    @property
+    def db(self):
+        """
+        Lazily initializes and returns the AstraDB database instance.
+        """
+        if self._db is None:
+            if not settings.ASTRA_DB_API_ENDPOINT:
+                raise ValueError(
+                    "ASTRA_DB_API_ENDPOINT is not set. "
+                    "Please configure it in your .env file."
+                )
+            self._db = self.client.get_database(
+                api_endpoint=settings.ASTRA_DB_API_ENDPOINT
+            )
+        return self._db
 
     def initialize(
         self, collection_name: str, embedding_dimension: int, metric: str = "cosine"
@@ -29,7 +59,7 @@ class AstraDBAdapter(VectorDBAdapter):
         Creates or retrieves an AstraDB collection.
         """
         try:
-            self.collection = self._db.create_collection(
+            self.collection = self.db.create_collection(
                 collection_name, dimension=embedding_dimension, metric=metric
             )
             log.info(

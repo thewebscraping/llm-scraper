@@ -14,15 +14,15 @@ class Settings(BaseSettings):
     VECTOR_DB_PROVIDER: Literal["astradb"] = "astradb"
 
     # --- OpenAI Configuration ---
-    OPENAI_API_KEY: str
+    OPENAI_API_KEY: str | None = None
     OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
 
     # --- Google Gemini Configuration ---
     GEMINI_API_KEY: str | None = None  # Optional, for when Gemini is implemented
 
     # --- AstraDB Configuration ---
-    ASTRA_DB_API_ENDPOINT: str
-    ASTRA_DB_APPLICATION_TOKEN: str
+    ASTRA_DB_API_ENDPOINT: str | None = None
+    ASTRA_DB_APPLICATION_TOKEN: str | None = None
     ASTRA_DB_COLLECTION_NAME: str = "llm_scraper_rag"
 
     # --- Celery/Redis Configuration ---
