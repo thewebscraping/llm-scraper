@@ -123,6 +123,7 @@ def create_fixture(url: str, html: str, lang: str = "en") -> Optional[Path]:
 def check_or_create_parser_config(domain: str, lang: str = "en") -> Path:
     """
     Check if parser config exists, create template if not.
+    Uses presets from llm_scraper.presets for better selector coverage.
     
     Returns:
         Path to the parser config (existing or newly created)
@@ -133,70 +134,52 @@ def check_or_create_parser_config(domain: str, lang: str = "en") -> Path:
     if config_path.exists():
         return config_path
     
-    # Create template config
+    # Create template config using presets
     config_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    # Import presets
+    try:
+        import sys
+        sys.path.insert(0, str(Path.cwd() / "src"))
+        from llm_scraper.presets import (
+            TITLE_SELECTORS,
+            CONTENT_SELECTORS,
+            AUTHOR_SELECTORS,
+            DATE_PUBLISHED_SELECTORS,
+            TAGS_SELECTORS,
+            COMMON_CLEANUP_SELECTORS,
+        )
+    except ImportError:
+        # Fallback to basic selectors if presets can't be imported
+        TITLE_SELECTORS = ["h1.article-title", "h1.post-title", "h1"]
+        CONTENT_SELECTORS = [".article-content", ".post-content", "article"]
+        AUTHOR_SELECTORS = ["//a[@rel='author']", ".author-name"]
+        DATE_PUBLISHED_SELECTORS = ["//time[@datetime]/@datetime", "time[datetime]"]
+        TAGS_SELECTORS = ["//a[@rel='tag']", ".tags a"]
+        COMMON_CLEANUP_SELECTORS = [".ads", ".advertisement", ".related-posts"]
     
     template_config = {
         "domain": domain,
         "lang": lang,
         "type": "article",
         "title": {
-            "selector": [
-                "h1.article-title",
-                "h1.post-title",
-                "h1"
-            ],
-            "type": "text"
-        },
-        "description": {
-            "selector": [
-                ".article-excerpt",
-                ".post-excerpt",
-                "meta[name='description']"
-            ],
-            "type": "text"
+            "selector": TITLE_SELECTORS[:5],  # Top 5 most common
         },
         "content": {
-            "selector": [
-                ".article-content",
-                ".post-content",
-                "article"
-            ],
-            "type": "html"
+            "selector": CONTENT_SELECTORS[:5],  # Top 5 most common
         },
         "authors": {
-            "selector": [
-                "//a[@rel='author']",
-                ".author-name"
-            ],
-            "type": "text",
+            "selector": AUTHOR_SELECTORS[:5],  # Top 5 most common
             "all": True
         },
         "date_published": {
-            "selector": [
-                "//time[@datetime]/@datetime",
-                "//meta[@property='article:published_time']/@content",
-                "time[datetime]"
-            ],
-            "type": "text",
-            "attribute": "datetime"
+            "selector": DATE_PUBLISHED_SELECTORS[:5],  # Top 5 most common
         },
         "tags": {
-            "selector": [
-                "//a[@rel='tag']",
-                "//a[contains(@href, '/tag/')]",
-                ".post-tags a"
-            ],
-            "type": "text",
+            "selector": TAGS_SELECTORS[:5],  # Top 5 most common
             "all": True
         },
-        "cleanup": [
-            ".ads",
-            ".advertisement",
-            ".related-posts",
-            ".newsletter",
-            ".social-share"
-        ]
+        "cleanup": COMMON_CLEANUP_SELECTORS[:10]  # Top 10 cleanup selectors
     }
     
     config_path.write_text(
